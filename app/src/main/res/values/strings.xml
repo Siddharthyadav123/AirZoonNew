@@ -31,4 +31,7 @@
 
     <string name="tt_p4_header_text">Never lose your datas !</string>
     <string name="tt_p4_footer_text">"Connect your Facebook or Twitter account to backup your favorites in our cloud."</string>
+    <string name="title_activity_air_zoon_map">Map</string>
+
+    <string name="go_text">GO</string>
 </resources>

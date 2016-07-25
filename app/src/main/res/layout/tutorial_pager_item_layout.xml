@@ -70,7 +70,17 @@
         android:layout_height="45dp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/tutorial_bg_footer"
+        android:gravity="center|right"
         android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/goTextView"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:background="?android:selectableItemBackground"
+            android:gravity="center"
+            android:text="@string/go_text"
+            android:textColor="@color/MediumVioletRed" />
 
     </LinearLayout>
 

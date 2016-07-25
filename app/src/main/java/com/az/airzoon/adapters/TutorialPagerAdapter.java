@@ -1,6 +1,8 @@
 package com.az.airzoon.adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.az.airzoon.R;
+import com.az.airzoon.screens.AirZoonMapActivity;
 
 /**
  * Created by siddharth on 7/25/2016.
@@ -44,6 +47,7 @@ public class TutorialPagerAdapter extends PagerAdapter {
         TextView headerTextView = (TextView) view.findViewById(R.id.headerTextView);
         TextView footerTextView = (TextView) view.findViewById(R.id.footerTextView);
         ImageView centerImage = (ImageView) view.findViewById(R.id.centerImage);
+        TextView goTextView = (TextView) view.findViewById(R.id.goTextView);
 
         headerTextView.setText(pageHeaderTextArray[position]);
         footerTextView.setText(pageFooterTextArray[position]);
@@ -53,6 +57,22 @@ public class TutorialPagerAdapter extends PagerAdapter {
         } else {
             centerImage.setImageResource(pageBodyImagesArray[position]);
         }
+
+        if (position == 3) {
+            goTextView.setVisibility(View.VISIBLE);
+        } else {
+            goTextView.setVisibility(View.GONE);
+        }
+
+        goTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Activity activity = (Activity) context;
+                Intent i = new Intent(context, AirZoonMapActivity.class);
+                activity.startActivity(i);
+                activity.finish();
+            }
+        });
 
 
         container.addView(view);
