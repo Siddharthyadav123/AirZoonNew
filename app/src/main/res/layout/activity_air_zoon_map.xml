@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
@@ -12,10 +13,10 @@
         tools:context=".screens.AirZoonMapActivity" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="137dp"
+        android:layout_height="65dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="7dp"
         android:background="@drawable/map_top_btn_bg"
         android:gravity="center"
         android:orientation="horizontal"
@@ -23,27 +24,95 @@
 
         <ImageView
             android:id="@+id/searchImageView"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:padding="7dp"
             android:src="@drawable/search_logo" />
 
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:background="@color/Gray"></View>
-
         <ImageView
             android:id="@+id/filterImageView"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginRight="5dp"
-            android:padding="7dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:padding="8dp"
             android:src="@drawable/setting_top" />
 
     </LinearLayout>
+
+    <!--   <android.support.design.widget.FloatingActionButton
+           android:id="@+id/fabMoreButtn"
+           android:layout_width="65dp"
+           android:layout_height="65dp"
+           android:layout_alignParentBottom="true"
+           android:layout_margin="@dimen/fab_margin"
+           android:background="@drawable/button1"
+           android:backgroundTintMode="src_over"
+           app:elevation="6dp"
+           app:pressedTranslationZ="12dp" />
+   -->
+
+    <LinearLayout
+        android:id="@+id/moreMenuContainerLinLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="21dp"
+        android:layout_marginLeft="3dp"
+        android:layout_toRightOf="@+id/moreImageView"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/profileImageView"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:alpha="0.8"
+            android:background="@drawable/left_more_bg_drawable"
+            android:padding="15dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/profile" />
+
+        <ImageView
+            android:id="@+id/faviourateImageView"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:alpha="0.8"
+            android:background="@drawable/center_more_bg_drawable"
+            android:padding="15dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/star" />
+
+        <ImageView
+            android:id="@+id/syncImageView"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:alpha="0.8"
+            android:background="@drawable/center_more_bg_drawable"
+            android:padding="15dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/recycleicon" />
+
+        <ImageView
+            android:id="@+id/aboutUsImageView"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:alpha="0.8"
+            android:background="@drawable/right_more_bg_drawable"
+            android:padding="15dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/about" />
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/moreImageView"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:src="@drawable/button1" />
+
+
 </RelativeLayout>

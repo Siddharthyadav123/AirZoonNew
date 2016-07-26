@@ -31,10 +31,10 @@ public class TutorialPagerAdapter extends PagerAdapter {
             R.string.tt_p3_footer_text,
             R.string.tt_p4_footer_text};
 
-    private int[] pageBodyImagesArray = {R.drawable.tutoial_p1,
+    private int[] pageBodyImagesArray = {R.drawable.slideone,
             R.drawable.tutorial_p2,
-            R.drawable.tutorial_p3,
-            R.drawable.tutorial_p4};
+            R.drawable.airzoonwithtext,
+            R.drawable.slidefour};
 
 
     public TutorialPagerAdapter(Context context) {
@@ -52,11 +52,16 @@ public class TutorialPagerAdapter extends PagerAdapter {
         headerTextView.setText(pageHeaderTextArray[position]);
         footerTextView.setText(pageFooterTextArray[position]);
 
-        if (position == 0) {
-            centerImage.setBackgroundResource(pageBodyImagesArray[position]);
-        } else {
-            centerImage.setImageResource(pageBodyImagesArray[position]);
+        try {
+            if (position == 0) {
+                centerImage.setBackgroundResource(pageBodyImagesArray[position]);
+            } else {
+                centerImage.setImageResource(pageBodyImagesArray[position]);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
 
         if (position == 3) {
             goTextView.setVisibility(View.VISIBLE);

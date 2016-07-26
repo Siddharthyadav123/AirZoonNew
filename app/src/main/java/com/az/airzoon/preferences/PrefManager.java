@@ -1,4 +1,4 @@
-package com.az.airzoon;
+package com.az.airzoon.preferences;
 
 /**
  * Created by a on 6/20/2016.
