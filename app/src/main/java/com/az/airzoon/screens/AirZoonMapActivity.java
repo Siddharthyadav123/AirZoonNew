@@ -63,7 +63,7 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
             public void run() {
                 moreMenuContainerLinLayout.setVisibility(View.VISIBLE);
             }
-        }, 2000);
+        }, 3000);
     }
 
 

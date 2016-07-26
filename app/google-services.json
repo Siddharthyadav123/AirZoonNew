@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "981696677493",
+    "project_id": "airzoon-home"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:981696677493:android:19dd81e47f849470",
+        "android_client_info": {
+          "package_name": "com.az.airzoon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "981696677493-28f6vtol233bkvn31pou5onhk076dck3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.az.airzoon",
+            "certificate_hash": "215BBC5FE7CA8E47562F4E623C8AB0F454C5F812"
+          }
+        },
+        {
+          "client_id": "981696677493-vi4gf2aj8pf88vjc8gk1aetl12bod2s8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9VKjruUEHli6Arg3aYm0M2j-UD6TPfDs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
