@@ -54,12 +54,13 @@
 
     <LinearLayout
         android:id="@+id/moreMenuContainerLinLayout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="21dp"
         android:layout_marginLeft="3dp"
         android:layout_toRightOf="@+id/moreImageView"
+        android:gravity="center|left"
         android:orientation="horizontal">
 
         <ImageView

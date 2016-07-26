@@ -130,11 +130,11 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
     }
 
     private void moveToCurrentLocation(LatLng currentLocation) {
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 12));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 10));
         // Zoom in, animating the camera.
         mMap.animateCamera(CameraUpdateFactory.zoomIn());
         // Zoom out to zoom level 10, animating with a duration of 2 seconds.
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(12), 2000, null);
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
 
     }
 
