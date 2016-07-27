@@ -33,5 +33,18 @@
     <string name="tt_p4_footer_text">"Connect your Facebook or Twitter account to backup your favorites in our cloud."</string>
     <string name="title_activity_air_zoon_map">Map</string>
 
+    <string name="p2_body_string_3_types">3 types of hotspot.. </string>
+    <string name="airZoonText">airZoon</string>
+    <string name="freeText">Free</string>
+    <string name="paidText">Paid</string>
+
+    <string name="serveralCatText">Several categories</string>
+    <string name="barText">Bar</string>
+    <string name="fastFoodText">Fast-Food</string>
+    <string name="airportText">Airport</string>
+    <string name="unlimitedText">Unlimited</string>
+    <string name="reliableText">Reliable</string>
+    <string name="secureHotSpotText">and Secured Hotspots!</string>
+
     <string name="go_text">GO</string>
 </resources>

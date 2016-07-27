@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.az.airzoon.R;
@@ -32,8 +33,6 @@ public class TutorialPagerAdapter extends PagerAdapter {
             R.string.tt_p4_footer_text};
 
     private int[] pageBodyImagesArray = {R.drawable.slideone,
-            R.drawable.tutorial_p2,
-            R.drawable.airzoonwithtext,
             R.drawable.slidefour};
 
 
@@ -41,22 +40,39 @@ public class TutorialPagerAdapter extends PagerAdapter {
         this.context = context;
     }
 
+
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        View view = LayoutInflater.from(context).inflate(R.layout.tutorial_pager_item_layout, container, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.tutorial_pager_item_layout, null, false);
         TextView headerTextView = (TextView) view.findViewById(R.id.headerTextView);
         TextView footerTextView = (TextView) view.findViewById(R.id.footerTextView);
         ImageView centerImage = (ImageView) view.findViewById(R.id.centerImage);
         TextView goTextView = (TextView) view.findViewById(R.id.goTextView);
+        LinearLayout bodyLinLayoutPage2 = (LinearLayout) view.findViewById(R.id.bodyLinLayoutPage2);
+        LinearLayout bodyLinLayoutPage3 = (LinearLayout) view.findViewById(R.id.bodyLinLayoutPage3);
 
         headerTextView.setText(pageHeaderTextArray[position]);
         footerTextView.setText(pageFooterTextArray[position]);
 
         try {
             if (position == 0) {
-                centerImage.setBackgroundResource(pageBodyImagesArray[position]);
-            } else {
-                centerImage.setImageResource(pageBodyImagesArray[position]);
+                bodyLinLayoutPage2.setVisibility(View.GONE);
+                bodyLinLayoutPage3.setVisibility(View.GONE);
+                centerImage.setVisibility(View.VISIBLE);
+                centerImage.setBackgroundResource(pageBodyImagesArray[0]);
+            } else if (position == 3) {
+                bodyLinLayoutPage2.setVisibility(View.GONE);
+                bodyLinLayoutPage3.setVisibility(View.GONE);
+                centerImage.setVisibility(View.VISIBLE);
+                centerImage.setImageResource(pageBodyImagesArray[1]);
+            } else if (position == 1) {
+                centerImage.setVisibility(View.GONE);
+                bodyLinLayoutPage2.setVisibility(View.VISIBLE);
+                bodyLinLayoutPage3.setVisibility(View.GONE);
+            } else if (position == 2) {
+                centerImage.setVisibility(View.GONE);
+                bodyLinLayoutPage2.setVisibility(View.GONE);
+                bodyLinLayoutPage3.setVisibility(View.VISIBLE);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -84,9 +100,10 @@ public class TutorialPagerAdapter extends PagerAdapter {
         return view;
     }
 
+
     @Override
     public int getCount() {
-        return pageBodyImagesArray.length;
+        return pageFooterTextArray.length;
     }
 
     @Override

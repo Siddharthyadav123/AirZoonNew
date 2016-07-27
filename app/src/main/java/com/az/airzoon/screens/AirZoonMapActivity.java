@@ -12,12 +12,13 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.az.airzoon.R;
 import com.az.airzoon.constants.Constants;
 import com.az.airzoon.dataobjects.AirZoonDo;
+import com.az.airzoon.dialog_screens.ProfileDialog;
 import com.az.airzoon.models.AirZoonModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -40,7 +41,7 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
     private ImageView syncImageView;
     private ImageView aboutUsImageView;
 
-    private LinearLayout moreMenuContainerLinLayout;
+    private RelativeLayout moreMenuContainerRelLayout;
 
     boolean moreOptionOpen = true;
     private AirZoonModel airZoonModel;
@@ -54,16 +55,9 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
         setContentView(R.layout.activity_air_zoon_map);
         setUpMap();
         initViews();
-        moreMenuContainerLinLayout.setVisibility(View.INVISIBLE);
         closeMore();
         registerEvents();
         setUI();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                moreMenuContainerLinLayout.setVisibility(View.VISIBLE);
-            }
-        }, 3000);
     }
 
 
@@ -75,7 +69,7 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
         faviourateImageView = (ImageView) findViewById(R.id.faviourateImageView);
         syncImageView = (ImageView) findViewById(R.id.syncImageView);
         aboutUsImageView = (ImageView) findViewById(R.id.aboutUsImageView);
-        moreMenuContainerLinLayout = (LinearLayout) findViewById(R.id.moreMenuContainerLinLayout);
+        moreMenuContainerRelLayout = (RelativeLayout) findViewById(R.id.moreMenuContainerRelLayout);
     }
 
     private void registerEvents() {
@@ -186,7 +180,8 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
     }
 
     private void onProfileButtonClick() {
-        Toast.makeText(AirZoonMapActivity.this, "onProfileButtonClick.", Toast.LENGTH_SHORT).show();
+        ProfileDialog profileDialog = new ProfileDialog(this);
+        profileDialog.showDialog(ProfileDialog.ANIM_TYPE_LEFT_IN_RIGHT_OUT);
 
     }
 
@@ -208,9 +203,7 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
         moreBtnClick();
     }
 
-    private void performDelayAnim(final ImageView imageView, int duration, final boolean isOpenAnim) {
-        final Animation fab_open = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
-        final Animation fab_close = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
+    private void performDelayAnim(final ImageView imageView, int duration, final boolean isOpenAnim, final Animation fab_open, final Animation fab_close) {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -224,22 +217,29 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
     }
 
     private void openMore() {
-        final Animation fab_open = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
         moreImageView.setImageResource(R.drawable.button2);
         enableButtonBtnClick();
-        aboutUsImageView.startAnimation(fab_open);
-        performDelayAnim(syncImageView, 50, true);
-        performDelayAnim(faviourateImageView, 50 * 2, true);
-        performDelayAnim(profileImageView, 50 * 3, true);
+        Animation fab_open = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
+        performDelayAnim(profileImageView, 50 * 3, true, fab_open, null);
+        Animation fab_open2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open_b4);
+        performDelayAnim(faviourateImageView, 50 * 2, true, fab_open2, null);
+        Animation fab_open3 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open_b3);
+        performDelayAnim(syncImageView, 50, true, fab_open3, null);
+        Animation fab_open4 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open_b2);
+        aboutUsImageView.startAnimation(fab_open4);
     }
 
     private void closeMore() {
-        final Animation fab_close = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
         moreImageView.setImageResource(R.drawable.button1);
+
+        Animation fab_close = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
         profileImageView.startAnimation(fab_close);
-        performDelayAnim(faviourateImageView, 50, false);
-        performDelayAnim(syncImageView, 50 * 2, false);
-        performDelayAnim(aboutUsImageView, 50 * 3, false);
+        Animation fab_close2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close_b2);
+        performDelayAnim(faviourateImageView, 50, false, null, fab_close2);
+        Animation fab_close3 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close_b3);
+        performDelayAnim(syncImageView, 50 * 2, false, null, fab_close3);
+        Animation fab_close4 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close_b4);
+        performDelayAnim(aboutUsImageView, 50 * 3, false, null, fab_close4);
         disableButtonBtnClick();
     }
 

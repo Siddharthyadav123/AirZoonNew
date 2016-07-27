@@ -33,8 +33,8 @@ public abstract class AbstractBaseDialog extends Dialog implements View.OnClickL
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        super.onCreate(savedInstanceState);
         view = setViews(layoutInflater);
         setContentView(view);
         initViews(view);
@@ -53,7 +53,7 @@ public abstract class AbstractBaseDialog extends Dialog implements View.OnClickL
     public abstract void onClickEvent(View actionView);
 
 
-    public void showDial0g(int animType) {
+    public void showDialog(int animType) {
         this.animType = animType;
         show();
     }

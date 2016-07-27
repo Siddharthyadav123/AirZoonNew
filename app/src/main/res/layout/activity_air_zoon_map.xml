@@ -52,41 +52,34 @@
            app:pressedTranslationZ="12dp" />
    -->
 
-    <LinearLayout
-        android:id="@+id/moreMenuContainerLinLayout"
+    <RelativeLayout
+        android:id="@+id/moreMenuContainerRelLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="90dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="21dp"
-        android:layout_marginLeft="3dp"
-        android:layout_toRightOf="@+id/moreImageView"
+        android:layout_marginBottom="10dp"
         android:gravity="center|left"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingLeft="5dp">
 
         <ImageView
-            android:id="@+id/profileImageView"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
+            android:id="@+id/aboutUsImageView"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/syncImageView"
             android:alpha="0.8"
-            android:background="@drawable/left_more_bg_drawable"
+            android:background="@drawable/right_more_bg_drawable"
             android:padding="15dp"
             android:scaleType="centerInside"
-            android:src="@drawable/profile" />
-
-        <ImageView
-            android:id="@+id/faviourateImageView"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:alpha="0.8"
-            android:background="@drawable/center_more_bg_drawable"
-            android:padding="15dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/star" />
+            android:src="@drawable/about" />
 
         <ImageView
             android:id="@+id/syncImageView"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/faviourateImageView"
             android:alpha="0.8"
             android:background="@drawable/center_more_bg_drawable"
             android:padding="15dp"
@@ -94,26 +87,39 @@
             android:src="@drawable/recycleicon" />
 
         <ImageView
-            android:id="@+id/aboutUsImageView"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
+            android:id="@+id/faviourateImageView"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/profileImageView"
             android:alpha="0.8"
-            android:background="@drawable/right_more_bg_drawable"
+            android:background="@drawable/center_more_bg_drawable"
             android:padding="15dp"
             android:scaleType="centerInside"
-            android:src="@drawable/about" />
+            android:src="@drawable/star" />
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/profileImageView"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="3dp"
+            android:layout_toRightOf="@+id/moreImageView"
+            android:alpha="0.8"
+            android:background="@drawable/left_more_bg_drawable"
+            android:padding="15dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/profile" />
 
+        <ImageView
+            android:id="@+id/moreImageView"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:src="@drawable/button1" />
 
-    <ImageView
-        android:id="@+id/moreImageView"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="16dp"
-        android:src="@drawable/button1" />
+    </RelativeLayout>
 
 
 </RelativeLayout>
