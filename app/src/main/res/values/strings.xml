@@ -45,6 +45,21 @@
     <string name="unlimitedText">Unlimited</string>
     <string name="reliableText">Reliable</string>
     <string name="secureHotSpotText">and Secured Hotspots!</string>
-
     <string name="go_text">GO</string>
+
+    <string name="noNameText">No Name</string>
+    <string name="facebookText">Facebook</string>
+    <string name="twitterText">Twitter</string>
+    <string name="noEmailAddressText">No Email Address</string>
+    <string name="noPhoneNumText">No Phone no.</string>
+    <string name="privateInfoText">private information</string>
+    <string name="editProfileText">Edit profile</string>
+
+    <string name="searchText">Search</string>
+    <string name="enterYourSearchText">Enter your search(Hotspot name etc..)</string>
+
+    <string name="allHotspotText">All Hotspot</string>
+    <string name="airzoonHotspotText">Airzoon Hotspot</string>
+    <string name="freeHotSpotText">Free Hotspot</string>
+    <string name="paidHotspotText">Paid Hotspot</string>
 </resources>

@@ -20,6 +20,7 @@ import com.az.airzoon.constants.Constants;
 import com.az.airzoon.dataobjects.AirZoonDo;
 import com.az.airzoon.dialog_screens.ProfileDialog;
 import com.az.airzoon.dialog_screens.SearchAirZoonDailog;
+import com.az.airzoon.dialog_screens.SearchSpotDialog;
 import com.az.airzoon.models.AirZoonModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -44,7 +45,7 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
 
     private RelativeLayout moreMenuContainerRelLayout;
 
-    boolean moreOptionOpen = false;
+    boolean isOpen = false;
     private AirZoonModel airZoonModel;
 
     private ArrayList<AirZoonDo> airZoonDoArrayList = new ArrayList<>();
@@ -144,25 +145,31 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.moreImageView:
-                onMoreButtonClick(v);
+                moreBtnClick();
                 break;
             case R.id.searchImageView:
                 onSearchButtonClick();
+                closeMore();
                 break;
             case R.id.filterImageView:
                 onFilterButtonClick();
+                closeMore();
                 break;
             case R.id.profileImageView:
                 onProfileButtonClick();
+                closeMore();
                 break;
             case R.id.faviourateImageView:
                 onFaviourateButtonClick();
+                closeMore();
                 break;
             case R.id.syncImageView:
                 onSyncButtonClick();
+                closeMore();
                 break;
             case R.id.aboutUsImageView:
                 onAboutUsButtonClick();
+                closeMore();
                 break;
         }
 
@@ -191,20 +198,10 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
     }
 
     private void onSearchButtonClick() {
-        SearchAirZoonDailog searchAirZoonDailog = new SearchAirZoonDailog(this);
-        searchAirZoonDailog.showDialog(ProfileDialog.ANIM_TYPE_TOP_IN_TOP_OUT);
+        SearchSpotDialog searchSpotDialog = new SearchSpotDialog(this);
+        searchSpotDialog.showDialog(ProfileDialog.ANIM_TYPE_TOP_IN_TOP_OUT);
     }
 
-
-    private void onMoreButtonClick(View v) {
-        moreBtnClick();
-        if (!moreOptionOpen) {
-            moreOptionOpen = true;
-        } else {
-            moreOptionOpen = false;
-        }
-
-    }
 
     private void performDelayAnim(final ImageView imageView, int duration, final boolean isOpenAnim, final Animation fab_open, final Animation fab_close) {
         new Handler().postDelayed(new Runnable() {
@@ -220,35 +217,40 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
     }
 
     private void openMore() {
-//        setVisiblityOfBottomOptions(View.VISIBLE);
-        moreImageView.setImageResource(R.drawable.button2);
-        enableButtonBtnClick();
-        Animation fab_open = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
-        performDelayAnim(profileImageView, 50 * 3, true, fab_open, null);
-        Animation fab_open2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open_b4);
-        performDelayAnim(faviourateImageView, 50 * 2, true, fab_open2, null);
-        Animation fab_open3 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open_b3);
-        performDelayAnim(syncImageView, 50, true, fab_open3, null);
-        Animation fab_open4 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open_b2);
-        aboutUsImageView.startAnimation(fab_open4);
+        if (!isOpen) {
+            isOpen = true;
+            moreImageView.setImageResource(R.drawable.button2);
+            enableButtonBtnClick();
+            Animation fab_open = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
+            performDelayAnim(profileImageView, 50 * 3, true, fab_open, null);
+            Animation fab_open2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open_b4);
+            performDelayAnim(faviourateImageView, 50 * 2, true, fab_open2, null);
+            Animation fab_open3 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open_b3);
+            performDelayAnim(syncImageView, 50, true, fab_open3, null);
+            Animation fab_open4 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open_b2);
+            aboutUsImageView.startAnimation(fab_open4);
+        }
     }
 
     private void closeMore() {
-        moreImageView.setImageResource(R.drawable.button1);
+        if (isOpen) {
+            moreImageView.setImageResource(R.drawable.button1);
+            isOpen = false;
+            Animation fab_close = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
+            profileImageView.startAnimation(fab_close);
+            Animation fab_close2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close_b2);
+            performDelayAnim(faviourateImageView, 50, false, null, fab_close2);
+            Animation fab_close3 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close_b3);
+            performDelayAnim(syncImageView, 50 * 2, false, null, fab_close3);
+            Animation fab_close4 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close_b4);
+            performDelayAnim(aboutUsImageView, 50 * 3, false, null, fab_close4);
+            disableButtonBtnClick();
+        }
 
-        Animation fab_close = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
-        profileImageView.startAnimation(fab_close);
-        Animation fab_close2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close_b2);
-        performDelayAnim(faviourateImageView, 50, false, null, fab_close2);
-        Animation fab_close3 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close_b3);
-        performDelayAnim(syncImageView, 50 * 2, false, null, fab_close3);
-        Animation fab_close4 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close_b4);
-        performDelayAnim(aboutUsImageView, 50 * 3, false, null, fab_close4);
-        disableButtonBtnClick();
     }
 
     private void moreBtnClick() {
-        if (moreOptionOpen) {
+        if (isOpen) {
             closeMore();
         } else {
             openMore();
