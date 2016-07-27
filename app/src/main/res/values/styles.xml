@@ -25,7 +25,7 @@
     </style>
 
     <style name="dialog_animation_top_in_top_out">
-        <item name="android:windowEnterAnimation">@anim/slide_in_left</item>
-        <item name="android:windowExitAnimation">@anim/slide_out_right</item>
+        <item name="android:windowEnterAnimation">@anim/slide_in_from_top</item>
+        <item name="android:windowExitAnimation">@anim/silde_out_toward_top</item>
     </style>
 </resources>

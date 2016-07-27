@@ -1,0 +1,211 @@
+
+
+
+/* NewSpotPopUpVC  */
+"Address" = "Adresse";
+
+/* AboutVC  */
+"AboutUsText" = "airZoon te donne la météo du wifi. Il te permet de trouver le meilleur hotspot qui correspond à tes besoins.\n\n Les hotspots airZoon offrent un accès à internet gratuit, illimité et sécurisé.";
+"SENDAFEEDBACK" = "ENVOYEZ UN FEEDBACK";
+"ABOUTUS" = "A PROPOS";
+"WATCHTHEGUIDEDTOUR" = "VOIR                  L'INTRODUCTION";
+
+
+/* PlaceInfoPopUpVC  */
+"CALL" = "APPELER";
+
+/* EditProfilePopUpVC  */
+"SAVE" = "SAUVEGARDER";
+"NoFacebookURLfound" = "Non relié Facebook";
+"NoTwitterURLfound" = "Non relié Twitter";
+"Enteremailaddress" = "Écrivez l'email address";
+"Gender" = "Genre";
+"NoName" = "Aucun nom";
+"Male" = "Homme";
+"Female" = "Femme";
+"Userupdatedsuccessfully" = "Utilisateur en mise à jour avec succès";
+"Pleaseprovidevalidemailid" = "Veuillez fournir l'identification valide de l'email";
+"Chooselibraryorcamera" = "Choisissez la bibliothèque ou l'appareil-photo";
+"Library" = "bibliothèque";
+"Camera" = "caméra";
+"CloudBackup" = "Sauvegarde en ligne";
+"CANCEL" = "ANNULER";
+"FacebookConnected" = "Connecté à Facebook";
+"TwitterConnected" = "Connecté à Twitter";
+"NoMobileno" = "Aucun numéro mobile.";
+
+
+
+/* ProfilePopUpVC  */
+"EDITPROFILE" = "MODIFIER LE PROFIL";
+"PRIVATEINFORMATION" = "RENSEIGNEMENTS PERSONNELS";
+"NoEmailAddress" = "Aucun email address";
+"Areyousureyouwanttologout" = "Êtes vous sure que vous voulez se déconnecter";
+"No" = "Non";
+"YesLogout" = "Oui déconnexion";
+"ServerNotResponding" = "Serveur ne répond pas s'il vous plaît essayer à nouveau";
+
+/* FavoritePopUpVC  */
+"FAVOURITE" = "FAVORIS";
+"SUBMITAHOTSPOT" = "PROPOSER UN HOTSPOT";
+
+/* FeedbackVC  */
+"FEEDBACK" = "COMMENTAIRES";
+"Writeyourcomment" = "Rédigez votre commentaire";
+"Alert" = "Alerte";
+"Pleaseentersometext" ="Veuillez entrer dans un certain texte";
+"Pleaselinktofacebookortwitter" = "Liez s'il vous plaît au facebook ou au twitter";
+"Link" = "Lien";
+"Cancel" = "Annuler";
+"Pleaseenteremailid" = "Veuillez saisir votre email ou connecter votre compte Facebook/Twitter à l'application";
+"FeedbackSendSuccessfully" = "Merci de votre message, nous le traiterons rapidement.";
+
+
+
+/* No comment provided by engineer. */
+"Lastsync" = "Mise à jour:";
+
+
+/* NewSpotPopUpVC  */
+"NEWSPOT" = "NOUVEAU SPOT";
+"EnterSpotName" = "Entrez le nom spot";
+"EnterPhoneNo" = "Entrez No de téléphone";
+"EnterAddress" = "Adresse";
+"SelectType" = "Sélectionner le type";
+"AirzoonHotspot" = "airZoon Hotspot";
+"FreeHotspot" = "Gratuits Hotspot";
+"PaidHotspot" = "Payants Hotspot";
+"categoryText" = "Selectionner la catégorie";
+"SELECTHOTSPOTTYPE" = "Selectionner le type";
+
+
+"NewSpotadded" = "Vos informations seront traitées rapidement...";
+"Failedtoaddspot" = "Impossible d'ajouter place se il vous plaît essayer à nouveau.";
+"Pleasefillallthecredentials" = "Merci de remplir les champs obligatoires :";
+"Addanimage" = "Ajouter une photo";
+
+/* SearchResultsVC  */
+"SearchResults" = "Résultats de la recherche";
+
+/* SettingsPopUpVC  */
+
+"Success" = "Succès";
+"Settingssaved" = "Paramètres sauvegardés";
+"DONE" = "VALIDER";
+"saveasdefault" = "Enregistrer par défaut";
+"SETTINGS" = "FILTRE";
+"Free" = "Gratuit";
+"Barber" = "Coiffeur";
+"Paid" = "Payant";
+"Airzoon" = "airZoon";
+"Bar" = "Bar";
+"Restaurant" = "Restaurant";
+"Hotel" = "Hotel";
+"Sportcenter" = "Salle de sport";
+"FastFood" = "Fast-food & Snack";
+"Airport" = "Aéroport";
+"Health & Wellness" = "Health & Wellness";
+"Pancakes & Waffles" = "Crêpes & Gauffres";
+"Mall" = "Centre commercial";
+"Other" = "Autre";
+
+
+/* PlaceInfoPopUpVC  */
+"Report an errror" = "Report an errror";
+
+/* ReportAnErrorPopUpVC   */
+"Reportsendsuccessfully" = "Rapport envoyé avec succès";
+"ReportsendFailed" = "Impossible d'envoyer le rapport se il vous plaît essayer à nouveau";
+
+/* SearchPopUpVC  */
+"SEARCH" = "RECHERCHE";
+"Enteryoursearch" = "Saisir votre recherche (hotspot, ville, adresse...)";
+"AllHotspot" = "Tous les hotspots";
+"Pleaseprovideatexttosearch" = "Veuillez fournir un texte à la recherche";
+"Noresultsfound" = "Aucun hotspot. Ré-essaie une autre recherche.";
+"Selectatypebeforesearching" = "Choisissez un type avant la recherche.";
+"FailedtoGetYourLocation" = "Impossible d' obtenir votre position";
+
+
+/* AboutVC  */
+"SEND A FEEDBACK" = "ENVOYER UN COMMENTAIRE";
+
+
+
+/* FeedbackVC , NewSpotPopUpVC , SearchPopUpVC  */
+"SUBMIT" = "SOUMETTRE";
+
+
+/* PlaceInfoPopUpVC  */
+"Share" = "Partager";
+"GO" = "J'Y VAIS";
+"CALL" = "APPELER";
+"opening" = "Ouverture";
+"NoPhoneNo" = "Aucune No de téléphone.";
+"ErrorMessage" ="Message d'erreur";
+"phonenotavailable" = "Désolé aucun numéro de téléphone disponible.";
+"NoCategory" = "Autre";
+"Error" = "Erreur";
+"Placealreadyexistsinfavourites" = "Lieu existe déjà dans les favoris.";
+"Message" = "Message";
+"SuccesfullyAddedtoFavourites" = "Avec succès ajouté aux favoris.";
+"SuccesfullyRemovedfromFavourites" = "Avec succès retiré des favoris.";
+"GoogleMapinstalled" = "Vous ne avez pas installé l'application Google Map. Se il vous plaît installer.";
+"ReportAnError" = "Signaler une erreur / Demander informations";
+
+"NoAccountsFound" = "Pas de compte trouvé";
+"NoAccountsFoundMessage" = "Vous pouvez vous inscrire dans les comptes du système tels que Twitter et Facebook via l'application Réglages.";
+"spotShareTextTwitter" = "Accès wifi gratuit, illimité et sécurisé avec @airZoonWifi >> Rejoignez";
+"spotShareTextFacebook" = "Accès wifi gratuit, illimité et sécurisé avec #airZoon >> Rejoignez";
+
+"RequestTimeOutMessage" = "The request timed out.";
+
+"NoAddress" = "Non Adresse";
+
+/* ReportAnErrorPopUpVC */
+"Send" = "Envoyer";
+"DontMind" = "Annuler";
+"HELPUS" = "Rapport";
+"Hours" = "Horaires";
+"RequestInfo." = "Demander info.";
+"Name" = "Nom";
+"Category" = "Catégorie";
+"Speed" = "Vitesse";
+"notreportedanyentry" = "Vous avez pas signalé une entrée";
+
+/* NewSpotPopUpVC  */
+"Telephone" = "Téléphone";
+"Phone" = "Téléphone";
+
+/* PlaceInfoPopUpVC , ProfilePopUpVC  */
+"Twitter" = "Twitter";
+
+/* NewSpotPopUpVC  */
+"Type" = "Type";
+
+
+/* MainPage  */
+"last sync" = "Mise à jour";
+"Saved" = "Sauvegardé";
+"Spotsupdated" = "Hotspots mises à jour.";
+"Errorupdatingspots" = "Erreur mettant à jour des taches.";
+
+"intropage1Title" = "Tous les hotspots wifi dans une seule app !";
+"intropage1Description" = "airZoon te fait découvrir les meilleurs hotspots autour de toi. Tu peux aussi rechercher un hotspot par son nom, sa ville, son adresse...";
+
+"intropage2Title" = "Choisis le meilleur hotspot qui te convient !";
+"intropage2Description" = "L'app mobile te présente tous les hotspots disponibles y compris ceux qui n'appartiennent pas au réseau airZoon. Active le filtre pour choisir les catégories à afficher sur la carte (restaurants, bars, salles de sport, gratuits, payants...)";
+
+"intropage3Title" = "Le wifi airZoon est gratuit pour toujours !";
+"intropage3Description" = "Le réseau airZoon t'offre un accès gratuit, illimité, stable et sécurisé à internet. Rejoins un hotspot airZoon pour profiter de cette expérience.";
+
+"intropage4Title" = "Tes données ne sont jamais perdues !";
+"intropage4Description" = "Connecte ton compte Facebook ou Twitter pour sauvegarder tes favoris dans notre cloud.";
+
+"SyncScreenText" = "Synchronise manuellement la base de données de ton mobile pour mettre à jour la liste des hotspots et utiliser l'app hors ligne.";
+"Nointernetconnectionmessage" = "Oups..pas de connexion internet.";
+"Servernotfoundmessage" = "Aucun serveur ayant le nom d’hôte précisé n’a été détecté.";
+
+/*EAIntroView*/
+"Skip" = "Passer";
+

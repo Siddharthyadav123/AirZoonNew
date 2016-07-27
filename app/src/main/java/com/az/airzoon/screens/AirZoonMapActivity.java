@@ -19,6 +19,7 @@ import com.az.airzoon.R;
 import com.az.airzoon.constants.Constants;
 import com.az.airzoon.dataobjects.AirZoonDo;
 import com.az.airzoon.dialog_screens.ProfileDialog;
+import com.az.airzoon.dialog_screens.SearchAirZoonDailog;
 import com.az.airzoon.models.AirZoonModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -43,7 +44,7 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
 
     private RelativeLayout moreMenuContainerRelLayout;
 
-    boolean moreOptionOpen = true;
+    boolean moreOptionOpen = false;
     private AirZoonModel airZoonModel;
 
     private ArrayList<AirZoonDo> airZoonDoArrayList = new ArrayList<>();
@@ -55,7 +56,7 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
         setContentView(R.layout.activity_air_zoon_map);
         setUpMap();
         initViews();
-        closeMore();
+//        closeMore();
         registerEvents();
         setUI();
     }
@@ -190,17 +191,19 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
     }
 
     private void onSearchButtonClick() {
-        Toast.makeText(AirZoonMapActivity.this, "Working on the same.", Toast.LENGTH_SHORT).show();
+        SearchAirZoonDailog searchAirZoonDailog = new SearchAirZoonDailog(this);
+        searchAirZoonDailog.showDialog(ProfileDialog.ANIM_TYPE_TOP_IN_TOP_OUT);
     }
 
 
     private void onMoreButtonClick(View v) {
+        moreBtnClick();
         if (!moreOptionOpen) {
             moreOptionOpen = true;
         } else {
             moreOptionOpen = false;
         }
-        moreBtnClick();
+
     }
 
     private void performDelayAnim(final ImageView imageView, int duration, final boolean isOpenAnim, final Animation fab_open, final Animation fab_close) {
@@ -217,6 +220,7 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
     }
 
     private void openMore() {
+//        setVisiblityOfBottomOptions(View.VISIBLE);
         moreImageView.setImageResource(R.drawable.button2);
         enableButtonBtnClick();
         Animation fab_open = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
@@ -252,10 +256,12 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
     }
 
     private void setVisiblityOfBottomOptions(int visiblity) {
-        aboutUsImageView.setVisibility(visiblity);
-        syncImageView.setVisibility(visiblity);
-        faviourateImageView.setVisibility(visiblity);
-        profileImageView.setVisibility(visiblity);
+        if (aboutUsImageView.getVisibility() == View.INVISIBLE) {
+            aboutUsImageView.setVisibility(visiblity);
+            syncImageView.setVisibility(visiblity);
+            faviourateImageView.setVisibility(visiblity);
+            profileImageView.setVisibility(visiblity);
+        }
     }
 
     private void enableButtonBtnClick() {

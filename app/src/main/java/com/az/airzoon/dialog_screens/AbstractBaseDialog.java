@@ -3,6 +3,7 @@ package com.az.airzoon.dialog_screens;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,7 @@ public abstract class AbstractBaseDialog extends Dialog implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         super.onCreate(savedInstanceState);
         view = setViews(layoutInflater);
         setContentView(view);
