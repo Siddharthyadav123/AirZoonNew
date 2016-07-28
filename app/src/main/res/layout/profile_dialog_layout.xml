@@ -24,8 +24,8 @@
 
             <ImageView
                 android:id="@+id/closeProfileImageView"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_alignParentRight="true"
                 android:padding="10dp"
                 android:src="@drawable/close1" />

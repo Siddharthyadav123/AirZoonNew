@@ -12,14 +12,12 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.az.airzoon.R;
-import com.az.airzoon.constants.Constants;
 import com.az.airzoon.dataobjects.AirZoonDo;
 import com.az.airzoon.dialog_screens.ProfileDialog;
-import com.az.airzoon.dialog_screens.SearchAirZoonDailog;
 import com.az.airzoon.dialog_screens.SearchSpotDialog;
 import com.az.airzoon.models.AirZoonModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -28,6 +26,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
@@ -43,12 +42,17 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
     private ImageView syncImageView;
     private ImageView aboutUsImageView;
 
-    private RelativeLayout moreMenuContainerRelLayout;
 
     boolean isOpen = false;
     private AirZoonModel airZoonModel;
-
+    private View snippetView = null;
     private ArrayList<AirZoonDo> airZoonDoArrayList = new ArrayList<>();
+
+    //guide views
+    private View guidFullScreenView;
+    private ImageView guideArrowImageView;
+    private ImageView guideBoxImageView;
+    private TextView guideText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +61,6 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
         setContentView(R.layout.activity_air_zoon_map);
         setUpMap();
         initViews();
-//        closeMore();
         registerEvents();
         setUI();
     }
@@ -71,7 +74,13 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
         faviourateImageView = (ImageView) findViewById(R.id.faviourateImageView);
         syncImageView = (ImageView) findViewById(R.id.syncImageView);
         aboutUsImageView = (ImageView) findViewById(R.id.aboutUsImageView);
-        moreMenuContainerRelLayout = (RelativeLayout) findViewById(R.id.moreMenuContainerRelLayout);
+
+        guidFullScreenView = findViewById(R.id.guidFullScreenView);
+        guideArrowImageView = (ImageView) findViewById(R.id.guideArrowImageView);
+        guideBoxImageView = (ImageView) findViewById(R.id.guideBoxImageView);
+        guideText = (TextView) findViewById(R.id.guideText);
+
+
     }
 
     private void registerEvents() {
@@ -104,26 +113,77 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
     private void loadAirZoonShops() {
         airZoonDoArrayList = airZoonModel.getAirZoonDoArrayList();
         for (int i = 0; i < airZoonDoArrayList.size(); i++) {
-            AirZoonDo airZoonDo = airZoonDoArrayList.get(i);
+            final AirZoonDo airZoonDo = airZoonDoArrayList.get(i);
             LatLng locationLatLong = new LatLng(Double.parseDouble(airZoonDo.getLat()), Double.parseDouble(airZoonDo.getLng()));
+            Bitmap markerBitmap = BitmapFactory.decodeResource(getResources(), airZoonModel.getHotSpotMarkerResByType(airZoonDo.getType()));
 
-            Bitmap markerBitmap = null;
-            if (airZoonDo.getType().equalsIgnoreCase(Constants.HOTSPOT_TYPE_AIRZOON)) {
-                markerBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.marker_airzoon);
-            } else if (airZoonDo.getType().equalsIgnoreCase(Constants.HOTSPOT_TYPE_PAID)) {
-                markerBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.marker_paid);
-            } else {
-                markerBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.marker_free);
-            }
-
-            mMap.addMarker(new MarkerOptions().position(locationLatLong).title(airZoonDo.getName()).icon(BitmapDescriptorFactory.fromBitmap(markerBitmap)));
-
+            mMap.addMarker(new MarkerOptions().position(locationLatLong).icon(BitmapDescriptorFactory.fromBitmap(markerBitmap)).title(i + ""));
+            mMap.setInfoWindowAdapter(new CustomInfoAdapter());
+            mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                @Override
+                public void onInfoWindowClick(Marker marker) {
+                    onMarkerInfoWindowClick(marker);
+                }
+            });
             if (i == airZoonDoArrayList.size() - 1) {
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(locationLatLong));
                 moveToCurrentLocation(locationLatLong);
             }
         }
+
+
     }
+
+    private void onMarkerInfoWindowClick(Marker marker) {
+        int index = Integer.parseInt(marker.getTitle());
+        AirZoonDo airZoonDo = airZoonDoArrayList.get(index);
+        Toast.makeText(AirZoonMapActivity.this, airZoonDo.getName(), Toast.LENGTH_SHORT).show();
+    }
+
+
+    private View getSnippedView() {
+        if (snippetView == null) {
+            snippetView = AirZoonMapActivity.this.getLayoutInflater().inflate(R.layout.marker_snippet_view, null);
+        }
+        return snippetView;
+    }
+
+
+    /**
+     * Marker Snippet Adapter
+     */
+    class CustomInfoAdapter implements GoogleMap.InfoWindowAdapter {
+
+        public CustomInfoAdapter() {
+        }
+
+        @Override
+        public View getInfoContents(Marker marker) {
+            int index = Integer.parseInt(marker.getTitle());
+            AirZoonDo airZoonDo = airZoonDoArrayList.get(index);
+            View snippetView = getSnippedView();
+            TextView hotSpotName = (TextView) snippetView.findViewById(R.id.hotSpotName);
+            ImageView hotspotCatImageView = (ImageView) snippetView.findViewById(R.id.hotspotCatImageView);
+            ImageView hotspotSpeedImageView = (ImageView) snippetView.findViewById(R.id.hotspotSpeedImageView);
+            TextView hotspotSpeedTextView = (TextView) snippetView.findViewById(R.id.hotspotSpeedTextView);
+            ImageView moreImageView = (ImageView) snippetView.findViewById(R.id.moreImageView);
+
+            hotspotCatImageView.setImageResource(airZoonModel.getHotSpotSmallImageResByCat(airZoonDo.getCategory()));
+            hotspotSpeedImageView.setImageResource(airZoonModel.getHotSpotSpeedResBy(airZoonDo.getSpeed()));
+            hotSpotName.setText(airZoonDo.getName());
+            hotspotSpeedTextView.setText(airZoonDo.getSpeed());
+
+            return snippetView;
+        }
+
+        @Override
+        public View getInfoWindow(Marker arg0) {
+            return null;
+        }
+
+
+    }
+
 
     private void moveToCurrentLocation(LatLng currentLocation) {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 10));
@@ -229,11 +289,29 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
             performDelayAnim(syncImageView, 50, true, fab_open3, null);
             Animation fab_open4 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open_b2);
             aboutUsImageView.startAnimation(fab_open4);
+            fab_open4.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    showGuide();
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+
         }
     }
 
     private void closeMore() {
         if (isOpen) {
+            hideGuide();
             moreImageView.setImageResource(R.drawable.button1);
             isOpen = false;
             Animation fab_close = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
@@ -279,4 +357,20 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
         faviourateImageView.setEnabled(false);
         profileImageView.setEnabled(false);
     }
+
+    private void showGuide() {
+        guidFullScreenView.setVisibility(View.VISIBLE);
+        guideArrowImageView.setVisibility(View.VISIBLE);
+        guideBoxImageView.setVisibility(View.VISIBLE);
+        guideText.setVisibility(View.VISIBLE);
+    }
+
+    private void hideGuide() {
+        guidFullScreenView.setVisibility(View.GONE);
+        guideArrowImageView.setVisibility(View.GONE);
+        guideBoxImageView.setVisibility(View.GONE);
+        guideText.setVisibility(View.GONE);
+    }
+
+
 }

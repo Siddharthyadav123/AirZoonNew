@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.az.airzoon.R;
+import com.az.airzoon.adapters.SearchScreenSpinnerAdapter;
 
 import java.util.ArrayList;
 
@@ -67,6 +68,7 @@ public class SearchSpotDialog extends AbstractBaseDialog {
         options.add(activity.getString(R.string.airzoonHotspotText));
         options.add(activity.getString(R.string.freeHotSpotText));
         options.add(activity.getString(R.string.paidHotspotText));
+        SearchScreenSpinnerAdapter searchScreenSpinnerAdapter = new SearchScreenSpinnerAdapter(activity, options);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, options);
         optionsSpinner.setAdapter(adapter);
     }

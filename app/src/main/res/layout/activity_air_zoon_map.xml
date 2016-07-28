@@ -40,90 +40,116 @@
 
     </LinearLayout>
 
-    <!--   <android.support.design.widget.FloatingActionButton
-           android:id="@+id/fabMoreButtn"
-           android:layout_width="65dp"
-           android:layout_height="65dp"
-           android:layout_alignParentBottom="true"
-           android:layout_margin="@dimen/fab_margin"
-           android:background="@drawable/button1"
-           android:backgroundTintMode="src_over"
-           app:elevation="6dp"
-           app:pressedTranslationZ="12dp" />
-   -->
 
-    <RelativeLayout
-        android:id="@+id/moreMenuContainerRelLayout"
-        android:layout_width="match_parent"
-        android:layout_height="90dp"
+    <ImageView
+        android:id="@+id/aboutUsImageView"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="7dp"
-        android:gravity="center|left"
-        android:orientation="horizontal"
-        android:paddingLeft="5dp">
+        android:layout_marginBottom="20dp"
+        android:layout_toRightOf="@+id/syncImageView"
+        android:alpha="0.8"
+        android:background="@drawable/right_more_bg_drawable"
+        android:padding="15dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/about"
+        android:visibility="invisible" />
 
-        <ImageView
-            android:id="@+id/aboutUsImageView"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/syncImageView"
-            android:alpha="0.8"
-            android:background="@drawable/right_more_bg_drawable"
-            android:padding="15dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/about"
-            android:visibility="invisible" />
 
-        <ImageView
-            android:id="@+id/syncImageView"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/faviourateImageView"
-            android:alpha="0.8"
-            android:background="@drawable/center_more_bg_drawable"
-            android:padding="15dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/recycleicon"
-            android:visibility="invisible" />
+    <ImageView
+        android:id="@+id/syncImageView"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:layout_toRightOf="@+id/faviourateImageView"
+        android:alpha="0.8"
+        android:background="@drawable/center_more_bg_drawable"
+        android:padding="15dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/recycleicon"
+        android:visibility="invisible" />
 
-        <ImageView
-            android:id="@+id/faviourateImageView"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/profileImageView"
-            android:alpha="0.8"
-            android:background="@drawable/center_more_bg_drawable"
-            android:padding="15dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/star"
-            android:visibility="invisible" />
 
-        <ImageView
-            android:id="@+id/profileImageView"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="2dp"
-            android:layout_toRightOf="@+id/moreImageView"
-            android:alpha="0.8"
-            android:background="@drawable/left_more_bg_drawable"
-            android:padding="15dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/profile"
-            android:visibility="invisible" />
+    <ImageView
+        android:id="@+id/faviourateImageView"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:layout_toRightOf="@+id/profileImageView"
+        android:alpha="0.8"
+        android:background="@drawable/center_more_bg_drawable"
+        android:padding="15dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/star"
+        android:visibility="invisible" />
 
-        <ImageView
-            android:id="@+id/moreImageView"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="16dp"
-            android:src="@drawable/button1" />
+    <ImageView
+        android:id="@+id/profileImageView"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="2dp"
+        android:layout_toRightOf="@+id/moreImageView"
+        android:alpha="0.8"
+        android:background="@drawable/left_more_bg_drawable"
+        android:padding="15dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/profile"
+        android:visibility="invisible" />
 
-    </RelativeLayout>
+    <ImageView
+        android:id="@+id/moreImageView"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="16dp"
+        android:src="@drawable/button1" />
+
+    <View
+        android:id="@+id/guidFullScreenView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.5"
+        android:background="@color/Black"
+        android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/guideArrowImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/guideBoxImageView"
+        android:layout_marginLeft="45dp"
+        android:layout_toRightOf="@+id/moreImageView"
+        android:alpha="0.7"
+        android:src="@drawable/guide_logo1"
+        android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/guideBoxImageView"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="43dp"
+        android:layout_toRightOf="@+id/profileImageView"
+        android:alpha="0.7"
+        android:src="@drawable/guide_logo2"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/guideText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/guideArrowImageView"
+        android:alpha="0.7"
+        android:padding="20dp"
+        android:text="@string/guideText"
+        android:textColor="@color/White"
+        android:textSize="22dp" />
 
 
 </RelativeLayout>

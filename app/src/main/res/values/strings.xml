@@ -62,4 +62,7 @@
     <string name="airzoonHotspotText">Airzoon Hotspot</string>
     <string name="freeHotSpotText">Free Hotspot</string>
     <string name="paidHotspotText">Paid Hotspot</string>
+
+
+    <string name="guideText">"Manually sync the \nairZoon database to \nupdate the hotspots list \nfor offline usage."</string>
 </resources>

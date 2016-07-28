@@ -1,5 +1,7 @@
 package com.az.airzoon.models;
 
+import com.az.airzoon.R;
+import com.az.airzoon.constants.Constants;
 import com.az.airzoon.dataobjects.AirZoonDo;
 import com.google.gson.Gson;
 
@@ -35,6 +37,39 @@ public class AirZoonModel {
             e.printStackTrace();
         }
 
+    }
+
+    public int getHotSpotSmallImageResByCat(String cateogry) {
+        if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_RESTAURANT)) {
+            return R.drawable.restset;
+        } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_HOTEL)) {
+            return R.drawable.hotel;
+        } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_SPORT_CENTER)) {
+            return R.drawable.fitnessset;
+        } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_BAR)) {
+            return R.drawable.barset;
+        } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_FAST_FOOD)) {
+            return R.drawable.fastfoodset;
+        } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_MALL)) {
+            return R.drawable.servicestoreset;
+        } else {
+            //others
+            return R.drawable.otherset;
+        }
+    }
+
+    public int getHotSpotSpeedResBy(String speed) {
+        return R.drawable.speedthree;
+    }
+
+    public int getHotSpotMarkerResByType(String type) {
+        if (type.equalsIgnoreCase(Constants.HOTSPOT_TYPE_AIRZOON)) {
+            return R.drawable.marker_airzoon;
+        } else if (type.equalsIgnoreCase(Constants.HOTSPOT_TYPE_PAID)) {
+            return R.drawable.marker_paid;
+        } else {
+            return R.drawable.marker_free;
+        }
     }
 
     public ArrayList<AirZoonDo> getAirZoonDoArrayList() {
