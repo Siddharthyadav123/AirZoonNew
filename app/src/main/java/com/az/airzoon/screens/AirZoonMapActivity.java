@@ -54,6 +54,8 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
     private ImageView guideBoxImageView;
     private TextView guideText;
 
+    boolean isGuideShown = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,12 +76,10 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
         faviourateImageView = (ImageView) findViewById(R.id.faviourateImageView);
         syncImageView = (ImageView) findViewById(R.id.syncImageView);
         aboutUsImageView = (ImageView) findViewById(R.id.aboutUsImageView);
-
         guidFullScreenView = findViewById(R.id.guidFullScreenView);
         guideArrowImageView = (ImageView) findViewById(R.id.guideArrowImageView);
         guideBoxImageView = (ImageView) findViewById(R.id.guideBoxImageView);
         guideText = (TextView) findViewById(R.id.guideText);
-
 
     }
 
@@ -91,6 +91,7 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
         faviourateImageView.setOnClickListener(this);
         syncImageView.setOnClickListener(this);
         aboutUsImageView.setOnClickListener(this);
+        guidFullScreenView.setOnClickListener(this);
     }
 
 
@@ -231,6 +232,21 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
                 onAboutUsButtonClick();
                 closeMore();
                 break;
+            case R.id.guidFullScreenView:
+                hideGuide();
+                break;
+
+
+        }
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (isGuideShowingCurrently()) {
+            hideGuide();
+        } else {
+            super.onBackPressed();
         }
 
     }
@@ -297,7 +313,11 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
 
                 @Override
                 public void onAnimationEnd(Animation animation) {
-                    showGuide();
+                    if (!isGuideShown) {
+                        isGuideShown = true;
+                        showGuide();
+                    }
+
                 }
 
                 @Override
@@ -308,6 +328,7 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
 
         }
     }
+
 
     private void closeMore() {
         if (isOpen) {
@@ -370,6 +391,13 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
         guideArrowImageView.setVisibility(View.GONE);
         guideBoxImageView.setVisibility(View.GONE);
         guideText.setVisibility(View.GONE);
+    }
+
+    private boolean isGuideShowingCurrently() {
+        if (guidFullScreenView.getVisibility() == View.VISIBLE) {
+            return true;
+        }
+        return false;
     }
 
 

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -69,8 +68,7 @@ public class SearchSpotDialog extends AbstractBaseDialog {
         options.add(activity.getString(R.string.freeHotSpotText));
         options.add(activity.getString(R.string.paidHotspotText));
         SearchScreenSpinnerAdapter searchScreenSpinnerAdapter = new SearchScreenSpinnerAdapter(activity, options);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, options);
-        optionsSpinner.setAdapter(adapter);
+        optionsSpinner.setAdapter(searchScreenSpinnerAdapter);
     }
 
     @Override
