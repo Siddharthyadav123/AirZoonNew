@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.az.airzoon.R;
 import com.az.airzoon.dataobjects.AirZoonDo;
+import com.az.airzoon.dialog_screens.FilterSettingsDialog;
 import com.az.airzoon.dialog_screens.ProfileDialog;
 import com.az.airzoon.dialog_screens.SearchSpotDialog;
 import com.az.airzoon.models.AirZoonModel;
@@ -270,7 +271,8 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
     }
 
     private void onFilterButtonClick() {
-        Toast.makeText(AirZoonMapActivity.this, "Working on the same.", Toast.LENGTH_SHORT).show();
+        FilterSettingsDialog filterSettingsDialog = new FilterSettingsDialog(this);
+        filterSettingsDialog.showDialog(ProfileDialog.ANIM_TYPE_TOP_IN_TOP_OUT);
     }
 
     private void onSearchButtonClick() {

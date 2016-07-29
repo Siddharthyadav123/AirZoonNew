@@ -1,6 +1,7 @@
 package com.az.airzoon.dialog_screens;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,6 +12,7 @@ import android.widget.Spinner;
 
 import com.az.airzoon.R;
 import com.az.airzoon.adapters.SearchScreenSpinnerAdapter;
+import com.az.airzoon.screens.SearchResultActivity;
 
 import java.util.ArrayList;
 
@@ -84,6 +86,7 @@ public class SearchSpotDialog extends AbstractBaseDialog {
     }
 
     private void onSearchBtnClick() {
-
+        Intent i = new Intent(activity, SearchResultActivity.class);
+        activity.startActivity(i);
     }
 }

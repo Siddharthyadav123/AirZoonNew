@@ -39,8 +39,77 @@ public class AirZoonModel {
 
     }
 
+    public ArrayList<AirZoonDo> getHotSpotListByType(String type) {
+        ArrayList<AirZoonDo> newList = new ArrayList<>();
+        for (int i = 0; i < airZoonDoArrayList.size(); i++) {
+            if (airZoonDoArrayList.get(i).getType().equalsIgnoreCase(type)) {
+                newList.add(airZoonDoArrayList.get(i));
+            }
+        }
+        return newList;
+    }
+
+    public ArrayList<AirZoonDo> getHotSpotListByCategory(String cateogry) {
+        ArrayList<AirZoonDo> newList = new ArrayList<>();
+        for (int i = 0; i < airZoonDoArrayList.size(); i++) {
+            if (airZoonDoArrayList.get(i).getCategory().equalsIgnoreCase(cateogry)) {
+                newList.add(airZoonDoArrayList.get(i));
+            }
+        }
+        return newList;
+    }
+
+    public ArrayList<AirZoonDo> getHotSpotListBySearchText(String filterText) {
+        ArrayList<AirZoonDo> newList = new ArrayList<>();
+        for (int i = 0; i < airZoonDoArrayList.size(); i++) {
+            if (airZoonDoArrayList.get(i).getName().contains(filterText)) {
+                newList.add(airZoonDoArrayList.get(i));
+            }
+        }
+        return newList;
+    }
+
+    public int getHotSpotBigImageResByCat(String cateogry) {
+        if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_TYPE_AIRZOON)) {
+            return R.drawable.marker_airzoon;
+        } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_TYPE_PAID)) {
+            return R.drawable.marker_paid;
+        } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_TYPE_FREE)) {
+            return R.drawable.marker_free;
+        } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_RESTAURANT)) {
+            return R.drawable.rest;
+        } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_HOTEL)) {
+            return R.drawable.hotel;
+        } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_SPORT_CENTER)) {
+            return R.drawable.fitnessset;
+        } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_BAR)) {
+            return R.drawable.barset;
+        } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_FAST_FOOD)) {
+            return R.drawable.fastfoodset;
+        } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_MALL)) {
+            return R.drawable.servicestoreset;
+        } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_AIRPORT)) {
+            return R.drawable.airset;
+        } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_BARBER)) {
+            return R.drawable.barberset;
+        } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_PANCAKES_WAFFLES)) {
+            return R.drawable.pancakewaffles;
+        } else {
+            //others
+            return R.drawable.otherset;
+        }
+
+    }
+
+
     public int getHotSpotSmallImageResByCat(String cateogry) {
-        if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_RESTAURANT)) {
+        if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_TYPE_AIRZOON)) {
+            return R.drawable.marker_airzoon;
+        } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_TYPE_PAID)) {
+            return R.drawable.marker_paid;
+        } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_TYPE_FREE)) {
+            return R.drawable.marker_free;
+        } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_RESTAURANT)) {
             return R.drawable.restset;
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_HOTEL)) {
             return R.drawable.hotel;
@@ -52,10 +121,17 @@ public class AirZoonModel {
             return R.drawable.fastfoodset;
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_MALL)) {
             return R.drawable.servicestoreset;
+        } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_AIRPORT)) {
+            return R.drawable.airset;
+        } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_BARBER)) {
+            return R.drawable.barberset;
+        } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_PANCAKES_WAFFLES)) {
+            return R.drawable.pancakewaffles;
         } else {
             //others
             return R.drawable.otherset;
         }
+
     }
 
     public int getHotSpotSpeedResBy(String speed) {

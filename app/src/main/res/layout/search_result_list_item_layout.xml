@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/hotspotTypeImageView"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:src="@drawable/marker_airzoon" />
+
+    <TextView
+        android:id="@+id/hotSpotName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/hotspotCatImageView"
+        android:layout_toRightOf="@+id/hotspotTypeImageView"
+        android:maxLines="2"
+        android:padding="5dp"
+        android:text="Title"
+        android:textColor="@color/Black"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/hotSpotAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/hotSpotName"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_toLeftOf="@+id/hotspotCatImageView"
+        android:layout_toRightOf="@+id/hotspotTypeImageView"
+        android:maxLines="2"
+        android:singleLine="true"
+        android:text="Address"
+        android:textColor="@color/Gray"
+        android:textSize="18dp" />
+
+    <ImageView
+        android:id="@+id/hotspotCatImageView"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="8dp"
+        android:layout_toLeftOf="@+id/speedLayout"
+        android:padding="2dp"
+        android:src="@drawable/fastfoodset" />
+
+    <LinearLayout
+        android:id="@+id/speedLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="8dp"
+        android:layout_toLeftOf="@+id/moreImageView"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/hotspotSpeedImageView"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:src="@drawable/speedone" />
+
+        <TextView
+            android:id="@+id/hotspotSpeedTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="speed"
+            android:textColor="@color/OrangeRed"
+            android:textSize="10dp" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/moreImageView"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="15dp"
+        android:rotation="-45"
+        android:src="@drawable/downarrow" />
+
+
+</RelativeLayout>
