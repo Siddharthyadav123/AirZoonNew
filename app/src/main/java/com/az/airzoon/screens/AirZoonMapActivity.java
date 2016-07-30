@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
@@ -12,11 +13,14 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.az.airzoon.R;
 import com.az.airzoon.dataobjects.AirZoonDo;
+import com.az.airzoon.dialog_screens.AboutUsDialog;
+import com.az.airzoon.dialog_screens.FavoritesDialog;
 import com.az.airzoon.dialog_screens.FilterSettingsDialog;
 import com.az.airzoon.dialog_screens.ProfileDialog;
 import com.az.airzoon.dialog_screens.SearchSpotDialog;
@@ -33,6 +37,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 
 public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCallback, View.OnClickListener {
+
     private GoogleMap mMap;
     private ImageView moreImageView;
     private ImageView searchImageView;
@@ -54,6 +59,10 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
     private ImageView guideArrowImageView;
     private ImageView guideBoxImageView;
     private TextView guideText;
+
+    //for refresging
+    private View loadingBlanckBgView;
+    private ProgressBar progressBar;
 
     boolean isGuideShown = false;
 
@@ -81,7 +90,8 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
         guideArrowImageView = (ImageView) findViewById(R.id.guideArrowImageView);
         guideBoxImageView = (ImageView) findViewById(R.id.guideBoxImageView);
         guideText = (TextView) findViewById(R.id.guideText);
-
+        loadingBlanckBgView = findViewById(R.id.loadingBlanckBgView);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
     }
 
     private void registerEvents() {
@@ -113,7 +123,8 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
     }
 
     private void loadAirZoonShops() {
-        airZoonDoArrayList = airZoonModel.getAirZoonDoArrayList();
+        airZoonDoArrayList = airZoonModel.getFilteredList();
+        System.out.println(">>map refresh size" + airZoonDoArrayList.size());
         for (int i = 0; i < airZoonDoArrayList.size(); i++) {
             final AirZoonDo airZoonDo = airZoonDoArrayList.get(i);
             LatLng locationLatLong = new LatLng(Double.parseDouble(airZoonDo.getLat()), Double.parseDouble(airZoonDo.getLng()));
@@ -132,8 +143,6 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
                 moveToCurrentLocation(locationLatLong);
             }
         }
-
-
     }
 
     private void onMarkerInfoWindowClick(Marker marker) {
@@ -253,21 +262,22 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
     }
 
     private void onAboutUsButtonClick() {
-        Toast.makeText(AirZoonMapActivity.this, "onAboutUsButtonClick.", Toast.LENGTH_SHORT).show();
+        AboutUsDialog aboutUsDialog = new AboutUsDialog(this);
+        aboutUsDialog.showDialog(ProfileDialog.ANIM_TYPE_LEFT_IN_RIGHT_OUT);
     }
 
     private void onSyncButtonClick() {
-        Toast.makeText(AirZoonMapActivity.this, "onSyncButtonClicke.", Toast.LENGTH_SHORT).show();
+        refreshMapAsPerFilterAlsoPerformSync();
     }
 
     private void onFaviourateButtonClick() {
-        Toast.makeText(AirZoonMapActivity.this, "onFaviourateButtonClick.", Toast.LENGTH_SHORT).show();
+        FavoritesDialog favoritesDialog = new FavoritesDialog(this);
+        favoritesDialog.showDialog(ProfileDialog.ANIM_TYPE_LEFT_IN_RIGHT_OUT);
     }
 
     private void onProfileButtonClick() {
         ProfileDialog profileDialog = new ProfileDialog(this);
         profileDialog.showDialog(ProfileDialog.ANIM_TYPE_LEFT_IN_RIGHT_OUT);
-
     }
 
     private void onFilterButtonClick() {
@@ -358,14 +368,6 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
         }
     }
 
-    private void setVisiblityOfBottomOptions(int visiblity) {
-        if (aboutUsImageView.getVisibility() == View.INVISIBLE) {
-            aboutUsImageView.setVisibility(visiblity);
-            syncImageView.setVisibility(visiblity);
-            faviourateImageView.setVisibility(visiblity);
-            profileImageView.setVisibility(visiblity);
-        }
-    }
 
     private void enableButtonBtnClick() {
         aboutUsImageView.setEnabled(true);
@@ -400,6 +402,38 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
             return true;
         }
         return false;
+    }
+
+
+    public void refreshMapAsPerFilterAlsoPerformSync() {
+        RefreshMapAsync refreshMapAsync = new RefreshMapAsync();
+        refreshMapAsync.execute();
+
+    }
+
+    public class RefreshMapAsync extends AsyncTask {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            System.out.println(">>map refresh start");
+            loadingBlanckBgView.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected Object doInBackground(Object[] params) {
+            AirZoonModel.getInstance().loadStaticHotSpots();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            loadAirZoonShops();
+            loadingBlanckBgView.setVisibility(View.GONE);
+            progressBar.setVisibility(View.GONE);
+            System.out.println(">>map refresh end");
+        }
     }
 
 

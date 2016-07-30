@@ -22,9 +22,9 @@ public class SearchResultListAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<AirZoonDo> airZoonDoArrayList = new ArrayList<>();
 
-    public SearchResultListAdapter(Context context) {
+    public SearchResultListAdapter(Context context, ArrayList<AirZoonDo> airZoonDoArrayList) {
         this.context = context;
-        airZoonDoArrayList = AirZoonModel.getInstance().getAirZoonDoArrayList();
+        this.airZoonDoArrayList = airZoonDoArrayList;
     }
 
     @Override

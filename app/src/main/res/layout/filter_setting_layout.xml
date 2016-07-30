@@ -25,9 +25,10 @@
 
             <ImageView
                 android:id="@+id/closeProfileImageView"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="47dp"
+                android:layout_height="47dp"
                 android:layout_alignParentRight="true"
+                android:background="?android:selectableItemBackground"
                 android:padding="10dp"
                 android:src="@drawable/close1" />
 

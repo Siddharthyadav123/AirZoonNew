@@ -22,7 +22,7 @@ public class MyApplication extends Application {
         super.onCreate();
         myApplication = this;
         //loading static shops list intially
-        AirZoonModel.getInstance().loadStaticShows();
+        AirZoonModel.getInstance().loadStaticHotSpots();
     }
 
     /**

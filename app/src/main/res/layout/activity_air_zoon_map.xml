@@ -50,7 +50,7 @@
         android:layout_toRightOf="@+id/syncImageView"
         android:alpha="0.8"
         android:background="@drawable/right_more_bg_drawable"
-        android:padding="15dp"
+        android:padding="17dp"
         android:scaleType="centerInside"
         android:src="@drawable/about"
         android:visibility="invisible" />
@@ -65,7 +65,7 @@
         android:layout_toRightOf="@+id/faviourateImageView"
         android:alpha="0.8"
         android:background="@drawable/center_more_bg_drawable"
-        android:padding="15dp"
+        android:padding="17dp"
         android:scaleType="centerInside"
         android:src="@drawable/recycleicon"
         android:visibility="invisible" />
@@ -80,7 +80,7 @@
         android:layout_toRightOf="@+id/profileImageView"
         android:alpha="0.8"
         android:background="@drawable/center_more_bg_drawable"
-        android:padding="15dp"
+        android:padding="17dp"
         android:scaleType="centerInside"
         android:src="@drawable/star"
         android:visibility="invisible" />
@@ -95,7 +95,7 @@
         android:layout_toRightOf="@+id/moreImageView"
         android:alpha="0.8"
         android:background="@drawable/left_more_bg_drawable"
-        android:padding="15dp"
+        android:padding="17dp"
         android:scaleType="centerInside"
         android:src="@drawable/profile"
         android:visibility="invisible" />
@@ -122,7 +122,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/guideBoxImageView"
-        android:layout_marginLeft="45dp"
+        android:layout_marginLeft="47dp"
         android:layout_toRightOf="@+id/moreImageView"
         android:alpha="0.7"
         android:src="@drawable/guide_logo1"
@@ -130,11 +130,11 @@
 
     <ImageView
         android:id="@+id/guideBoxImageView"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="43dp"
+        android:layout_marginBottom="23dp"
+        android:layout_marginLeft="58dp"
         android:layout_toRightOf="@+id/profileImageView"
         android:alpha="0.7"
         android:src="@drawable/guide_logo2"
@@ -150,6 +150,24 @@
         android:text="@string/guideText"
         android:textColor="@color/White"
         android:textSize="22dp"
+        android:visibility="gone" />
+
+    <View
+        android:id="@+id/loadingBlanckBgView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.3"
+        android:background="@color/Black"
+        android:visibility="gone" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:indeterminate="false"
         android:visibility="gone" />
 
 

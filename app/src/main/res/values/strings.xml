@@ -68,6 +68,24 @@
 
     <string name="searchResultText">Search Results</string>
     <string name="submitAHotspotText">Submit a Hotspot</string>
-
+    <string name="notSuchHotspotFoundText">No such Hotspot found</string>
     <string name="guideText">"Manually sync the \nairZoon database to \nupdate the hotspots list \nfor offline usage."</string>
+
+    <!--About us text-->
+    <string name="aboutUsText">About us</string>
+    <string name="versionText">Version 1.1</string>
+    <string name="aboutUsBody1">airZoon gives you the weather of the wifi. Find the best hotspot that fit your needs.</string>
+    <string name="aboutUsBody2">airZoon hotspots are free, unlimited and secured.</string>
+    <string name="sendAFeedbackText">Send a Feedback</string>
+    <string name="watchTheGuidedTourText">Watch the Guided Tour</string>
+
+    <!--Feedback-->
+    <string name="feedbackText">Feedback</string>
+    <string name="enterEmailHintText">Enter email address</string>
+    <string name="writeYourCommentHintText">Write your comment</string>
+    <string name="submitText">Submit</string>
+
+    <!--Feedback-->
+    <string name="favoritesText">Favorites</string>
+
 </resources>

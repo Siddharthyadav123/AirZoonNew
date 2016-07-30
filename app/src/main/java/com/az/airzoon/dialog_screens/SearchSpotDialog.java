@@ -12,6 +12,7 @@ import android.widget.Spinner;
 
 import com.az.airzoon.R;
 import com.az.airzoon.adapters.SearchScreenSpinnerAdapter;
+import com.az.airzoon.constants.Constants;
 import com.az.airzoon.screens.SearchResultActivity;
 
 import java.util.ArrayList;
@@ -85,8 +86,24 @@ public class SearchSpotDialog extends AbstractBaseDialog {
         }
     }
 
+    private String getSeletedHotSpotType() {
+        switch (optionsSpinner.getSelectedItemPosition()) {
+            case 1:
+                return Constants.HOTSPOT_TYPE_AIRZOON;
+            case 2:
+                return Constants.HOTSPOT_TYPE_FREE;
+            case 3:
+                return Constants.HOTSPOT_TYPE_PAID;
+            default:
+                return null;
+        }
+    }
+
+
     private void onSearchBtnClick() {
         Intent i = new Intent(activity, SearchResultActivity.class);
+        i.putExtra(SearchResultActivity.KEY_FILTER_TYPE, getSeletedHotSpotType());
+        i.putExtra(SearchResultActivity.KEY_FILTER_TEXT, searchSpotNameEditText.getText().toString().trim());
         activity.startActivity(i);
     }
 }

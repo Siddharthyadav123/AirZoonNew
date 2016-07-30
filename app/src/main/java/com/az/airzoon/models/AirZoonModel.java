@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import org.json.JSONArray;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 /**
  * Created by siddharth on 7/26/2016.
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 public class AirZoonModel {
 
     private ArrayList<AirZoonDo> airZoonDoArrayList = new ArrayList<>();
+    private ArrayList<AirZoonDo> filteredList = new ArrayList<>();
     public static AirZoonModel airZoonModel = null;
 
     public static AirZoonModel getInstance() {
@@ -24,19 +26,29 @@ public class AirZoonModel {
         return airZoonModel;
     }
 
-    public void loadStaticShows() {
+    public void loadStaticHotSpots() {
         try {
+            airZoonDoArrayList.clear();
+            filteredList.clear();
             Gson gson = new Gson();
             JSONArray itemArray = new JSONArray(getStaticString());
             for (int i = 0; i < itemArray.length(); i++) {
                 AirZoonDo airZoonDo = gson.fromJson(itemArray.get(i).toString(), AirZoonDo.class);
                 airZoonDoArrayList.add(airZoonDo);
+                canBeAddedInFilteredList(airZoonDo);
             }
             System.out.println(">>Airzoon list loaded>>" + airZoonDoArrayList.size());
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+    private void canBeAddedInFilteredList(AirZoonDo airZoonDo) {
+        if (FilterSettingModel.getInstance().getFilterSetting(airZoonDo.getCategory())
+                && FilterSettingModel.getInstance().getFilterSetting(airZoonDo.getType())) {
+            filteredList.add(airZoonDo);
+        }
     }
 
     public ArrayList<AirZoonDo> getHotSpotListByType(String type) {
@@ -46,6 +58,7 @@ public class AirZoonModel {
                 newList.add(airZoonDoArrayList.get(i));
             }
         }
+        System.out.println(">>Filtered List size>>" + newList.size());
         return newList;
     }
 
@@ -56,18 +69,57 @@ public class AirZoonModel {
                 newList.add(airZoonDoArrayList.get(i));
             }
         }
+        System.out.println(">>Filtered List size>>" + newList.size());
         return newList;
     }
 
-    public ArrayList<AirZoonDo> getHotSpotListBySearchText(String filterText) {
+    public ArrayList<AirZoonDo> getHotSpotListBySearchTextOnly(String filterText) {
         ArrayList<AirZoonDo> newList = new ArrayList<>();
         for (int i = 0; i < airZoonDoArrayList.size(); i++) {
-            if (airZoonDoArrayList.get(i).getName().contains(filterText)) {
+            if (containsIgnoreCase(airZoonDoArrayList.get(i).getName(), filterText)) {
                 newList.add(airZoonDoArrayList.get(i));
             }
+            System.out.println(">>Filtered List size>>" + newList.size());
         }
         return newList;
     }
+
+
+    public ArrayList<AirZoonDo> getHotSpotListBySearchTextAndType(String filterText, String type) {
+        ArrayList<AirZoonDo> newList = new ArrayList<>();
+        for (int i = 0; i < airZoonDoArrayList.size(); i++) {
+            if (containsIgnoreCase(airZoonDoArrayList.get(i).getName(), filterText)
+                    && airZoonDoArrayList.get(i).getType().equalsIgnoreCase(type)) {
+                newList.add(airZoonDoArrayList.get(i));
+            }
+            System.out.println(">>Filtered List size>>" + newList.size());
+        }
+
+
+        return newList;
+    }
+
+    public boolean containsIgnoreCase(String src, String what) {
+        final int length = what.length();
+        if (length == 0)
+            return true; // Empty string is contained
+
+        final char firstLo = Character.toLowerCase(what.charAt(0));
+        final char firstUp = Character.toUpperCase(what.charAt(0));
+
+        for (int i = src.length() - length; i >= 0; i--) {
+            // Quick check before calling the more expensive regionMatches() method:
+            final char ch = src.charAt(i);
+            if (ch != firstLo && ch != firstUp)
+                continue;
+
+            if (src.regionMatches(true, i, what, 0, length))
+                return true;
+        }
+
+        return false;
+    }
+
 
     public int getHotSpotBigImageResByCat(String cateogry) {
         if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_TYPE_AIRZOON)) {
@@ -155,6 +207,11 @@ public class AirZoonModel {
     public void setAirZoonDoArrayList(ArrayList<AirZoonDo> airZoonDoArrayList) {
         this.airZoonDoArrayList = airZoonDoArrayList;
     }
+
+    public ArrayList<AirZoonDo> getFilteredList() {
+        return filteredList;
+    }
+
 
     private String getStaticString() {
 

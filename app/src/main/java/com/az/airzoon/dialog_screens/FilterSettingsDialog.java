@@ -12,6 +12,7 @@ import com.az.airzoon.R;
 import com.az.airzoon.adapters.FilterSettingAdapter;
 import com.az.airzoon.constants.Constants;
 import com.az.airzoon.models.FilterSettingModel;
+import com.az.airzoon.screens.AirZoonMapActivity;
 
 /**
  * Created by siddharth on 7/28/2016.
@@ -71,6 +72,7 @@ public class FilterSettingsDialog extends AbstractBaseDialog {
                 break;
             case R.id.doneButton:
                 dismiss();
+                ((AirZoonMapActivity) activity).refreshMapAsPerFilterAlsoPerformSync();
                 break;
         }
     }
