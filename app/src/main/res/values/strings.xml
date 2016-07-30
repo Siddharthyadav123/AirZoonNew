@@ -88,4 +88,10 @@
     <!--Feedback-->
     <string name="favoritesText">Favorites</string>
 
+    <!--Hotspot details screen-->
+    <string name="goText">Go</string>
+    <string name="callText">Call</string>
+    <string name="openingText">Opening</string>
+    <string name="requestAnErrorText">Report an error/Request informations</string>
+
 </resources>

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.az.airzoon.R;
 import com.az.airzoon.adapters.SearchResultListAdapter;
 import com.az.airzoon.dataobjects.AirZoonDo;
+import com.az.airzoon.dialog_screens.HotspotDetailDailog;
 import com.az.airzoon.models.AirZoonModel;
 
 import java.util.ArrayList;
@@ -67,9 +68,15 @@ public class SearchResultActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                onHotSpotItemClick(position);
             }
         });
 
+    }
+
+    private void onHotSpotItemClick(int position) {
+        HotspotDetailDailog hotspotDetailDailog = new HotspotDetailDailog(this, airZoonDoArrayList.get(position));
+        hotspotDetailDailog.showDialog(HotspotDetailDailog.ANIM_TYPE_LEFT_IN_RIGHT_OUT);
     }
 
     private void retriveIntentAndDecideSearchList() {
