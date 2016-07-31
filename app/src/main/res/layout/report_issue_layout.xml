@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:layout_marginTop="25dp"
+        android:alpha="0.95"
+        android:background="@drawable/dailog_shape_black">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:paddingBottom="15dp">
+
+            <ImageView
+                android:id="@+id/closeProfileImageView"
+                android:layout_width="47dp"
+                android:layout_height="47dp"
+                android:layout_alignParentRight="true"
+                android:background="?android:selectableItemBackground"
+                android:padding="10dp"
+                android:src="@drawable/close1" />
+
+            <TextView
+                android:id="@+id/reportTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:text="@string/reportText"
+                android:textColor="@color/LightGrey"
+                android:textSize="27dp" />
+
+            <View
+                android:id="@+id/sepraterView"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@+id/reportTextView"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/Gray" />
+
+            <RelativeLayout
+                android:id="@+id/bodyLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/sepraterView"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:padding="10dp">
+
+                <LinearLayout
+                    android:id="@+id/mainLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="header"
+                            android:textColor="@color/White"
+                            android:textSize="15dp"
+                            android:visibility="invisible" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="24dp"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/nameText"
+                            android:textColor="@color/White"
+                            android:textSize="15dp"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="24dp"
+                            android:layout_marginTop="9dp"
+                            android:text="@string/addressText"
+                            android:textColor="@color/White"
+                            android:textSize="15dp"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="24dp"
+                            android:layout_marginTop="9dp"
+                            android:text="@string/categoryText"
+                            android:textColor="@color/White"
+                            android:textSize="15dp"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="24dp"
+                            android:layout_marginTop="9dp"
+                            android:text="@string/hoursText"
+                            android:textColor="@color/White"
+                            android:textSize="15dp"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="24dp"
+                            android:layout_marginTop="9dp"
+                            android:text="@string/phoneText"
+                            android:textColor="@color/White"
+                            android:textSize="15dp"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="24dp"
+                            android:layout_marginTop="9dp"
+                            android:text="@string/speedText"
+                            android:textColor="@color/White"
+                            android:textSize="15dp"
+                            android:visibility="visible" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/errorText"
+                            android:textColor="@color/White"
+                            android:textSize="15dp"
+                            android:visibility="visible" />
+
+                        <ImageView
+                            android:id="@+id/nameCheckBoxImageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/com_facebook_button_check_off"
+                            android:visibility="visible" />
+
+                        <ImageView
+                            android:id="@+id/addressCheckBoxImageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/com_facebook_button_check_off"
+                            android:visibility="visible" />
+
+                        <ImageView
+                            android:id="@+id/categoryCheckBoxImageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/com_facebook_button_check_off"
+                            android:visibility="visible" />
+
+                        <ImageView
+                            android:id="@+id/hoursCheckBoxImageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/com_facebook_button_check_off"
+                            android:visibility="visible" />
+
+                        <ImageView
+                            android:id="@+id/phoneCheckBoxImageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/com_facebook_button_check_off"
+                            android:visibility="visible" />
+
+                        <ImageView
+                            android:id="@+id/speedCheckBoxImageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/com_facebook_button_check_off"
+                            android:visibility="visible" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:id="@+id/seprator"
+                        android:layout_width="0.6dp"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/commentEditText"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginTop="30dp"
+                        android:background="@color/Gray" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/requestInfoText"
+                            android:textColor="@color/White"
+                            android:textSize="15dp"
+                            android:visibility="visible" />
+
+                        <ImageView
+                            android:id="@+id/nameRICheckBoxImageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/com_facebook_button_check_off"
+                            android:visibility="visible" />
+
+                        <ImageView
+                            android:id="@+id/addressRICheckBoxImageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/com_facebook_button_check_off"
+                            android:visibility="visible" />
+
+                        <ImageView
+                            android:id="@+id/categoryRICheckBoxImageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/com_facebook_button_check_off"
+                            android:visibility="visible" />
+
+                        <ImageView
+                            android:id="@+id/hoursRICheckBoxImageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/com_facebook_button_check_off"
+                            android:visibility="visible" />
+
+                        <ImageView
+                            android:id="@+id/phoneRICheckBoxImageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/com_facebook_button_check_off"
+                            android:visibility="visible" />
+
+                        <ImageView
+                            android:id="@+id/speedRICheckBoxImageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/com_facebook_button_check_off"
+                            android:visibility="visible" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+                <EditText
+                    android:id="@+id/commentEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/mainLayout"
+                    android:layout_marginTop="15dp"
+                    android:background="@null"
+                    android:gravity="top"
+                    android:hint="@string/writeYourCommentHintText"
+                    android:minLines="3"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="10dp"
+                    android:textColor="@color/White"
+                    android:textColorHint="@color/White"
+                    android:textSize="20dp" />
+
+                <View
+                    android:id="@+id/sepraterView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_below="@+id/commentEditText"
+                    android:background="@color/Gray" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/bodyLayout"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/sendButton"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/white_btn_drawable"
+                    android:text="@string/sendText"
+                    android:textColor="@color/White"
+                    android:textSize="19dp" />
+
+                <Button
+                    android:id="@+id/dontMindButton"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/white_btn_drawable"
+                    android:text="@string/dontMindText"
+                    android:textColor="@color/White"
+                    android:textSize="19dp" />
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

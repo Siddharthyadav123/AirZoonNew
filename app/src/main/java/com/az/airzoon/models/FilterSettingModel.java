@@ -23,6 +23,8 @@ public class FilterSettingModel {
 
     public static FilterSettingModel filterSettingModel = null;
 
+    public static int rangeSeek = 0;
+
     public static FilterSettingModel getInstance() {
         if (filterSettingModel == null) {
             filterSettingModel = new FilterSettingModel();
@@ -100,4 +102,11 @@ public class FilterSettingModel {
 
     }
 
+    public int getRangeSeek() {
+        return rangeSeek;
+    }
+
+    public void setRangeSeek(int rangeSeek) {
+        FilterSettingModel.rangeSeek = rangeSeek;
+    }
 }

@@ -92,6 +92,34 @@
     <string name="goText">Go</string>
     <string name="callText">Call</string>
     <string name="openingText">Opening</string>
-    <string name="requestAnErrorText">Report an error/Request informations</string>
+    <string name="requestAnErrorText"><u>Report an error/Request informations</u></string>
+
+    <!--Share intenet text-->
+    <string name="shareText">"airZoon hotspots offers free, unlimited and secured wifi internet access >> Join"</string>
+    <string name="urlText">"http://www.airzoon.com/"</string>
+    <!--<string name="imgDownloadUrlText">"http://stevebercy.com/airzoon/img/"</string>-->
+
+
+    <!--Report issue-->
+    <string name="reportText">Report</string>
+    <string name="errorText">Error</string>
+    <string name="requestInfoText">Request Info.</string>
+    <string name="nameText">Name</string>
+    <string name="addressText">Address</string>
+    <string name="categoryText">Category</string>
+    <string name="hoursText">Hours</string>
+    <string name="phoneText">Phone</string>
+    <string name="speedText">Speed</string>
+    <string name="sendText">Send</string>
+    <string name="dontMindText">"Don't mind"</string>
+
+    <!--New spot-->
+    <string name="newSpotText">New Spot</string>
+    <string name="enterSpotNameHintText">Enter Spot Name</string>
+    <string name="selectHotspotTypeHintText">Select Hotspot Type</string>
+    <string name="selectHotspotCatHintText">Select Hotspot Category</string>
+    <string name="enterPhoneNoHintText">Enter Phone no.</string>
+    <string name="addAnImageText">Add an image</string>
+    <string name="cancelText">Cancel</string>
 
 </resources>

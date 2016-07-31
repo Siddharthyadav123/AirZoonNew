@@ -66,5 +66,7 @@ public class FavoritesDialog extends AbstractBaseDialog {
 
     private void onSubmitBtnClick() {
         dismiss();
+        NewHotspotDailog newHotspotDailog = new NewHotspotDailog(activity);
+        newHotspotDailog.showDialog(NewHotspotDailog.ANIM_TYPE_LEFT_IN_RIGHT_OUT);
     }
 }

@@ -13,6 +13,7 @@ import com.az.airzoon.R;
 import com.az.airzoon.adapters.SearchResultListAdapter;
 import com.az.airzoon.dataobjects.AirZoonDo;
 import com.az.airzoon.dialog_screens.HotspotDetailDailog;
+import com.az.airzoon.dialog_screens.NewHotspotDailog;
 import com.az.airzoon.models.AirZoonModel;
 
 import java.util.ArrayList;
@@ -60,7 +61,8 @@ public class SearchResultActivity extends Activity {
         submitAHotspotButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                NewHotspotDailog newHotspotDailog = new NewHotspotDailog(SearchResultActivity.this);
+                newHotspotDailog.showDialog(NewHotspotDailog.ANIM_TYPE_LEFT_IN_RIGHT_OUT);
             }
         });
 

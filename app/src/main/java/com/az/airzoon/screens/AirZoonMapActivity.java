@@ -22,6 +22,7 @@ import com.az.airzoon.dataobjects.AirZoonDo;
 import com.az.airzoon.dialog_screens.AboutUsDialog;
 import com.az.airzoon.dialog_screens.FavoritesDialog;
 import com.az.airzoon.dialog_screens.FilterSettingsDialog;
+import com.az.airzoon.dialog_screens.HotspotDetailDailog;
 import com.az.airzoon.dialog_screens.ProfileDialog;
 import com.az.airzoon.dialog_screens.SearchSpotDialog;
 import com.az.airzoon.models.AirZoonModel;
@@ -65,6 +66,7 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
     private ProgressBar progressBar;
 
     boolean isGuideShown = false;
+    boolean isMenuAnimInProgress = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +125,9 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
     }
 
     private void loadAirZoonShops() {
+        // Clear previous markers
+        mMap.clear();
+
         airZoonDoArrayList = airZoonModel.getFilteredList();
         System.out.println(">>map refresh size" + airZoonDoArrayList.size());
         for (int i = 0; i < airZoonDoArrayList.size(); i++) {
@@ -148,7 +153,8 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
     private void onMarkerInfoWindowClick(Marker marker) {
         int index = Integer.parseInt(marker.getTitle());
         AirZoonDo airZoonDo = airZoonDoArrayList.get(index);
-        Toast.makeText(AirZoonMapActivity.this, airZoonDo.getName(), Toast.LENGTH_SHORT).show();
+        HotspotDetailDailog hotspotDetailDailog = new HotspotDetailDailog(this, airZoonDo);
+        hotspotDetailDailog.showDialog(HotspotDetailDailog.ANIM_TYPE_LEFT_IN_RIGHT_OUT);
     }
 
 
@@ -304,8 +310,10 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
         }, duration);
     }
 
+
     private void openMore() {
         if (!isOpen) {
+            isMenuAnimInProgress = true;
             isOpen = true;
             moreImageView.setImageResource(R.drawable.button2);
             enableButtonBtnClick();
@@ -325,6 +333,7 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
 
                 @Override
                 public void onAnimationEnd(Animation animation) {
+                    isMenuAnimInProgress = false;
                     if (!isGuideShown) {
                         isGuideShown = true;
                         showGuide();
@@ -344,6 +353,7 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
 
     private void closeMore() {
         if (isOpen) {
+            isMenuAnimInProgress = true;
             hideGuide();
             moreImageView.setImageResource(R.drawable.button1);
             isOpen = false;
@@ -355,17 +365,36 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
             performDelayAnim(syncImageView, 50 * 2, false, null, fab_close3);
             Animation fab_close4 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close_b4);
             performDelayAnim(aboutUsImageView, 50 * 3, false, null, fab_close4);
+            fab_close4.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    isMenuAnimInProgress = false;
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
             disableButtonBtnClick();
         }
 
     }
 
     private void moreBtnClick() {
-        if (isOpen) {
-            closeMore();
-        } else {
-            openMore();
+        if (!isMenuAnimInProgress) {
+            if (isOpen) {
+                closeMore();
+            } else {
+                openMore();
+            }
         }
+
     }
 
 
