@@ -8,7 +8,6 @@ import com.google.gson.Gson;
 import org.json.JSONArray;
 
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 /**
  * Created by siddharth on 7/26/2016.
@@ -59,6 +58,16 @@ public class AirZoonModel {
             }
         }
         System.out.println(">>Filtered List size>>" + newList.size());
+        return newList;
+    }
+
+    public ArrayList<AirZoonDo> getFaviorateHotSpotList() {
+        ArrayList<AirZoonDo> newList = new ArrayList<>();
+        for (int i = 0; i < airZoonDoArrayList.size(); i++) {
+            if (airZoonDoArrayList.get(i).isFaviourate()) {
+                newList.add(airZoonDoArrayList.get(i));
+            }
+        }
         return newList;
     }
 

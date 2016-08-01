@@ -94,6 +94,11 @@ public class HotspotDetailDailog extends AbstractBaseDialog {
         hotSpotOpening1TextView.setText(airZoonDo.getOpening_one());
         hotSpotOpening2TextView.setText(airZoonDo.getOpening_two());
         hotSpotCategoryImage.setImageResource(AirZoonModel.getInstance().getHotSpotBigImageResByCat(airZoonDo.getCategory()));
+        if (airZoonDo.isFaviourate()) {
+            faviourateImageView.setImageResource(R.drawable.selectedstar);
+        } else {
+            faviourateImageView.setImageResource(R.drawable.star);
+        }
     }
 
     @Override
@@ -103,7 +108,7 @@ public class HotspotDetailDailog extends AbstractBaseDialog {
                 dismiss();
                 break;
             case R.id.faviourateImageView:
-                dismiss();
+                onFaviourateImageClick();
                 break;
             case R.id.shareImageView:
                 onShareBtnClick();
@@ -118,6 +123,18 @@ public class HotspotDetailDailog extends AbstractBaseDialog {
                 dismiss();
                 onReportAnErrorClick();
                 break;
+        }
+    }
+
+    private void onFaviourateImageClick() {
+        if (!airZoonDo.isFaviourate()) {
+            faviourateImageView.setImageResource(R.drawable.selectedstar);
+            airZoonDo.setFaviourate(true);
+            Toast.makeText(activity, "Added to Favorites", Toast.LENGTH_SHORT).show();
+        } else {
+            faviourateImageView.setImageResource(R.drawable.star);
+            airZoonDo.setFaviourate(false);
+            Toast.makeText(activity, "Removed from Favorites", Toast.LENGTH_SHORT).show();
         }
     }
 

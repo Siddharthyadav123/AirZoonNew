@@ -51,6 +51,8 @@ public class AirZoonDo implements Parcelable {
     private String lat;
     private String is_free;
 
+    private boolean faviourate = false;
+
     public AirZoonDo() {
 
     }
@@ -76,6 +78,8 @@ public class AirZoonDo implements Parcelable {
         fav_count = in.readString();
         lat = in.readString();
         is_free = in.readString();
+        faviourate = in.readByte() != 0;
+
     }
 
     @Override
@@ -100,6 +104,7 @@ public class AirZoonDo implements Parcelable {
         dest.writeString(fav_count);
         dest.writeString(lat);
         dest.writeString(is_free);
+        dest.writeByte((byte) (faviourate ? 1 : 0));
     }
 
     @Override
@@ -118,6 +123,14 @@ public class AirZoonDo implements Parcelable {
             return new AirZoonDo[size];
         }
     };
+
+    public boolean isFaviourate() {
+        return faviourate;
+    }
+
+    public void setFaviourate(boolean faviourate) {
+        this.faviourate = faviourate;
+    }
 
     public String getZip() {
         return zip;

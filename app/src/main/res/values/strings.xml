@@ -122,4 +122,7 @@
     <string name="addAnImageText">Add an image</string>
     <string name="cancelText">Cancel</string>
 
+    <string name="cloudBackupText">Cloud Backup</string>
+    <string name="genderMaleText">Male</string>
+    <string name="genderFeMaleText">Female</string>
 </resources>

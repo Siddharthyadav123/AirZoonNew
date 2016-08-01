@@ -82,7 +82,9 @@ public class ProfileDialog extends AbstractBaseDialog {
     }
 
     private void onEditProfileBtnClick() {
-
+        dismiss();
+        EditProfileDialog editProfileDialog = new EditProfileDialog(activity);
+        editProfileDialog.showDialog(EditProfileDialog.ANIM_TYPE_LEFT_IN_RIGHT_OUT);
     }
 
     private void onTwitterBtnClick() {

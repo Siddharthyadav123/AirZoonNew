@@ -9,6 +9,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.az.airzoon.R;
+import com.az.airzoon.adapters.FavoritesListAdapter;
+import com.az.airzoon.dataobjects.AirZoonDo;
+import com.az.airzoon.models.AirZoonModel;
+
+import java.util.ArrayList;
 
 /**
  * Created by sid on 30/07/2016.
@@ -18,6 +23,7 @@ public class FavoritesDialog extends AbstractBaseDialog {
     private ImageView closeProfileImageView;
     private ListView favoritesListView;
     private Button submitButton;
+    private ArrayList<AirZoonDo> faviourateList = null;
 
     public FavoritesDialog(Context context) {
         super(context);
@@ -42,14 +48,19 @@ public class FavoritesDialog extends AbstractBaseDialog {
         favoritesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                AirZoonDo airZoonDo = faviourateList.get(position);
+                HotspotDetailDailog hotspotDetailDailog = new HotspotDetailDailog(activity, airZoonDo);
+                hotspotDetailDailog.showDialog(HotspotDetailDailog.ANIM_TYPE_LEFT_IN_RIGHT_OUT);
             }
         });
     }
 
+
     @Override
     public void setInfoInUI(View view) {
-
+        faviourateList = AirZoonModel.getInstance().getFaviorateHotSpotList();
+        FavoritesListAdapter favoritesListAdapter = new FavoritesListAdapter(activity, faviourateList);
+        favoritesListView.setAdapter(favoritesListAdapter);
     }
 
     @Override
