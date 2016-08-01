@@ -46,9 +46,9 @@ public class SearchScreenSpinnerAdapter extends BaseAdapter {
     public TextView getView(int position, View convertView, ViewGroup parent) {
         TextView v = new TextView(context);
         v.setTextColor(context.getResources().getColor(R.color.White));
-        v.setTextSize(MyApplication.getInstance().convertDpToPixel(11f, context));
+        v.setTextSize(MyApplication.getInstance().convertDpToPixel(8f, context));
         v.setText(itemList.get(position));
-        int padding = (int) MyApplication.getInstance().convertDpToPixel(7f, context);
+        int padding = (int) MyApplication.getInstance().convertDpToPixel(5f, context);
         v.setPadding(padding, padding, padding, padding);
         return v;
     }

@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.az.airzoon.R;
+import com.az.airzoon.application.MyApplication;
 import com.az.airzoon.dataobjects.AirZoonDo;
 import com.az.airzoon.dialog_screens.AboutUsDialog;
 import com.az.airzoon.dialog_screens.FavoritesDialog;
@@ -26,6 +27,8 @@ import com.az.airzoon.dialog_screens.HotspotDetailDailog;
 import com.az.airzoon.dialog_screens.ProfileDialog;
 import com.az.airzoon.dialog_screens.SearchSpotDialog;
 import com.az.airzoon.models.AirZoonModel;
+import com.az.airzoon.preferences.PrefManager;
+import com.google.android.gms.fitness.data.Application;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -65,6 +68,8 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
     private View loadingBlanckBgView;
     private ProgressBar progressBar;
 
+    private TextView lastSyncTextView;
+
     boolean isGuideShown = false;
     boolean isMenuAnimInProgress = false;
 
@@ -94,6 +99,8 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
         guideText = (TextView) findViewById(R.id.guideText);
         loadingBlanckBgView = findViewById(R.id.loadingBlanckBgView);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+        lastSyncTextView = (TextView) findViewById(R.id.lastSyncTextView);
     }
 
     private void registerEvents() {
@@ -109,6 +116,15 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
 
 
     private void setUI() {
+        //setting last sync time
+        PrefManager prefManager = new PrefManager(this);
+        String syncDate = prefManager.getLstSyncTime();
+        if (syncDate == null) {
+            prefManager.setLastSyncTime(MyApplication.getInstance().getCurrentDate());
+            lastSyncTextView.setText(MyApplication.getInstance().getCurrentDate());
+        } else {
+            lastSyncTextView.setText(syncDate);
+        }
     }
 
     private void setUpMap() {
@@ -462,6 +478,11 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
             loadingBlanckBgView.setVisibility(View.GONE);
             progressBar.setVisibility(View.GONE);
             System.out.println(">>map refresh end");
+
+            //setting last sync time
+            PrefManager prefManager = new PrefManager(AirZoonMapActivity.this);
+            prefManager.setLastSyncTime(MyApplication.getInstance().getCurrentDate());
+            lastSyncTextView.setText(prefManager.getLstSyncTime());
         }
     }
 

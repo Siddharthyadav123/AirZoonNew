@@ -7,6 +7,8 @@ import android.util.DisplayMetrics;
 
 import com.az.airzoon.models.AirZoonModel;
 
+import java.util.Calendar;
+
 /**
  * Created by siddharth on 7/26/2016.
  */
@@ -51,5 +53,54 @@ public class MyApplication extends Application {
         DisplayMetrics metrics = resources.getDisplayMetrics();
         float dp = px / (metrics.densityDpi / 160f);
         return dp;
+    }
+
+    public String getCurrentDate() {
+        String currentDate = "";
+        Calendar c = Calendar.getInstance();
+        int cyear = c.get(Calendar.YEAR);//calender year starts from 1900 so you must add 1900 to the value recevie.i.e., 1990+112 = 2012
+        int cmonth = c.get(Calendar.MONTH);//this is april so you will receive  3 instead of 4.
+        int cday = c.get(Calendar.DAY_OF_MONTH);
+
+        switch (cmonth + 1) {
+            case 1:
+                currentDate = "Jan";
+                break;
+            case 2:
+                currentDate = "Feb";
+                break;
+            case 3:
+                currentDate = "Mar";
+                break;
+            case 4:
+                currentDate = "Apr";
+                break;
+            case 5:
+                currentDate = "May";
+                break;
+            case 6:
+                currentDate = "Jun";
+                break;
+            case 7:
+                currentDate = "Jul";
+                break;
+            case 8:
+                currentDate = "Aug";
+                break;
+            case 9:
+                currentDate = "Sep";
+                break;
+            case 10:
+                currentDate = "Oct";
+                break;
+            case 11:
+                currentDate = "Nov";
+                break;
+            case 12:
+                currentDate = "Dec";
+                break;
+        }
+
+        return "last sync: " + currentDate + " " + currentDate + "/" + cyear;
     }
 }
