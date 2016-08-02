@@ -52,21 +52,39 @@
 
 
         <!--based on office pc-->
-        <!--  <meta-data
-              android:name="com.google.android.geo.API_KEY"
-              android:value="AIzaSyAapBdM9q2-ywcrpmoIP1iPywRXMVKe-2o" />-->
-
-        <!--based on home pc-->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyA60wSYafPFhuz32PBQ7xvmCoBN3sA1sSk" />
+            android:value="AIzaSyAapBdM9q2-ywcrpmoIP1iPywRXMVKe-2o" />
+
+        <!--based on home pc-->
+        <!--       <meta-data
+                   android:name="com.google.android.geo.API_KEY"
+                   android:value="AIzaSyA60wSYafPFhuz32PBQ7xvmCoBN3sA1sSk" />-->
 
 
         <activity
             android:name=".screens.AirZoonMapActivity"
-            android:launchMode="singleInstance"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <!--Facebook-->
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider1234"
+            android:exported="true" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/fb_app_id" />
     </application>
 
 </manifest>

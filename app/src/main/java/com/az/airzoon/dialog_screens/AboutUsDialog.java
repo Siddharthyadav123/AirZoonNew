@@ -2,6 +2,7 @@ package com.az.airzoon.dialog_screens;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -86,8 +87,12 @@ public class AboutUsDialog extends AbstractBaseDialog {
     }
 
     private void onTwitterBtnClick() {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/airZoonWifi"));
+        activity.startActivity(browserIntent);
     }
 
     private void onFbBtnClick() {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/airzoon"));
+        activity.startActivity(browserIntent);
     }
 }

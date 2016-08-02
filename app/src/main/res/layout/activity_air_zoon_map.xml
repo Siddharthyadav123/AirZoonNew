@@ -18,9 +18,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="100dp"
-        android:layout_marginRight="20dp"
-        android:alpha="0.6"
+        android:layout_marginBottom="85dp"
+        android:layout_marginRight="10dp"
+        android:alpha="0.4"
         android:background="@drawable/dailog_shape_black"
         android:gravity="center"
         android:paddingBottom="5dp"
@@ -29,7 +29,7 @@
         android:paddingTop="5dp"
         android:text="last sync:"
         android:textColor="@color/White"
-        android:textSize="16dp" />
+        android:textSize="15dp" />
 
     <LinearLayout
         android:layout_width="137dp"

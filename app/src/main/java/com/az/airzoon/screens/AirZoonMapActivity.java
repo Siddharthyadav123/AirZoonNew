@@ -1,7 +1,10 @@
 package com.az.airzoon.screens;
 
 import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -9,13 +12,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.util.Base64;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.az.airzoon.R;
 import com.az.airzoon.application.MyApplication;
@@ -28,7 +31,11 @@ import com.az.airzoon.dialog_screens.ProfileDialog;
 import com.az.airzoon.dialog_screens.SearchSpotDialog;
 import com.az.airzoon.models.AirZoonModel;
 import com.az.airzoon.preferences.PrefManager;
-import com.google.android.gms.fitness.data.Application;
+import com.az.airzoon.social_integration.FaceBookModel;
+import com.az.airzoon.social_integration.FbLoginInterface;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -38,7 +45,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCallback, View.OnClickListener {
 
@@ -70,18 +80,39 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
 
     private TextView lastSyncTextView;
 
-    boolean isGuideShown = false;
     boolean isMenuAnimInProgress = false;
+
+    private PrefManager prefManager = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         airZoonModel = AirZoonModel.getInstance();
+        prefManager = new PrefManager(this);
         setContentView(R.layout.activity_air_zoon_map);
         setUpMap();
         initViews();
         registerEvents();
         setUI();
+        getSHAKeyForFaceBook();
+    }
+
+    private void getSHAKeyForFaceBook() {
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(
+                    "com.az.airzoon",
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+//                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+                System.out.println(">>> Key " + Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+
+        } catch (NoSuchAlgorithmException e) {
+
+        }
     }
 
 
@@ -179,6 +210,17 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
             snippetView = AirZoonMapActivity.this.getLayoutInflater().inflate(R.layout.marker_snippet_view, null);
         }
         return snippetView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
     }
 
 
@@ -350,8 +392,8 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
                 @Override
                 public void onAnimationEnd(Animation animation) {
                     isMenuAnimInProgress = false;
-                    if (!isGuideShown) {
-                        isGuideShown = true;
+                    if (!prefManager.isMoreInfoShown()) {
+                        prefManager.setMoreInfoShown(true);
                         showGuide();
                     }
 
@@ -480,11 +522,27 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
             System.out.println(">>map refresh end");
 
             //setting last sync time
-            PrefManager prefManager = new PrefManager(AirZoonMapActivity.this);
             prefManager.setLastSyncTime(MyApplication.getInstance().getCurrentDate());
             lastSyncTextView.setText(prefManager.getLstSyncTime());
         }
     }
 
 
+    //fb code
+    private CallbackManager fbCallbackManager = null;
+    private FaceBookModel faceBookModel = null;
+
+    public void requestFBLogin(FbLoginInterface fbLoginInterface) {
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        fbCallbackManager = CallbackManager.Factory.create();
+        faceBookModel = new FaceBookModel(this, fbLoginInterface);
+        LoginManager.getInstance().registerCallback(fbCallbackManager, faceBookModel);
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email", "user_status", "user_birthday"));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        fbCallbackManager.onActivityResult(requestCode, resultCode, data);
+    }
 }

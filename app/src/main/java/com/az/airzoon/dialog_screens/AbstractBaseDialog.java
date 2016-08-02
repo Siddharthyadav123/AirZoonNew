@@ -2,6 +2,7 @@ package com.az.airzoon.dialog_screens;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ public abstract class AbstractBaseDialog extends Dialog implements View.OnClickL
     protected Activity activity;
     private View view = null;
     private LayoutInflater layoutInflater;
+    private ProgressDialog progressDialog;
 
 
     public AbstractBaseDialog(Context context) {
@@ -79,5 +81,17 @@ public abstract class AbstractBaseDialog extends Dialog implements View.OnClickL
     public void onClick(View view) {
         onClickEvent(view);
     }
+
+
+    public void showPogress(String titleText, String bodyText) {
+        progressDialog = ProgressDialog.show(activity, titleText, bodyText, true);
+    }
+
+    public void hideProgressLoading() {
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
+    }
+
 
 }

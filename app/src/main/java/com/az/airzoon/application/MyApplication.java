@@ -3,6 +3,7 @@ package com.az.airzoon.application;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
+import android.support.multidex.MultiDex;
 import android.util.DisplayMetrics;
 
 import com.az.airzoon.models.AirZoonModel;
@@ -23,8 +24,15 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         myApplication = this;
+        MultiDex.install(this);
         //loading static shops list intially
         AirZoonModel.getInstance().loadStaticHotSpots();
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 
     /**
@@ -101,6 +109,6 @@ public class MyApplication extends Application {
                 break;
         }
 
-        return "last sync: " + currentDate + " " + currentDate + "/" + cyear;
+        return "last sync: " + currentDate + ", " + cday + "/" + cyear;
     }
 }

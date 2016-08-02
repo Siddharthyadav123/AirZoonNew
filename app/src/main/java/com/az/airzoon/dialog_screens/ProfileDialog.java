@@ -9,11 +9,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.az.airzoon.R;
+import com.az.airzoon.dataobjects.UserProfileDO;
+import com.az.airzoon.screens.AirZoonMapActivity;
+import com.az.airzoon.social_integration.FbLoginInterface;
+import com.bumptech.glide.Glide;
 
 /**
  * Created by sid on 26/07/2016.
  */
-public class ProfileDialog extends AbstractBaseDialog {
+public class ProfileDialog extends AbstractBaseDialog implements FbLoginInterface {
 
     private ImageView userDPImageView;
     private ImageView fbOnOffImageView;
@@ -126,11 +130,37 @@ public class ProfileDialog extends AbstractBaseDialog {
     }
 
     private void requestFbLogin() {
-        Toast.makeText(activity, "Fb login", Toast.LENGTH_SHORT).show();
+        showPogress(activity.getString(R.string.facebookText), "Please wait...");
+        ((AirZoonMapActivity) activity).requestFBLogin(this);
     }
 
     private void requestTwitterLogin() {
         Toast.makeText(activity, "Tw login", Toast.LENGTH_SHORT).show();
+    }
+
+
+    @Override
+    public void onFbLoginSuccess(UserProfileDO facebookDO) {
+        Toast.makeText(activity, "Login success " + facebookDO.getName(), Toast.LENGTH_SHORT).show();
+        hideProgressLoading();
+        userNameTextView.setText(facebookDO.getName());
+
+        //load and set image
+        String imageURL = facebookDO.getUrl();
+        if (imageURL != null) {
+            Glide.with(activity).load(imageURL).placeholder(R.drawable.profile_default).crossFade().into(userDPImageView);
+        }
+    }
+
+    @Override
+    public void onFbLoginFailure(String error) {
+        Toast.makeText(activity, "Login fail " + error, Toast.LENGTH_SHORT).show();
+        hideProgressLoading();
+    }
+
+    @Override
+    public void onFbLoginCancel() {
+        hideProgressLoading();
     }
 
 
