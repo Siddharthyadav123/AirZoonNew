@@ -85,6 +85,7 @@
     <string name="enterEmailHintText">Enter email address</string>
     <string name="writeYourCommentHintText">Write your comment</string>
     <string name="submitText">Submit</string>
+    <string name="saveText">Save</string>
 
     <!--Feedback-->
     <string name="favoritesText">Favorites</string>
@@ -126,4 +127,6 @@
     <string name="cloudBackupText">Cloud Backup</string>
     <string name="genderMaleText">Male</string>
     <string name="genderFeMaleText">Female</string>
+
+    <string name="connectedText">Connected</string>
 </resources>

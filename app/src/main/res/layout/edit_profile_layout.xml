@@ -378,7 +378,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:background="@drawable/green_btn_drawable"
-                        android:text="@string/submitText"
+                        android:text="@string/saveText"
                         android:textColor="@color/Green"
                         android:textSize="19dp" />
                 </LinearLayout>

@@ -8,9 +8,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.az.airzoon.R;
 import com.az.airzoon.adapters.SearchScreenSpinnerAdapter;
+import com.az.airzoon.constants.Constants;
 
 import java.util.ArrayList;
 
@@ -74,10 +76,11 @@ public class EditProfileDialog extends AbstractBaseDialog {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dismiss();
+                onSaveBtnclick();
             }
         });
     }
+
 
     @Override
     public void setInfoInUI(View view) {
@@ -86,6 +89,37 @@ public class EditProfileDialog extends AbstractBaseDialog {
         itemList.add(activity.getString(R.string.genderFeMaleText));
         SearchScreenSpinnerAdapter searchScreenSpinnerAdapter = new SearchScreenSpinnerAdapter(activity, itemList);
         genderSpinner.setAdapter(searchScreenSpinnerAdapter);
+
+        nameEditText.setText(userProfileDO.getName());
+        if (userProfileDO.getLoginType().equalsIgnoreCase(Constants.LOGIN_TYPE_FB)) {
+            fbText.setText(activity.getString(R.string.connectedText));
+        } else {
+            twText.setText(activity.getString(R.string.connectedText));
+        }
+        emailEditText.setText(userProfileDO.getEmail());
+        phoneNumEditText.setText(userProfileDO.getPhoneNum());
+
+        if (userProfileDO.getGender() != null && userProfileDO.getGender().length() > 0) {
+            if (userProfileDO.getGender().equalsIgnoreCase("m") || userProfileDO.getGender().equalsIgnoreCase("male")) {
+                genderSpinner.setSelection(0);
+            } else {
+                genderSpinner.setSelection(1);
+            }
+        }
+        loadProfileImage(userDPImageView);
+    }
+
+    private void onSaveBtnclick() {
+        userProfileDO.setName(nameEditText.getText().toString());
+        userProfileDO.setEmail(emailEditText.getText().toString());
+        userProfileDO.setPhoneNum(phoneNumEditText.getText().toString());
+        if (genderSpinner.getSelectedItemPosition() == 0)
+            userProfileDO.setGender("male");
+        else
+            userProfileDO.setGender("female");
+        userProfileDO.saveProfile(userProfileDO.getLoginType());
+
+        Toast.makeText(activity, "Saved successfully", Toast.LENGTH_SHORT).show();
     }
 
     @Override

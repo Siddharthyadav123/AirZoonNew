@@ -6,6 +6,8 @@ package com.az.airzoon.constants;
  */
 public class Constants {
 
+    public static final String LOGIN_TYPE_FB = "fb_login";
+    public static final String LOGIN_TYPE_TWITTER = "twitter_login";
 
     public static final String HOTSPOT_TYPE_AIRZOON = "airzoon";
     public static final String HOTSPOT_TYPE_PAID = "paid";

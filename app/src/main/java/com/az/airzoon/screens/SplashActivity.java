@@ -31,7 +31,7 @@ public class SplashActivity extends AppCompatActivity {
     private void decideToLaunchNextScreen() {
         finish();
         PrefManager prefManager = new PrefManager(this);
-        if (prefManager.isFirstTimeLaunch()) {
+        if (!prefManager.isFirstTimeAlreadyLaunched()) {
             prefManager.setFirstTimeLaunch(true);
             Intent i = new Intent(this, TutorialActivity.class);
             startActivity(i);

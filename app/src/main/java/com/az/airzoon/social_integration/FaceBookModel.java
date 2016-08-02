@@ -3,6 +3,8 @@ package com.az.airzoon.social_integration;
 import android.content.Context;
 import android.os.Bundle;
 
+import com.az.airzoon.application.MyApplication;
+import com.az.airzoon.constants.Constants;
 import com.az.airzoon.dataobjects.UserProfileDO;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -56,11 +58,12 @@ public class FaceBookModel implements FacebookCallback<LoginResult> {
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
                         try {
-                            UserProfileDO facebookDO = new UserProfileDO();
-                            facebookDO.parseJsonDataForFacebook(object);
-
+                            UserProfileDO userProfileDO = MyApplication.getInstance().getUserProfileDO();
+                            userProfileDO.destroyProfile();
+                            userProfileDO.parseJsonDataForFacebook(object);
+                            userProfileDO.saveProfile(Constants.LOGIN_TYPE_FB);
                             if (fbLoginInterface != null)
-                                fbLoginInterface.onFbLoginSuccess(facebookDO);
+                                fbLoginInterface.onFbLoginSuccess(userProfileDO);
 
 
                         } catch (Exception e) {

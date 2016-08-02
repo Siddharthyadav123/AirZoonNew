@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.support.multidex.MultiDex;
 import android.util.DisplayMetrics;
 
+import com.az.airzoon.dataobjects.UserProfileDO;
 import com.az.airzoon.models.AirZoonModel;
 
 import java.util.Calendar;
@@ -15,6 +16,8 @@ import java.util.Calendar;
  */
 public class MyApplication extends Application {
     public static MyApplication myApplication = null;
+
+    public UserProfileDO userProfileDO;
 
     public static MyApplication getInstance() {
         return myApplication;
@@ -27,6 +30,10 @@ public class MyApplication extends Application {
         MultiDex.install(this);
         //loading static shops list intially
         AirZoonModel.getInstance().loadStaticHotSpots();
+
+        //load user profile
+        userProfileDO = new UserProfileDO(this);
+        userProfileDO.loadProfile();
     }
 
     @Override
@@ -110,5 +117,9 @@ public class MyApplication extends Application {
         }
 
         return "last sync: " + currentDate + ", " + cday + "/" + cyear;
+    }
+
+    public UserProfileDO getUserProfileDO() {
+        return userProfileDO;
     }
 }

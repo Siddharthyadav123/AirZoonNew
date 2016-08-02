@@ -45,7 +45,7 @@ public class PrefManager {
         editor.commit();
     }
 
-    public boolean isFirstTimeLaunch() {
+    public boolean isFirstTimeAlreadyLaunched() {
         return pref.getBoolean(KEY_FIRST_TIME_LAUNCH, false);
     }
 
@@ -57,4 +57,11 @@ public class PrefManager {
         return pref.getString(KEY_LAST_SYNC_TIME, null);
     }
 
+    public SharedPreferences getPref() {
+        return pref;
+    }
+
+    public SharedPreferences.Editor getEditor() {
+        return editor;
+    }
 }

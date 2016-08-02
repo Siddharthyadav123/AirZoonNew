@@ -1,5 +1,9 @@
 package com.az.airzoon.dataobjects;
 
+import android.content.Context;
+
+import com.az.airzoon.preferences.PrefManager;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -8,15 +12,31 @@ import org.json.JSONObject;
  */
 
 public class UserProfileDO {
+
+    private final String KEY_ID = "key_id";
+    private final String KEY_BIRTHDAY = "key_birth";
+    private final String KEY_GENDER = "key_gender";
+    private final String KEY_NAME = "key_name";
+    private final String KEY_EMAIL = "key_email";
+    private final String KEY_URL = "key_url";
+    private final String KEY_PH_NO = "kye_ph_no";
+    private final String KEY_LOGIN_TYPE = "key_login_type";
+
     private String id;
     private String birthday;
     private String gender;
     private String name;
     private String email;
     private String url;
+    private String phoneNum;
+    private String loginType;
 
-    public UserProfileDO() {
+    private Context context;
+    private PrefManager prefManager;
 
+    public UserProfileDO(Context context) {
+        this.context = context;
+        prefManager = new PrefManager(context);
     }
 
 
@@ -66,6 +86,22 @@ public class UserProfileDO {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getPhoneNum() {
+        return phoneNum;
+    }
+
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
+    }
+
+    public String getLoginType() {
+        return loginType;
+    }
+
+    public void setLoginType(String loginType) {
+        this.loginType = loginType;
     }
 
     public void parseJsonDataForFacebook(JSONObject object) {
@@ -124,6 +160,60 @@ public class UserProfileDO {
                 e.printStackTrace();
             }
         }
+    }
+
+
+    public void loadProfile() {
+        setLoginType(prefManager.getPref().getString(KEY_LOGIN_TYPE, ""));
+        setId(prefManager.getPref().getString(KEY_ID, ""));
+        setBirthday(prefManager.getPref().getString(KEY_BIRTHDAY, ""));
+        setGender(prefManager.getPref().getString(KEY_GENDER, ""));
+        setName(prefManager.getPref().getString(KEY_NAME, ""));
+        setEmail(prefManager.getPref().getString(KEY_EMAIL, ""));
+        setUrl(prefManager.getPref().getString(KEY_URL, ""));
+        setPhoneNum(prefManager.getPref().getString(KEY_PH_NO, ""));
+    }
+
+    public void saveProfile(String loginType) {
+        this.loginType = loginType;
+        prefManager.getEditor().putString(KEY_LOGIN_TYPE, loginType);
+        prefManager.getEditor().putString(KEY_ID, id);
+        prefManager.getEditor().putString(KEY_BIRTHDAY, birthday);
+        prefManager.getEditor().putString(KEY_GENDER, gender);
+        prefManager.getEditor().putString(KEY_NAME, name);
+        prefManager.getEditor().putString(KEY_EMAIL, email);
+        prefManager.getEditor().putString(KEY_URL, url);
+        prefManager.getEditor().putString(KEY_PH_NO, phoneNum);
+        prefManager.getEditor().commit();
+    }
+
+    public void destroyProfile() {
+        setLoginType(null);
+        setId(null);
+        setBirthday(null);
+        setGender(null);
+        setName(null);
+        setEmail(null);
+        setUrl(null);
+        setPhoneNum(null);
+
+        prefManager.getEditor().putString(KEY_LOGIN_TYPE, loginType);
+        prefManager.getEditor().putString(KEY_ID, id);
+        prefManager.getEditor().putString(KEY_BIRTHDAY, birthday);
+        prefManager.getEditor().putString(KEY_GENDER, gender);
+        prefManager.getEditor().putString(KEY_NAME, name);
+        prefManager.getEditor().putString(KEY_EMAIL, email);
+        prefManager.getEditor().putString(KEY_URL, url);
+        prefManager.getEditor().putString(KEY_PH_NO, phoneNum);
+        prefManager.getEditor().commit();
+    }
+
+    public boolean isLoggedInAlrady() {
+        String userType = prefManager.getPref().getString(KEY_LOGIN_TYPE, "");
+        if (userType != null && userType.trim().length() > 0) {
+            return true;
+        }
+        return false;
     }
 
 }

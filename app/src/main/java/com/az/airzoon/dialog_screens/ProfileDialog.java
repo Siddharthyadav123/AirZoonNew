@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.az.airzoon.R;
+import com.az.airzoon.constants.Constants;
 import com.az.airzoon.dataobjects.UserProfileDO;
 import com.az.airzoon.screens.AirZoonMapActivity;
 import com.az.airzoon.social_integration.FbLoginInterface;
@@ -25,7 +26,7 @@ public class ProfileDialog extends AbstractBaseDialog implements FbLoginInterfac
     private ImageView closeProfileImageView;
 
     private TextView userNameTextView;
-    private TextView userProfileTextView;
+    private TextView userAddressTextView;
     private TextView phoneNumTextView;
 
     private Button editProfileButton;
@@ -50,7 +51,7 @@ public class ProfileDialog extends AbstractBaseDialog implements FbLoginInterfac
         closeProfileImageView = (ImageView) view.findViewById(R.id.closeProfileImageView);
 
         userNameTextView = (TextView) view.findViewById(R.id.userNameTextView);
-        userProfileTextView = (TextView) view.findViewById(R.id.userProfileTextView);
+        userAddressTextView = (TextView) view.findViewById(R.id.userAddressTextView);
         phoneNumTextView = (TextView) view.findViewById(R.id.phoneNumTextView);
         editProfileButton = (Button) view.findViewById(R.id.editProfileButton);
     }
@@ -65,6 +66,14 @@ public class ProfileDialog extends AbstractBaseDialog implements FbLoginInterfac
 
     @Override
     public void setInfoInUI(View view) {
+        if (userProfileDO.isLoggedInAlrady()) {
+            if (userProfileDO.getLoginType().equalsIgnoreCase(Constants.LOGIN_TYPE_FB)) {
+                setFbBtnStateOn();
+                setProfileUI();
+            } else if (userProfileDO.getLoginType().equalsIgnoreCase(Constants.LOGIN_TYPE_TWITTER)) {
+
+            }
+        }
     }
 
     @Override
@@ -86,47 +95,79 @@ public class ProfileDialog extends AbstractBaseDialog implements FbLoginInterfac
     }
 
     private void onEditProfileBtnClick() {
-        dismiss();
-        EditProfileDialog editProfileDialog = new EditProfileDialog(activity);
-        editProfileDialog.showDialog(EditProfileDialog.ANIM_TYPE_LEFT_IN_RIGHT_OUT);
+        if (userProfileDO.isLoggedInAlrady()) {
+            dismiss();
+            EditProfileDialog editProfileDialog = new EditProfileDialog(activity);
+            editProfileDialog.showDialog(EditProfileDialog.ANIM_TYPE_LEFT_IN_RIGHT_OUT);
+        } else {
+            Toast.makeText(activity, "Please login from FB or Twitter first", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     private void onTwitterBtnClick() {
         if (isTwitterOn) {
-            isTwitterOn = false;
-            fbOnOffImageView.setEnabled(true);
-            fbOnOffImageView.setAlpha(1f);
-            twOnOffImageView.setImageResource(R.drawable.swich_off);
+            setTwitterBtnStateOFF();
             logout();
         } else {
-            isTwitterOn = true;
-            fbOnOffImageView.setEnabled(false);
-            fbOnOffImageView.setAlpha(0.9f);
-            twOnOffImageView.setImageResource(R.drawable.switch_on);
+            setTwitterBtnStateOn();
             requestTwitterLogin();
         }
     }
 
+    private void setTwitterBtnStateOn() {
+        isTwitterOn = true;
+        fbOnOffImageView.setEnabled(false);
+        fbOnOffImageView.setAlpha(0.9f);
+        twOnOffImageView.setImageResource(R.drawable.switch_on);
+    }
+
+    private void setTwitterBtnStateOFF() {
+        isTwitterOn = false;
+        fbOnOffImageView.setEnabled(true);
+        fbOnOffImageView.setAlpha(1f);
+        twOnOffImageView.setImageResource(R.drawable.swich_off);
+    }
+
+
+    private void setFbBtnStateOn() {
+        isFbOn = true;
+        twOnOffImageView.setEnabled(false);
+        twOnOffImageView.setAlpha(0.9f);
+        fbOnOffImageView.setImageResource(R.drawable.switch_on);
+    }
+
+    private void setFbBtnStateOFF() {
+        isFbOn = false;
+        twOnOffImageView.setEnabled(true);
+        twOnOffImageView.setAlpha(1f);
+        fbOnOffImageView.setImageResource(R.drawable.swich_off);
+    }
 
     private void onFbBtnClick() {
         if (isFbOn) {
-            isFbOn = false;
-            twOnOffImageView.setEnabled(true);
-            twOnOffImageView.setAlpha(1f);
-            fbOnOffImageView.setImageResource(R.drawable.swich_off);
+            setFbBtnStateOFF();
             logout();
         } else {
-            isFbOn = true;
-            twOnOffImageView.setEnabled(false);
-            twOnOffImageView.setAlpha(0.9f);
-            fbOnOffImageView.setImageResource(R.drawable.switch_on);
+            setFbBtnStateOn();
             requestFbLogin();
         }
 
     }
 
     private void logout() {
-        Toast.makeText(activity, "logout", Toast.LENGTH_SHORT).show();
+        Toast.makeText(activity, "logout Successful", Toast.LENGTH_SHORT).show();
+        if (userProfileDO != null)
+            userProfileDO.destroyProfile();
+        resetProfile();
+    }
+
+    private void resetProfile() {
+        userDPImageView.setImageResource(R.drawable.profile_default);
+        userNameTextView.setText(activity.getString(R.string.noNameText));
+        userAddressTextView.setText(activity.getString(R.string.noEmailAddressText));
+        phoneNumTextView.setText(activity.getString(R.string.noPhoneNumText));
+
     }
 
     private void requestFbLogin() {
@@ -141,16 +182,31 @@ public class ProfileDialog extends AbstractBaseDialog implements FbLoginInterfac
 
     @Override
     public void onFbLoginSuccess(UserProfileDO facebookDO) {
-        Toast.makeText(activity, "Login success " + facebookDO.getName(), Toast.LENGTH_SHORT).show();
         hideProgressLoading();
-        userNameTextView.setText(facebookDO.getName());
-
-        //load and set image
-        String imageURL = facebookDO.getUrl();
-        if (imageURL != null) {
-            Glide.with(activity).load(imageURL).placeholder(R.drawable.profile_default).crossFade().into(userDPImageView);
-        }
+        this.userProfileDO = facebookDO;
+        Toast.makeText(activity, "Login success " + facebookDO.getName(), Toast.LENGTH_SHORT).show();
+        setProfileUI();
+        setFbBtnStateOn();
     }
+
+    private void setProfileUI() {
+        loadProfileImage(userDPImageView);
+        userNameTextView.setText(userProfileDO.getName());
+
+        if (userProfileDO.getEmail() != null && userProfileDO.getEmail().length() > 0) {
+            userAddressTextView.setText(userProfileDO.getEmail());
+        } else {
+            userAddressTextView.setText(activity.getString(R.string.noEmailAddressText));
+        }
+
+        if (userProfileDO.getPhoneNum() != null && userProfileDO.getPhoneNum().length() > 0) {
+            phoneNumTextView.setText(userProfileDO.getPhoneNum());
+        } else {
+            phoneNumTextView.setText(activity.getString(R.string.noPhoneNumText));
+        }
+
+    }
+
 
     @Override
     public void onFbLoginFailure(String error) {
