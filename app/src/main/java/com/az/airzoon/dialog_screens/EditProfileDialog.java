@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ public class EditProfileDialog extends AbstractBaseDialog {
     private TextView cloudeBackupTextView;
     private Button cancelButton;
     private Button submitButton;
+    private ProgressBar progressBar;
 
 
     public EditProfileDialog(Context context) {
@@ -56,7 +58,7 @@ public class EditProfileDialog extends AbstractBaseDialog {
         cloudeBackupTextView = (TextView) view.findViewById(R.id.cloudeBackupTextView);
         cancelButton = (Button) view.findViewById(R.id.cancelButton);
         submitButton = (Button) view.findViewById(R.id.submitButton);
-
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
     }
 
     @Override
@@ -106,7 +108,7 @@ public class EditProfileDialog extends AbstractBaseDialog {
                 genderSpinner.setSelection(1);
             }
         }
-        loadProfileImage(userDPImageView);
+        loadProfileImage(userDPImageView, progressBar);
     }
 
     private void onSaveBtnclick() {

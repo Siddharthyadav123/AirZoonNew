@@ -3,9 +3,12 @@ package com.az.airzoon.dataobjects;
 import android.content.Context;
 
 import com.az.airzoon.preferences.PrefManager;
+import com.az.airzoon.social_integration.ProfilePicLoader;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.io.File;
 
 /**
  * Created by sid on 7/26/2016.
@@ -206,6 +209,23 @@ public class UserProfileDO {
         prefManager.getEditor().putString(KEY_URL, url);
         prefManager.getEditor().putString(KEY_PH_NO, phoneNum);
         prefManager.getEditor().commit();
+
+        deleteProfilePic();
+    }
+
+    private void deleteProfilePic() {
+        try {
+            File myDir = new File(ProfilePicLoader.IMAGE_AIRZOON_FOLDER);
+            if (myDir.exists()) {
+                String[] myFiles = myDir.list();
+                for (int i = 0; i < myFiles.length; i++) {
+                    File myFile = new File(myDir, myFiles[i]);
+                    myFile.delete();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean isLoggedInAlrady() {

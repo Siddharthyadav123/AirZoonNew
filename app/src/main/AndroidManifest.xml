@@ -52,14 +52,14 @@
 
 
         <!--based on office pc-->
-        <!--<meta-data-->
-        <!--android:name="com.google.android.geo.API_KEY"-->
-        <!--android:value="AIzaSyAapBdM9q2-ywcrpmoIP1iPywRXMVKe-2o" />-->
-
-        <!--based on home pc-->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyA60wSYafPFhuz32PBQ7xvmCoBN3sA1sSk" />
+            android:value="AIzaSyAapBdM9q2-ywcrpmoIP1iPywRXMVKe-2o" />
+
+        <!--based on home pc-->
+        <!--   <meta-data
+               android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyA60wSYafPFhuz32PBQ7xvmCoBN3sA1sSk" />-->
 
 
         <activity

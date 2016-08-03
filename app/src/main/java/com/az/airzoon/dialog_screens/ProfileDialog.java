@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,7 +14,6 @@ import com.az.airzoon.constants.Constants;
 import com.az.airzoon.dataobjects.UserProfileDO;
 import com.az.airzoon.screens.AirZoonMapActivity;
 import com.az.airzoon.social_integration.FbLoginInterface;
-import com.bumptech.glide.Glide;
 
 /**
  * Created by sid on 26/07/2016.
@@ -30,6 +30,7 @@ public class ProfileDialog extends AbstractBaseDialog implements FbLoginInterfac
     private TextView phoneNumTextView;
 
     private Button editProfileButton;
+    private ProgressBar progressBar;
 
     boolean isFbOn = false;
     boolean isTwitterOn = false;
@@ -54,6 +55,7 @@ public class ProfileDialog extends AbstractBaseDialog implements FbLoginInterfac
         userAddressTextView = (TextView) view.findViewById(R.id.userAddressTextView);
         phoneNumTextView = (TextView) view.findViewById(R.id.phoneNumTextView);
         editProfileButton = (Button) view.findViewById(R.id.editProfileButton);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
     }
 
     @Override
@@ -190,7 +192,7 @@ public class ProfileDialog extends AbstractBaseDialog implements FbLoginInterfac
     }
 
     private void setProfileUI() {
-        loadProfileImage(userDPImageView);
+        loadProfileImage(userDPImageView, progressBar);
         userNameTextView.setText(userProfileDO.getName());
 
         if (userProfileDO.getEmail() != null && userProfileDO.getEmail().length() > 0) {

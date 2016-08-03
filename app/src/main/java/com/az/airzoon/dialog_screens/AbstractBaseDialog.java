@@ -1,7 +1,6 @@
 package com.az.airzoon.dialog_screens;
 
 import android.app.Activity;
-import android.app.Application;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -11,11 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.az.airzoon.R;
 import com.az.airzoon.application.MyApplication;
 import com.az.airzoon.dataobjects.UserProfileDO;
-import com.bumptech.glide.Glide;
+import com.az.airzoon.social_integration.ProfilePicLoader;
 
 /**
  * Created by sid on 26/07/2016.
@@ -100,12 +100,9 @@ public abstract class AbstractBaseDialog extends Dialog implements View.OnClickL
         }
     }
 
-    protected void loadProfileImage(ImageView imageView) {
-        //load and set image
-        String imageURL = userProfileDO.getUrl();
-        if (imageURL != null) {
-            Glide.with(activity).load(imageURL).placeholder(R.drawable.profile_default).crossFade().into(imageView);
-        }
+    protected void loadProfileImage(ImageView imageView, ProgressBar progressBar) {
+        ProfilePicLoader profilePicLoader = new ProfilePicLoader(activity, userProfileDO);
+        profilePicLoader.downloadProfilePic(imageView, progressBar);
     }
 
 

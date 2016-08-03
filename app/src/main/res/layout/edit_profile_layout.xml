@@ -396,6 +396,14 @@
             android:layout_centerHorizontal="true"
             android:src="@drawable/profile_default" />
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:visibility="gone" />
+
 
     </RelativeLayout>
 
