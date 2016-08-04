@@ -3,6 +3,8 @@ package com.az.airzoon.application;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.multidex.MultiDex;
 import android.util.DisplayMetrics;
 
@@ -121,5 +123,22 @@ public class MyApplication extends Application {
 
     public UserProfileDO getUserProfileDO() {
         return userProfileDO;
+    }
+
+    /**
+     * Checking for all possible internet providers
+     **/
+    public boolean isConnectingToInternet() {
+        ConnectivityManager connectivity = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivity != null) {
+            NetworkInfo[] info = connectivity.getAllNetworkInfo();
+            if (info != null)
+                for (int i = 0; i < info.length; i++)
+                    if (info[i].getState() == NetworkInfo.State.CONNECTED) {
+                        return true;
+                    }
+
+        }
+        return false;
     }
 }

@@ -61,6 +61,10 @@
                android:name="com.google.android.geo.API_KEY"
                android:value="AIzaSyA60wSYafPFhuz32PBQ7xvmCoBN3sA1sSk" />-->
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="26a5ffd621b6b7f32cd78986d6e0dca91d776fb1" />
+
 
         <activity
             android:name=".screens.AirZoonMapActivity"

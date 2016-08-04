@@ -32,7 +32,8 @@ import com.az.airzoon.dialog_screens.SearchSpotDialog;
 import com.az.airzoon.models.AirZoonModel;
 import com.az.airzoon.preferences.PrefManager;
 import com.az.airzoon.social_integration.FaceBookModel;
-import com.az.airzoon.social_integration.FbLoginInterface;
+import com.az.airzoon.social_integration.SocialLoginInterface;
+import com.az.airzoon.social_integration.TwitterModel;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
@@ -44,11 +45,15 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import io.fabric.sdk.android.Fabric;
 
 public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCallback, View.OnClickListener {
 
@@ -528,21 +533,48 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
     }
 
 
-    //fb code
+    /**
+     * --------------------FB code------------
+     */
     private CallbackManager fbCallbackManager = null;
     private FaceBookModel faceBookModel = null;
 
-    public void requestFBLogin(FbLoginInterface fbLoginInterface) {
+    public void requestFBLogin(SocialLoginInterface socialLoginInterface) {
         FacebookSdk.sdkInitialize(getApplicationContext());
         fbCallbackManager = CallbackManager.Factory.create();
-        faceBookModel = new FaceBookModel(this, fbLoginInterface);
+        faceBookModel = new FaceBookModel(this, socialLoginInterface);
         LoginManager.getInstance().registerCallback(fbCallbackManager, faceBookModel);
         LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email", "user_status", "user_birthday"));
+    }
+
+
+    /**
+     * --------------------Twitter code------------
+     */
+    private TwitterLoginButton twitLoginButton;
+    private static final String TWITTER_KEY = "89iwWGduJYZ4s1cfUPEx85g8U";
+    private static final String TWITTER_SECRET = "ymO6YbndVdQVsUatEUcmUPDTxbxHC3VoKv9mmMA2nQOmHLQjjH\n";
+
+    public void requestTwitterLogin(SocialLoginInterface socialLoginInterface) {
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+        Fabric.with(this, new com.twitter.sdk.android.Twitter(authConfig));
+        twitLoginButton = new TwitterLoginButton(this);
+        twitLoginButton.setVisibility(View.GONE);
+        TwitterModel twitterModel = new TwitterModel(this, socialLoginInterface);
+        twitLoginButton.setCallback(twitterModel);
+        twitLoginButton.performClick();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        fbCallbackManager.onActivityResult(requestCode, resultCode, data);
+
+        if (fbCallbackManager != null) {
+            fbCallbackManager.onActivityResult(requestCode, resultCode, data);
+        }
+
+        if (twitLoginButton != null) {
+            twitLoginButton.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }

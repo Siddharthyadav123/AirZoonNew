@@ -13,12 +13,12 @@ import com.az.airzoon.R;
 import com.az.airzoon.constants.Constants;
 import com.az.airzoon.dataobjects.UserProfileDO;
 import com.az.airzoon.screens.AirZoonMapActivity;
-import com.az.airzoon.social_integration.FbLoginInterface;
+import com.az.airzoon.social_integration.SocialLoginInterface;
 
 /**
  * Created by sid on 26/07/2016.
  */
-public class ProfileDialog extends AbstractBaseDialog implements FbLoginInterface {
+public class ProfileDialog extends AbstractBaseDialog implements SocialLoginInterface {
 
     private ImageView userDPImageView;
     private ImageView fbOnOffImageView;
@@ -34,6 +34,7 @@ public class ProfileDialog extends AbstractBaseDialog implements FbLoginInterfac
 
     boolean isFbOn = false;
     boolean isTwitterOn = false;
+
 
     public ProfileDialog(Context context) {
         super(context);
@@ -56,6 +57,7 @@ public class ProfileDialog extends AbstractBaseDialog implements FbLoginInterfac
         phoneNumTextView = (TextView) view.findViewById(R.id.phoneNumTextView);
         editProfileButton = (Button) view.findViewById(R.id.editProfileButton);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+
     }
 
     @Override
@@ -71,10 +73,10 @@ public class ProfileDialog extends AbstractBaseDialog implements FbLoginInterfac
         if (userProfileDO.isLoggedInAlrady()) {
             if (userProfileDO.getLoginType().equalsIgnoreCase(Constants.LOGIN_TYPE_FB)) {
                 setFbBtnStateOn();
-                setProfileUI();
             } else if (userProfileDO.getLoginType().equalsIgnoreCase(Constants.LOGIN_TYPE_TWITTER)) {
-
+                setTwitterBtnStateOn();
             }
+            setProfileUI();
         }
     }
 
@@ -107,15 +109,6 @@ public class ProfileDialog extends AbstractBaseDialog implements FbLoginInterfac
 
     }
 
-    private void onTwitterBtnClick() {
-        if (isTwitterOn) {
-            setTwitterBtnStateOFF();
-            logout();
-        } else {
-            setTwitterBtnStateOn();
-            requestTwitterLogin();
-        }
-    }
 
     private void setTwitterBtnStateOn() {
         isTwitterOn = true;
@@ -154,7 +147,27 @@ public class ProfileDialog extends AbstractBaseDialog implements FbLoginInterfac
             setFbBtnStateOn();
             requestFbLogin();
         }
+    }
 
+    private void onTwitterBtnClick() {
+        if (isTwitterOn) {
+            setTwitterBtnStateOFF();
+            logout();
+        } else {
+            setTwitterBtnStateOn();
+            requestTwitterLogin();
+
+        }
+    }
+
+    private void requestTwitterLogin() {
+        showPogress(activity.getString(R.string.twitterText), "Please wait...");
+        ((AirZoonMapActivity) activity).requestTwitterLogin(this);
+    }
+
+    private void requestFbLogin() {
+        showPogress(activity.getString(R.string.facebookText), "Please wait...");
+        ((AirZoonMapActivity) activity).requestFBLogin(this);
     }
 
     private void logout() {
@@ -172,23 +185,21 @@ public class ProfileDialog extends AbstractBaseDialog implements FbLoginInterfac
 
     }
 
-    private void requestFbLogin() {
-        showPogress(activity.getString(R.string.facebookText), "Please wait...");
-        ((AirZoonMapActivity) activity).requestFBLogin(this);
-    }
-
-    private void requestTwitterLogin() {
-        Toast.makeText(activity, "Tw login", Toast.LENGTH_SHORT).show();
-    }
-
 
     @Override
-    public void onFbLoginSuccess(UserProfileDO facebookDO) {
+    public void onSocialLoginSuccess(UserProfileDO userProfileDO, String socialType) {
         hideProgressLoading();
-        this.userProfileDO = facebookDO;
-        Toast.makeText(activity, "Login success " + facebookDO.getName(), Toast.LENGTH_SHORT).show();
+        this.userProfileDO = userProfileDO;
+        Toast.makeText(activity, "Welcome " + userProfileDO.getName(), Toast.LENGTH_SHORT).show();
         setProfileUI();
-        setFbBtnStateOn();
+
+        if (socialType.equalsIgnoreCase(Constants.LOGIN_TYPE_FB)) {
+            setFbBtnStateOn();
+        } else {
+            setTwitterBtnStateOn();
+
+        }
+
     }
 
     private void setProfileUI() {
@@ -211,13 +222,13 @@ public class ProfileDialog extends AbstractBaseDialog implements FbLoginInterfac
 
 
     @Override
-    public void onFbLoginFailure(String error) {
+    public void onSocialLoginFailure(String error, String socialType) {
         Toast.makeText(activity, "Login fail " + error, Toast.LENGTH_SHORT).show();
         hideProgressLoading();
     }
 
     @Override
-    public void onFbLoginCancel() {
+    public void onSocialLoginCancel(String socialType) {
         hideProgressLoading();
     }
 

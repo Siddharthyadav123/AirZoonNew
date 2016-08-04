@@ -1,4 +1,23 @@
+//for twitter
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url 'https://maven.fabric.io/public' }
+    }
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
+
 apply plugin: 'com.android.application'
+
+//for twitter
+apply plugin: 'io.fabric'
+//for twitter
+repositories {
+    mavenCentral()
+    maven { url 'https://maven.fabric.io/public' }
+}
 
 android {
     compileSdkVersion 23
@@ -27,6 +46,12 @@ android {
         exclude 'META-INF/NOTICE.txt'
     }
 
+    dexOptions {
+        incremental = true;
+        preDexLibraries = false
+        javaMaxHeapSize "4g" // 2g should be also OK
+    }
+
 }
 
 dependencies {
@@ -41,4 +66,8 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.facebook.android:facebook-android-sdk:4.6.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    // for twitter
+    compile('com.twitter.sdk.android:twitter:1.14.1@aar') {
+        transitive = true
+    }
 }

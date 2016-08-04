@@ -19,11 +19,11 @@ import org.json.JSONObject;
  */
 public class FaceBookModel implements FacebookCallback<LoginResult> {
     private Context context;
-    private FbLoginInterface fbLoginInterface;
+    private SocialLoginInterface socialLoginInterface;
 
-    public FaceBookModel(Context context, FbLoginInterface fbLoginInterface) {
+    public FaceBookModel(Context context, SocialLoginInterface socialLoginInterface) {
         this.context = context;
-        this.fbLoginInterface = fbLoginInterface;
+        this.socialLoginInterface = socialLoginInterface;
     }
 
 
@@ -34,14 +34,14 @@ public class FaceBookModel implements FacebookCallback<LoginResult> {
 
     @Override
     public void onCancel() {
-        if (fbLoginInterface != null)
-            fbLoginInterface.onFbLoginCancel();
+        if (socialLoginInterface != null)
+            socialLoginInterface.onSocialLoginCancel(Constants.LOGIN_TYPE_FB);
     }
 
     @Override
     public void onError(FacebookException error) {
-        if (fbLoginInterface != null)
-            fbLoginInterface.onFbLoginFailure(error.getMessage());
+        if (socialLoginInterface != null)
+            socialLoginInterface.onSocialLoginFailure(error.getMessage(), Constants.LOGIN_TYPE_FB);
     }
 
     /**
@@ -62,14 +62,14 @@ public class FaceBookModel implements FacebookCallback<LoginResult> {
                             userProfileDO.destroyProfile();
                             userProfileDO.parseJsonDataForFacebook(object);
                             userProfileDO.saveProfile(Constants.LOGIN_TYPE_FB);
-                            if (fbLoginInterface != null)
-                                fbLoginInterface.onFbLoginSuccess(userProfileDO);
+                            if (socialLoginInterface != null)
+                                socialLoginInterface.onSocialLoginSuccess(userProfileDO, Constants.LOGIN_TYPE_FB);
 
 
                         } catch (Exception e) {
                             e.printStackTrace();
-                            if (fbLoginInterface != null)
-                                fbLoginInterface.onFbLoginFailure(e.getMessage());
+                            if (socialLoginInterface != null)
+                                socialLoginInterface.onSocialLoginFailure(e.getMessage(), Constants.LOGIN_TYPE_FB);
                         }
                     }
                 });

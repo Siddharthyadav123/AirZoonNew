@@ -5,7 +5,6 @@ import android.content.Context;
 import com.az.airzoon.preferences.PrefManager;
 import com.az.airzoon.social_integration.ProfilePicLoader;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -132,30 +131,6 @@ public class UserProfileDO {
                         JSONObject dataJsonObject = (JSONObject) pictureJsonObject.get("data");
                         if (dataJsonObject.has("url")) {
                             setUrl((String) dataJsonObject.get("url"));
-                        }
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void parseJsonDataForLinkedIn(JSONObject object) {
-        if (object != null) {
-            try {
-                if (object.has("emailAddress")) {
-                    setEmail((String) object.get("emailAddress"));
-                }
-                if (object.has("formattedName")) {
-                    setName((String) object.get("formattedName"));
-                }
-                if (object.has("pictureUrls")) {
-                    JSONObject pictureUrls = (JSONObject) object.get("pictureUrls");
-                    if (pictureUrls.has("values")) {
-                        JSONArray jsonArray = (JSONArray) pictureUrls.get("values");
-                        if (jsonArray != null && jsonArray.length() > 0) {
-                            setUrl((String) jsonArray.get(0));
                         }
                     }
                 }

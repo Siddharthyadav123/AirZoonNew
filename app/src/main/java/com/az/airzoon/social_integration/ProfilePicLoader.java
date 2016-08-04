@@ -71,7 +71,7 @@ public class ProfilePicLoader implements Target {
             String name = userProfileDO.getName() + ".jpg";
             myDir = new File(myDir, name);
             FileOutputStream out = new FileOutputStream(myDir);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
             out.flush();
             out.close();
         } catch (Exception e) {
