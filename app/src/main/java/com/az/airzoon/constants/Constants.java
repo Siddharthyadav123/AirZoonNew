@@ -40,4 +40,5 @@ public class Constants {
             HOTSPOT_CATEGORY_SPORT_CENTER
     };
 
+
 }

@@ -19,9 +19,13 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.az.airzoon.R;
 import com.az.airzoon.application.MyApplication;
+import com.az.airzoon.constants.RequestConstant;
+import com.az.airzoon.constants.URLConstants;
 import com.az.airzoon.dataobjects.AirZoonDo;
 import com.az.airzoon.dialog_screens.AboutUsDialog;
 import com.az.airzoon.dialog_screens.FavoritesDialog;
@@ -34,6 +38,8 @@ import com.az.airzoon.preferences.PrefManager;
 import com.az.airzoon.social_integration.FaceBookModel;
 import com.az.airzoon.social_integration.SocialLoginInterface;
 import com.az.airzoon.social_integration.TwitterModel;
+import com.az.airzoon.volly.APICallback;
+import com.az.airzoon.volly.APIHandler;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
@@ -55,7 +61,7 @@ import java.util.Arrays;
 
 import io.fabric.sdk.android.Fabric;
 
-public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCallback, View.OnClickListener {
+public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCallback, View.OnClickListener, APICallback {
 
     private GoogleMap mMap;
     private ImageView moreImageView;
@@ -99,26 +105,26 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
         initViews();
         registerEvents();
         setUI();
-        getSHAKeyForFaceBook();
+//        getSHAKeyForFaceBook();
     }
 
-    private void getSHAKeyForFaceBook() {
-        try {
-            PackageInfo info = getPackageManager().getPackageInfo(
-                    "com.az.airzoon",
-                    PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-//                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-                System.out.println(">>> Key " + Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-
-        } catch (NoSuchAlgorithmException e) {
-
-        }
-    }
+//    private void getSHAKeyForFaceBook() {
+//        try {
+//            PackageInfo info = getPackageManager().getPackageInfo(
+//                    "com.az.airzoon",
+//                    PackageManager.GET_SIGNATURES);
+//            for (Signature signature : info.signatures) {
+//                MessageDigest md = MessageDigest.getInstance("SHA");
+//                md.update(signature.toByteArray());
+////                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+//                System.out.println(">>> Key " + Base64.encodeToString(md.digest(), Base64.DEFAULT));
+//            }
+//        } catch (PackageManager.NameNotFoundException e) {
+//
+//        } catch (NoSuchAlgorithmException e) {
+//
+//        }
+//    }
 
 
     private void initViews() {
@@ -226,6 +232,29 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
     @Override
     public void onStop() {
         super.onStop();
+    }
+
+    @Override
+    public void onAPISuccessResponse(int requestId, String responseString) {
+        switch (requestId) {
+            case RequestConstant.REQUEST_GET_HOTSPOT_LIST:
+                airZoonModel.loadAndParseHotSpot(responseString);
+                loadAirZoonShops();
+                loadingBlanckBgView.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
+                //setting last sync time
+                prefManager.setLastSyncTime(MyApplication.getInstance().getCurrentDate());
+                lastSyncTextView.setText(prefManager.getLstSyncTime());
+                Toast.makeText(this, "Synced Successfully.", Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
+
+    @Override
+    public void onAPIFailureResponse(int requestId, String errorString) {
+        Toast.makeText(this, errorString, Toast.LENGTH_SHORT).show();
+        loadingBlanckBgView.setVisibility(View.GONE);
+        progressBar.setVisibility(View.GONE);
     }
 
 
@@ -498,38 +527,12 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
 
 
     public void refreshMapAsPerFilterAlsoPerformSync() {
-        RefreshMapAsync refreshMapAsync = new RefreshMapAsync();
-        refreshMapAsync.execute();
+        loadingBlanckBgView.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
+        APIHandler apiHandler = new APIHandler(this, this, RequestConstant.REQUEST_GET_HOTSPOT_LIST,
+                Request.Method.GET, APIHandler.RESPONSE_TYPE_JSON_ARRAY, URLConstants.URL_GET_HOTSPOT_LIST, false, null);
+        apiHandler.requestAPI();
 
-    }
-
-    public class RefreshMapAsync extends AsyncTask {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            System.out.println(">>map refresh start");
-            loadingBlanckBgView.setVisibility(View.VISIBLE);
-            progressBar.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        protected Object doInBackground(Object[] params) {
-            AirZoonModel.getInstance().loadStaticHotSpots();
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Object o) {
-            super.onPostExecute(o);
-            loadAirZoonShops();
-            loadingBlanckBgView.setVisibility(View.GONE);
-            progressBar.setVisibility(View.GONE);
-            System.out.println(">>map refresh end");
-
-            //setting last sync time
-            prefManager.setLastSyncTime(MyApplication.getInstance().getCurrentDate());
-            lastSyncTextView.setText(prefManager.getLstSyncTime());
-        }
     }
 
 

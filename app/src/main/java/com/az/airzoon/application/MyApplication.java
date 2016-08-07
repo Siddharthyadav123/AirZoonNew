@@ -6,10 +6,17 @@ import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.multidex.MultiDex;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.Volley;
 import com.az.airzoon.dataobjects.UserProfileDO;
 import com.az.airzoon.models.AirZoonModel;
+import com.az.airzoon.models.FontModel;
+import com.az.airzoon.volly.LruBitmapCache;
 
 import java.util.Calendar;
 
@@ -18,6 +25,12 @@ import java.util.Calendar;
  */
 public class MyApplication extends Application {
     public static MyApplication myApplication = null;
+
+    public static final String TAG = MyApplication.class
+            .getSimpleName();
+
+    private RequestQueue mRequestQueue;
+    private ImageLoader mImageLoader;
 
     public UserProfileDO userProfileDO;
 
@@ -30,8 +43,12 @@ public class MyApplication extends Application {
         super.onCreate();
         myApplication = this;
         MultiDex.install(this);
+
+        //load fonts
+        FontModel.getInstance().loadFonts(this);
+
         //loading static shops list intially
-        AirZoonModel.getInstance().loadStaticHotSpots();
+        AirZoonModel.getInstance().loadAndParseHotSpot(null);
 
         //load user profile
         userProfileDO = new UserProfileDO(this);
@@ -42,6 +59,39 @@ public class MyApplication extends Application {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
+    }
+
+    public RequestQueue getRequestQueue() {
+        if (mRequestQueue == null) {
+            mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+        }
+
+        return mRequestQueue;
+    }
+
+    public ImageLoader getImageLoader() {
+        getRequestQueue();
+        if (mImageLoader == null) {
+            mImageLoader = new ImageLoader(this.mRequestQueue, new LruBitmapCache());
+        }
+        return this.mImageLoader;
+    }
+
+    public <T> void addToRequestQueue(Request<T> req, int tag) {
+        // set the default tag if tag is empty
+        req.setTag(tag);
+        getRequestQueue().add(req);
+    }
+
+    public <T> void addToRequestQueue(Request<T> req) {
+        req.setTag(TAG);
+        getRequestQueue().add(req);
+    }
+
+    public void cancelPendingRequests(int tag) {
+        if (mRequestQueue != null) {
+            mRequestQueue.cancelAll(tag);
+        }
     }
 
     /**

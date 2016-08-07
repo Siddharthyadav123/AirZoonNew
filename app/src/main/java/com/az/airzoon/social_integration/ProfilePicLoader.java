@@ -10,6 +10,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
+import com.az.airzoon.application.MyApplication;
 import com.az.airzoon.dataobjects.UserProfileDO;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -39,14 +42,31 @@ public class ProfilePicLoader implements Target {
         this.progressBar = progressBar;
         this.imageView = imageView;
 
-        Bitmap imageBitmap = getLocalImage(userProfileDO.getName() + ".jpg");
+        Bitmap imageBitmap = getLocalImage(userProfileDO.getName() + ".png");
 
         if (imageBitmap == null) {
             if (userProfileDO.getUrl() != null && userProfileDO.getUrl().length() > 0) {
                 if (progressBar != null) {
                     progressBar.setVisibility(View.VISIBLE);
                 }
-                Picasso.with(context).load(userProfileDO.getUrl()).into(this);
+                int picSize = (int) MyApplication.getInstance().convertDpToPixel(130, context);
+                Picasso.with(context).load(userProfileDO.getUrl()).resize(picSize, picSize).into(this);
+
+//                ImageLoader imageLoader = MyApplication.getInstance().getImageLoader();
+//
+//                imageLoader.get(userProfileDO.getUrl(), new ImageLoader.ImageListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        onBitmapFailed(null);
+//                    }
+//
+//                    @Override
+//                    public void onResponse(ImageLoader.ImageContainer response, boolean arg1) {
+//                        onBitmapLoaded(response.getBitmap(), null);
+//                    }
+//                });
+
+
             } else {
                 Toast.makeText(context, "Profile Pic not found.", Toast.LENGTH_SHORT).show();
             }
@@ -68,10 +88,10 @@ public class ProfilePicLoader implements Target {
             if (!myDir.exists()) {
                 myDir.mkdirs();
             }
-            String name = userProfileDO.getName() + ".jpg";
+            String name = userProfileDO.getName() + ".png";
             myDir = new File(myDir, name);
             FileOutputStream out = new FileOutputStream(myDir);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 0, out);
             out.flush();
             out.close();
         } catch (Exception e) {

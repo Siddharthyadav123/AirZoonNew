@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.az.airzoon.R;
+import com.az.airzoon.models.FontModel;
 import com.az.airzoon.screens.AirZoonMapActivity;
 
 /**
@@ -50,6 +51,12 @@ public class TutorialPagerAdapter extends PagerAdapter {
         TextView goTextView = (TextView) view.findViewById(R.id.goTextView);
         LinearLayout bodyLinLayoutPage2 = (LinearLayout) view.findViewById(R.id.bodyLinLayoutPage2);
         LinearLayout bodyLinLayoutPage3 = (LinearLayout) view.findViewById(R.id.bodyLinLayoutPage3);
+
+
+        headerTextView.setTypeface(FontModel.getInstance().getGothamBook());
+        footerTextView.setTypeface(FontModel.getInstance().getGothamBook());
+        goTextView.setTypeface(FontModel.getInstance().getGothamBook());
+
 
         headerTextView.setText(pageHeaderTextArray[position]);
         footerTextView.setText(pageFooterTextArray[position]);

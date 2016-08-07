@@ -25,7 +25,7 @@
     <string name="tt_p1_footer_text">"airZoon displays the best wifi hotspots around you. You can search by hotspot name, city, address..."</string>
 
     <string name="tt_p2_header_text">Choose the best hotspot that fit to your needs !</string>
-    <string name="tt_p2_footer_text">"The mobile app displays all the available hotsponts around even if they are not in the airZoon network. Use the filter to choose your hotspot categories (restaurants, bars, gym center..)"</string>
+    <string name="tt_p2_footer_text">"The mobile app displays all the available hotspots around even if they are not in the airZoon network. Use the filter to choose your hotspot categories (restaurants, bars, gym center..)"</string>
 
     <string name="tt_p3_header_text">airZoon wifi is forever free !</string>
     <string name="tt_p3_footer_text">"airZoon offers you a free, unlimited stable and secured wifi internet access. Reach a airZoon hotspots to enjoy the experience."</string>
