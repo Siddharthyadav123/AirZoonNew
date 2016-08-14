@@ -39,6 +39,7 @@ public class HotspotDetailDailog extends AbstractBaseDialog {
     private LinearLayout goButtonLinLayout;
     private LinearLayout callButtonLinLayout;
     private TextView reportAnErrorText;
+    private LinearLayout shareLayout;
 
     private AirZoonDo airZoonDo;
 
@@ -71,6 +72,8 @@ public class HotspotDetailDailog extends AbstractBaseDialog {
         callButtonLinLayout = (LinearLayout) view.findViewById(R.id.callButtonLinLayout);
         reportAnErrorText = (TextView) view.findViewById(R.id.reportAnErrorText);
 
+        shareLayout = (LinearLayout) view.findViewById(R.id.shareLayout);
+
         reportAnErrorText.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
     }
 
@@ -78,7 +81,7 @@ public class HotspotDetailDailog extends AbstractBaseDialog {
     public void registerEvnts(View view) {
         closeProfileImageView.setOnClickListener(this);
         faviourateImageView.setOnClickListener(this);
-        shareImageView.setOnClickListener(this);
+        shareLayout.setOnClickListener(this);
         goButtonLinLayout.setOnClickListener(this);
         callButtonLinLayout.setOnClickListener(this);
         reportAnErrorText.setOnClickListener(this);
@@ -110,7 +113,7 @@ public class HotspotDetailDailog extends AbstractBaseDialog {
             case R.id.faviourateImageView:
                 onFaviourateImageClick();
                 break;
-            case R.id.shareImageView:
+            case R.id.shareLayout:
                 onShareBtnClick();
                 break;
             case R.id.goButtonLinLayout:
@@ -140,7 +143,7 @@ public class HotspotDetailDailog extends AbstractBaseDialog {
 
     private void onReportAnErrorClick() {
         ReportIssueDialog reportIssueDialog = new ReportIssueDialog(activity);
-        reportIssueDialog.showDialog(ReportIssueDialog.ANIM_TYPE_LEFT_IN_RIGHT_OUT);
+        reportIssueDialog.showDialog(ReportIssueDialog.ANIM_TYPE_BOTTOM_IN_BOTTOM_OUT);
     }
 
     private void onGoBtnClick() {

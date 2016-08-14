@@ -23,6 +23,10 @@ public class UserProfileDO {
     private final String KEY_URL = "key_url";
     private final String KEY_PH_NO = "kye_ph_no";
     private final String KEY_LOGIN_TYPE = "key_login_type";
+    private final String KEY_FBID = "key_fbid";
+    private final String KEY_KEY_TOKEN = "key_token";
+    private final String KEY_ACCESS_TOKEN = "key_access_token";
+    private final String KEY_PROFILE_PIC = "key_profile_pic";
 
     private String id;
     private String birthday;
@@ -32,6 +36,10 @@ public class UserProfileDO {
     private String url;
     private String phoneNum;
     private String loginType;
+    private String fbid;
+    private String token;
+    private String acess_token;
+    private String profile_pic;
 
     private Context context;
     private PrefManager prefManager;
@@ -106,6 +114,38 @@ public class UserProfileDO {
         this.loginType = loginType;
     }
 
+    public String getFbid() {
+        return fbid;
+    }
+
+    public void setFbid(String fbid) {
+        this.fbid = fbid;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getAcess_token() {
+        return acess_token;
+    }
+
+    public void setAcess_token(String acess_token) {
+        this.acess_token = acess_token;
+    }
+
+    public String getProfile_pic() {
+        return profile_pic;
+    }
+
+    public void setProfile_pic(String profile_pic) {
+        this.profile_pic = profile_pic;
+    }
+
     public void parseJsonDataForFacebook(JSONObject object) {
         if (object != null) {
             try {
@@ -150,6 +190,11 @@ public class UserProfileDO {
         setEmail(prefManager.getPref().getString(KEY_EMAIL, ""));
         setUrl(prefManager.getPref().getString(KEY_URL, ""));
         setPhoneNum(prefManager.getPref().getString(KEY_PH_NO, ""));
+
+        setFbid(prefManager.getPref().getString(KEY_FBID, ""));
+        setToken(prefManager.getPref().getString(KEY_KEY_TOKEN, ""));
+        setAcess_token(prefManager.getPref().getString(KEY_ACCESS_TOKEN, ""));
+        setProfile_pic(prefManager.getPref().getString(KEY_PROFILE_PIC, ""));
     }
 
     public void saveProfile(String loginType) {
@@ -162,6 +207,11 @@ public class UserProfileDO {
         prefManager.getEditor().putString(KEY_EMAIL, email);
         prefManager.getEditor().putString(KEY_URL, url);
         prefManager.getEditor().putString(KEY_PH_NO, phoneNum);
+
+        prefManager.getEditor().putString(KEY_FBID, fbid);
+        prefManager.getEditor().putString(KEY_KEY_TOKEN, token);
+        prefManager.getEditor().putString(KEY_ACCESS_TOKEN, acess_token);
+        prefManager.getEditor().putString(KEY_PROFILE_PIC, profile_pic);
         prefManager.getEditor().commit();
     }
 
@@ -209,6 +259,53 @@ public class UserProfileDO {
             return true;
         }
         return false;
+    }
+
+
+    /**
+     * Parameters = name, fbid, gender, email, phoneno, token, profile_pic
+     *
+     * @return
+     */
+    public String formJSONToPostNewProfile() {
+        try {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("name", getName());
+            jsonObject.put("fbid", getFbid());
+            jsonObject.put("gender", getGender());
+            jsonObject.put("email", getEmail());
+            jsonObject.put("phoneno", getPhoneNum());
+            jsonObject.put("token", getToken());
+
+            return jsonObject.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    /**
+     * Parameters =name, gender, email, phone, token, profile_pic, acess_token, user_id
+     *
+     * @return
+     */
+    public String formJSONToEditProfile() {
+        try {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("name", getName());
+            jsonObject.put("gender", getGender());
+            jsonObject.put("email", getEmail());
+            jsonObject.put("phoneno", getPhoneNum());
+            jsonObject.put("token", getToken());
+            jsonObject.put("profile_pic", getProfile_pic());
+            jsonObject.put("access_token", getAcess_token());
+            jsonObject.put("user_id", getId());
+
+            return jsonObject.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
 }

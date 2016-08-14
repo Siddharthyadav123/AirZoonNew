@@ -20,10 +20,12 @@ import org.json.JSONObject;
 public class FaceBookModel implements FacebookCallback<LoginResult> {
     private Context context;
     private SocialLoginInterface socialLoginInterface;
+    private UserProfileDO userProfileDO = null;
 
     public FaceBookModel(Context context, SocialLoginInterface socialLoginInterface) {
         this.context = context;
         this.socialLoginInterface = socialLoginInterface;
+        userProfileDO = MyApplication.getInstance().getUserProfileDO();
     }
 
 
@@ -50,15 +52,16 @@ public class FaceBookModel implements FacebookCallback<LoginResult> {
      * @param loginResult
      */
     private void onLoginSuccess(LoginResult loginResult) {
-//        instance.saveStringInPreference(Preferences.KEY_FACEBOOK_AUTH_TOKEN, loginResult.getAccessToken().getToken());
-//        instance.saveStringInPreference(Preferences.KEY_FB_USER_ID, loginResult.getAccessToken().getUserId());
+
+        userProfileDO.setFbid(loginResult.getAccessToken().getUserId());
+        userProfileDO.setAcess_token(loginResult.getAccessToken().getToken());
         GraphRequest request = GraphRequest.newMeRequest(
                 loginResult.getAccessToken(),
                 new GraphRequest.GraphJSONObjectCallback() {
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
                         try {
-                            UserProfileDO userProfileDO = MyApplication.getInstance().getUserProfileDO();
+
                             userProfileDO.destroyProfile();
                             userProfileDO.parseJsonDataForFacebook(object);
                             userProfileDO.saveProfile(Constants.LOGIN_TYPE_FB);

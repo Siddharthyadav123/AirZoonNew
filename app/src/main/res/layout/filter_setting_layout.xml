@@ -97,7 +97,8 @@
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@+id/seekCircleImageView"
                 android:max="20"
-                android:progress="0" />
+                android:progress="0"
+                android:thumb="@drawable/thumb" />
 
             <TextView
                 android:id="@+id/rangeKMTextView"

@@ -19,9 +19,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="dialog_animation_left_in_right_out">
-        <item name="android:windowEnterAnimation">@anim/slide_in_left</item>
-        <item name="android:windowExitAnimation">@anim/slide_out_right</item>
+    <style name="dialog_animation_bottom_in_bottom_out">
+        <item name="android:windowEnterAnimation">@anim/slide_in_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_towards_bottom</item>
     </style>
 
     <style name="dialog_animation_top_in_top_out">

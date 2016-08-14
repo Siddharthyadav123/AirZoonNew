@@ -151,7 +151,7 @@ public class AirZoonDo implements Parcelable {
     }
 
     public String getSpeed() {
-        return speed;
+        return speed + " Mbps";
     }
 
     public void setSpeed(String speed) {

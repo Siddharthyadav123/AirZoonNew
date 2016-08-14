@@ -50,7 +50,7 @@ public class FavoritesDialog extends AbstractBaseDialog {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 AirZoonDo airZoonDo = faviourateList.get(position);
                 HotspotDetailDailog hotspotDetailDailog = new HotspotDetailDailog(activity, airZoonDo);
-                hotspotDetailDailog.showDialog(HotspotDetailDailog.ANIM_TYPE_LEFT_IN_RIGHT_OUT);
+                hotspotDetailDailog.showDialog(HotspotDetailDailog.ANIM_TYPE_BOTTOM_IN_BOTTOM_OUT);
             }
         });
     }
@@ -78,6 +78,6 @@ public class FavoritesDialog extends AbstractBaseDialog {
     private void onSubmitBtnClick() {
         dismiss();
         NewHotspotDailog newHotspotDailog = new NewHotspotDailog(activity);
-        newHotspotDailog.showDialog(NewHotspotDailog.ANIM_TYPE_LEFT_IN_RIGHT_OUT);
+        newHotspotDailog.showDialog(NewHotspotDailog.ANIM_TYPE_BOTTOM_IN_BOTTOM_OUT);
     }
 }

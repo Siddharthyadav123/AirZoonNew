@@ -102,7 +102,7 @@ public class ProfileDialog extends AbstractBaseDialog implements SocialLoginInte
         if (userProfileDO.isLoggedInAlrady()) {
             dismiss();
             EditProfileDialog editProfileDialog = new EditProfileDialog(activity);
-            editProfileDialog.showDialog(EditProfileDialog.ANIM_TYPE_LEFT_IN_RIGHT_OUT);
+            editProfileDialog.showDialog(EditProfileDialog.ANIM_TYPE_BOTTOM_IN_BOTTOM_OUT);
         } else {
             Toast.makeText(activity, "Please login from FB or Twitter first", Toast.LENGTH_SHORT).show();
         }
@@ -197,9 +197,11 @@ public class ProfileDialog extends AbstractBaseDialog implements SocialLoginInte
             setFbBtnStateOn();
         } else {
             setTwitterBtnStateOn();
-
         }
+        loginToOurServer();
+    }
 
+    private void loginToOurServer() {
     }
 
     private void setProfileUI() {

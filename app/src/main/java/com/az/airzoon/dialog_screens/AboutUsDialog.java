@@ -83,7 +83,7 @@ public class AboutUsDialog extends AbstractBaseDialog {
     private void onSendFeedbackBtnClick() {
         dismiss();
         SendAFeedbackDialog sendAFeedbackDialog = new SendAFeedbackDialog(activity);
-        sendAFeedbackDialog.showDialog(SendAFeedbackDialog.ANIM_TYPE_LEFT_IN_RIGHT_OUT);
+        sendAFeedbackDialog.showDialog(SendAFeedbackDialog.ANIM_TYPE_BOTTOM_IN_BOTTOM_OUT);
     }
 
     private void onTwitterBtnClick() {

@@ -212,7 +212,7 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
         int index = Integer.parseInt(marker.getTitle());
         AirZoonDo airZoonDo = airZoonDoArrayList.get(index);
         HotspotDetailDailog hotspotDetailDailog = new HotspotDetailDailog(this, airZoonDo);
-        hotspotDetailDailog.showDialog(HotspotDetailDailog.ANIM_TYPE_LEFT_IN_RIGHT_OUT);
+        hotspotDetailDailog.showDialog(HotspotDetailDailog.ANIM_TYPE_BOTTOM_IN_BOTTOM_OUT);
     }
 
 
@@ -361,7 +361,7 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
 
     private void onAboutUsButtonClick() {
         AboutUsDialog aboutUsDialog = new AboutUsDialog(this);
-        aboutUsDialog.showDialog(ProfileDialog.ANIM_TYPE_LEFT_IN_RIGHT_OUT);
+        aboutUsDialog.showDialog(ProfileDialog.ANIM_TYPE_BOTTOM_IN_BOTTOM_OUT);
     }
 
     private void onSyncButtonClick() {
@@ -370,12 +370,12 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
 
     private void onFaviourateButtonClick() {
         FavoritesDialog favoritesDialog = new FavoritesDialog(this);
-        favoritesDialog.showDialog(ProfileDialog.ANIM_TYPE_LEFT_IN_RIGHT_OUT);
+        favoritesDialog.showDialog(ProfileDialog.ANIM_TYPE_BOTTOM_IN_BOTTOM_OUT);
     }
 
     private void onProfileButtonClick() {
         ProfileDialog profileDialog = new ProfileDialog(this);
-        profileDialog.showDialog(ProfileDialog.ANIM_TYPE_LEFT_IN_RIGHT_OUT);
+        profileDialog.showDialog(ProfileDialog.ANIM_TYPE_BOTTOM_IN_BOTTOM_OUT);
     }
 
     private void onFilterButtonClick() {
@@ -530,7 +530,7 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
         loadingBlanckBgView.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.VISIBLE);
         APIHandler apiHandler = new APIHandler(this, this, RequestConstant.REQUEST_GET_HOTSPOT_LIST,
-                Request.Method.GET, APIHandler.RESPONSE_TYPE_JSON_ARRAY, URLConstants.URL_GET_HOTSPOT_LIST, false, null);
+                Request.Method.GET, URLConstants.URL_GET_HOTSPOT_LIST, false, null, null, null);
         apiHandler.requestAPI();
 
     }

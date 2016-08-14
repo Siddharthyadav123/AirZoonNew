@@ -1,13 +1,15 @@
 package com.az.airzoon.screens;
 
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.az.airzoon.R;
 import com.az.airzoon.adapters.SearchResultListAdapter;
@@ -15,6 +17,9 @@ import com.az.airzoon.dataobjects.AirZoonDo;
 import com.az.airzoon.dialog_screens.HotspotDetailDailog;
 import com.az.airzoon.dialog_screens.NewHotspotDailog;
 import com.az.airzoon.models.AirZoonModel;
+import com.az.airzoon.swipe_menu.SwipeMenu;
+import com.az.airzoon.swipe_menu.SwipeMenuListView;
+import com.az.airzoon.swipe_menu.SwipeMenuView;
 
 import java.util.ArrayList;
 
@@ -28,10 +33,12 @@ public class SearchResultActivity extends Activity {
 
     private ImageView backBtnImageView;
     private Button submitAHotspotButton;
-    private ListView hotspotListView;
+    private SwipeMenuListView hotspotListView;
     private TextView infoText;
 
     private ArrayList<AirZoonDo> airZoonDoArrayList = new ArrayList<>();
+    private SearchResultListAdapter searchResultListAdapter = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +53,7 @@ public class SearchResultActivity extends Activity {
     private void initViews() {
         backBtnImageView = (ImageView) findViewById(R.id.backBtnImageView);
         submitAHotspotButton = (Button) findViewById(R.id.submitAHotspotButton);
-        hotspotListView = (ListView) findViewById(R.id.hotspotListView);
+        hotspotListView = (SwipeMenuListView) findViewById(R.id.hotspotListView);
         infoText = (TextView) findViewById(R.id.infoText);
     }
 
@@ -62,9 +69,10 @@ public class SearchResultActivity extends Activity {
             @Override
             public void onClick(View v) {
                 NewHotspotDailog newHotspotDailog = new NewHotspotDailog(SearchResultActivity.this);
-                newHotspotDailog.showDialog(NewHotspotDailog.ANIM_TYPE_LEFT_IN_RIGHT_OUT);
+                newHotspotDailog.showDialog(NewHotspotDailog.ANIM_TYPE_BOTTOM_IN_BOTTOM_OUT);
             }
         });
+
 
         hotspotListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -76,9 +84,26 @@ public class SearchResultActivity extends Activity {
 
     }
 
+    private void onShareBtnClick(AirZoonDo airZoonDo) {
+        String shareText = this.getString(R.string.shareText) + " \n" + airZoonDo.getName() + " \n" + this.getString(R.string.urlText);
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, shareText);
+        sendIntent.setType("text/plain");
+        this.startActivity(sendIntent);
+    }
+
+
     private void onHotSpotItemClick(int position) {
+        System.out.println("pos>>" + position);
         HotspotDetailDailog hotspotDetailDailog = new HotspotDetailDailog(this, airZoonDoArrayList.get(position));
-        hotspotDetailDailog.showDialog(HotspotDetailDailog.ANIM_TYPE_LEFT_IN_RIGHT_OUT);
+        hotspotDetailDailog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                searchResultListAdapter.notifyDataSetChanged();
+            }
+        });
+        hotspotDetailDailog.showDialog(HotspotDetailDailog.ANIM_TYPE_BOTTOM_IN_BOTTOM_OUT);
     }
 
     private void retriveIntentAndDecideSearchList() {
@@ -112,13 +137,40 @@ public class SearchResultActivity extends Activity {
             infoText.setVisibility(View.VISIBLE);
         }
 
-
     }
+
 
     private void loadListView() {
-        SearchResultListAdapter searchResultListAdapter = new SearchResultListAdapter(this, airZoonDoArrayList);
+        searchResultListAdapter = new SearchResultListAdapter(this, airZoonDoArrayList, onMenuItemClickListener);
         hotspotListView.setAdapter(searchResultListAdapter);
     }
+
+    SwipeMenuListView.OnMenuItemClickListener onMenuItemClickListener = new SwipeMenuListView.OnMenuItemClickListener() {
+        @Override
+        public boolean onMenuItemClick(int position, SwipeMenu menu, SwipeMenuView swipeMenuView, int index) {
+            switch (index) {
+                case 0:
+                    if (airZoonDoArrayList.get(position).isFaviourate()) {
+                        menu.getMenuItems().get(0).setIcon(R.drawable.unselectedstar);
+                        airZoonDoArrayList.get(position).setFaviourate(false);
+                        Toast.makeText(SearchResultActivity.this, "Removed from Favorites.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        menu.getMenuItems().get(0).setIcon(R.drawable.selectedstar);
+                        airZoonDoArrayList.get(position).setFaviourate(true);
+                        Toast.makeText(SearchResultActivity.this, "Added to Favorites.", Toast.LENGTH_SHORT).show();
+                    }
+                    swipeMenuView.refreshFavItem();
+                    break;
+
+                case 1:
+                    onShareBtnClick(airZoonDoArrayList.get(position));
+                    break;
+
+            }
+            // false : close the menu; true : not close the menu
+            return true;
+        }
+    };
 
 
 }

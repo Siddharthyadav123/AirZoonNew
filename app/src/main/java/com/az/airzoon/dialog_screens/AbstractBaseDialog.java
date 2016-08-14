@@ -23,7 +23,7 @@ import com.az.airzoon.social_integration.ProfilePicLoader;
 public abstract class AbstractBaseDialog extends Dialog implements View.OnClickListener {
 
     public static final int ANIM_TYPE_DEFAULT = -1;
-    public static final int ANIM_TYPE_LEFT_IN_RIGHT_OUT = 0;
+    public static final int ANIM_TYPE_BOTTOM_IN_BOTTOM_OUT = 0;
     public static final int ANIM_TYPE_TOP_IN_TOP_OUT = 1;
     private int animType = ANIM_TYPE_DEFAULT;
 
@@ -72,8 +72,8 @@ public abstract class AbstractBaseDialog extends Dialog implements View.OnClickL
     @Override
     public void show() {
         switch (animType) {
-            case ANIM_TYPE_LEFT_IN_RIGHT_OUT:
-                getWindow().getAttributes().windowAnimations = R.style.dialog_animation_left_in_right_out;
+            case ANIM_TYPE_BOTTOM_IN_BOTTOM_OUT:
+                getWindow().getAttributes().windowAnimations = R.style.dialog_animation_bottom_in_bottom_out;
                 break;
 
             case ANIM_TYPE_TOP_IN_TOP_OUT:

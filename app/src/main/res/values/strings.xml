@@ -95,7 +95,7 @@
     <string name="callText">Call</string>
     <string name="openingText">Opening</string>
     <string name="requestAnErrorText"><u>Report an error/Request informations</u></string>
-
+    <string name="shareStringText">Share</string>
     <!--Share intenet text-->
     <string name="shareText">"airZoon hotspots offers free, unlimited and secured wifi internet access >> Join"</string>
     <string name="urlText">"http://www.airzoon.com/"</string>
