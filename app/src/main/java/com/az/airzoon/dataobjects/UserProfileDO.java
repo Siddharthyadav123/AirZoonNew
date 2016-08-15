@@ -44,6 +44,7 @@ public class UserProfileDO {
     private Context context;
     private PrefManager prefManager;
 
+
     public UserProfileDO(Context context) {
         this.context = context;
         prefManager = new PrefManager(context);
@@ -197,6 +198,7 @@ public class UserProfileDO {
         setProfile_pic(prefManager.getPref().getString(KEY_PROFILE_PIC, ""));
     }
 
+
     public void saveProfile(String loginType) {
         this.loginType = loginType;
         prefManager.getEditor().putString(KEY_LOGIN_TYPE, loginType);
@@ -224,6 +226,10 @@ public class UserProfileDO {
         setEmail(null);
         setUrl(null);
         setPhoneNum(null);
+        setFbid(null);
+        setToken(null);
+        setAcess_token(null);
+        setProfile_pic(null);
 
         prefManager.getEditor().putString(KEY_LOGIN_TYPE, loginType);
         prefManager.getEditor().putString(KEY_ID, id);
@@ -233,8 +239,12 @@ public class UserProfileDO {
         prefManager.getEditor().putString(KEY_EMAIL, email);
         prefManager.getEditor().putString(KEY_URL, url);
         prefManager.getEditor().putString(KEY_PH_NO, phoneNum);
-        prefManager.getEditor().commit();
 
+        prefManager.getEditor().putString(KEY_FBID, fbid);
+        prefManager.getEditor().putString(KEY_KEY_TOKEN, token);
+        prefManager.getEditor().putString(KEY_ACCESS_TOKEN, acess_token);
+        prefManager.getEditor().putString(KEY_PROFILE_PIC, profile_pic);
+        prefManager.getEditor().commit();
         deleteProfilePic();
     }
 

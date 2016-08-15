@@ -151,7 +151,11 @@ public class AirZoonDo implements Parcelable {
     }
 
     public String getSpeed() {
-        return speed + " Mbps";
+        if (speed != null && !speed.contains("Mbps")) {
+            return speed + " Mbps";
+        } else
+            return speed;
+
     }
 
     public void setSpeed(String speed) {

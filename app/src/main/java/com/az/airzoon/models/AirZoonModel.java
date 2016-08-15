@@ -2,6 +2,7 @@ package com.az.airzoon.models;
 
 import com.az.airzoon.R;
 import com.az.airzoon.constants.Constants;
+import com.az.airzoon.database.AirZoonDB;
 import com.az.airzoon.dataobjects.AirZoonDo;
 import com.google.gson.Gson;
 
@@ -25,23 +26,39 @@ public class AirZoonModel {
         return airZoonModel;
     }
 
-    public void loadAndParseHotSpot(String hotspotString) {
+    public void loadAndParseHotSpot(String hotspotString, AirZoonDB airZoonDB) {
         try {
+            boolean needToLoadFromTable = false;
             airZoonDoArrayList.clear();
             filteredList.clear();
 
-            Gson gson = new Gson();
             JSONArray itemArray = null;
+
+            //this will be null if this method is called initially
             if (hotspotString == null) {
-                itemArray = new JSONArray(getStaticString());
+                if (airZoonDB.getTableCount() > 0) {
+                    needToLoadFromTable = true;
+                } else {
+                    itemArray = new JSONArray(getStaticString());
+                }
             } else {
                 itemArray = new JSONArray(hotspotString);
             }
 
-            for (int i = 0; i < itemArray.length(); i++) {
-                AirZoonDo airZoonDo = gson.fromJson(itemArray.get(i).toString(), AirZoonDo.class);
-                airZoonDoArrayList.add(airZoonDo);
-                canBeAddedInFilteredList(airZoonDo);
+            //loading from tabl
+            if (needToLoadFromTable) {
+                airZoonDoArrayList = airZoonDB.getAllHotSpotList();
+                for (int i = 0; i < airZoonDoArrayList.size(); i++) {
+                    canBeAddedInFilteredList(airZoonDoArrayList.get(i));
+                }
+            } else {
+                Gson gson = new Gson();
+                for (int i = 0; i < itemArray.length(); i++) {
+                    AirZoonDo airZoonDo = gson.fromJson(itemArray.get(i).toString(), AirZoonDo.class);
+                    airZoonDoArrayList.add(airZoonDo);
+                    canBeAddedInFilteredList(airZoonDo);
+                    airZoonDB.addOrUpdateAirZoonHotSpot(airZoonDo);
+                }
             }
             System.out.println(">>Airzoon list loaded>>" + airZoonDoArrayList.size());
         } catch (Exception e) {

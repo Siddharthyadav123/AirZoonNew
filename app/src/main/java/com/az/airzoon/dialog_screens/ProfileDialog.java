@@ -9,16 +9,21 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.az.airzoon.R;
 import com.az.airzoon.constants.Constants;
+import com.az.airzoon.constants.RequestConstant;
+import com.az.airzoon.constants.URLConstants;
 import com.az.airzoon.dataobjects.UserProfileDO;
 import com.az.airzoon.screens.AirZoonMapActivity;
 import com.az.airzoon.social_integration.SocialLoginInterface;
+import com.az.airzoon.volly.APICallback;
+import com.az.airzoon.volly.APIHandler;
 
 /**
  * Created by sid on 26/07/2016.
  */
-public class ProfileDialog extends AbstractBaseDialog implements SocialLoginInterface {
+public class ProfileDialog extends AbstractBaseDialog implements SocialLoginInterface, APICallback {
 
     private ImageView userDPImageView;
     private ImageView fbOnOffImageView;
@@ -202,6 +207,9 @@ public class ProfileDialog extends AbstractBaseDialog implements SocialLoginInte
     }
 
     private void loginToOurServer() {
+        APIHandler apiHandler = new APIHandler(activity, this, RequestConstant.REQUEST_POST_NEW_USER,
+                Request.Method.POST, URLConstants.URL_POST_NEW_USER_OR_EDIT_USER, true, "Posting user profile", userProfileDO.formJSONToPostNewProfile(), null);
+        apiHandler.requestAPI();
     }
 
     private void setProfileUI() {
@@ -235,4 +243,13 @@ public class ProfileDialog extends AbstractBaseDialog implements SocialLoginInte
     }
 
 
+    @Override
+    public void onAPISuccessResponse(int requestId, String responseString) {
+        System.out.println(">>response>>" + responseString);
+    }
+
+    @Override
+    public void onAPIFailureResponse(int requestId, String errorString) {
+        System.out.println(">>response fail>>" + errorString);
+    }
 }

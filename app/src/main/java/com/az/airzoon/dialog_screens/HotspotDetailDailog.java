@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.az.airzoon.R;
+import com.az.airzoon.application.MyApplication;
 import com.az.airzoon.dataobjects.AirZoonDo;
 import com.az.airzoon.models.AirZoonModel;
 
@@ -130,15 +131,22 @@ public class HotspotDetailDailog extends AbstractBaseDialog {
     }
 
     private void onFaviourateImageClick() {
-        if (!airZoonDo.isFaviourate()) {
-            faviourateImageView.setImageResource(R.drawable.selectedstar);
-            airZoonDo.setFaviourate(true);
-            Toast.makeText(activity, "Added to Favorites", Toast.LENGTH_SHORT).show();
+
+        if (MyApplication.getInstance().getUserProfileDO().isLoggedInAlrady()) {
+            if (!airZoonDo.isFaviourate()) {
+                faviourateImageView.setImageResource(R.drawable.selectedstar);
+                airZoonDo.setFaviourate(true);
+                Toast.makeText(activity, "Added to Favorites", Toast.LENGTH_SHORT).show();
+            } else {
+                faviourateImageView.setImageResource(R.drawable.star);
+                airZoonDo.setFaviourate(false);
+                Toast.makeText(activity, "Removed from Favorites", Toast.LENGTH_SHORT).show();
+            }
+            MyApplication.getInstance().getAirZoonDB().updateFav(airZoonDo);
         } else {
-            faviourateImageView.setImageResource(R.drawable.star);
-            airZoonDo.setFaviourate(false);
-            Toast.makeText(activity, "Removed from Favorites", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, "Please login using facebook or twitter first.", Toast.LENGTH_SHORT).show();
         }
+
     }
 
     private void onReportAnErrorClick() {

@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.az.airzoon.R;
 import com.az.airzoon.adapters.SearchResultListAdapter;
+import com.az.airzoon.application.MyApplication;
 import com.az.airzoon.dataobjects.AirZoonDo;
 import com.az.airzoon.dialog_screens.HotspotDetailDailog;
 import com.az.airzoon.dialog_screens.NewHotspotDailog;
@@ -150,18 +151,22 @@ public class SearchResultActivity extends Activity {
         public boolean onMenuItemClick(int position, SwipeMenu menu, SwipeMenuView swipeMenuView, int index) {
             switch (index) {
                 case 0:
-                    if (airZoonDoArrayList.get(position).isFaviourate()) {
-                        menu.getMenuItems().get(0).setIcon(R.drawable.unselectedstar);
-                        airZoonDoArrayList.get(position).setFaviourate(false);
-                        Toast.makeText(SearchResultActivity.this, "Removed from Favorites.", Toast.LENGTH_SHORT).show();
+                    if (MyApplication.getInstance().getUserProfileDO().isLoggedInAlrady()) {
+                        if (airZoonDoArrayList.get(position).isFaviourate()) {
+                            menu.getMenuItems().get(0).setIcon(R.drawable.unselectedstar);
+                            airZoonDoArrayList.get(position).setFaviourate(false);
+                            Toast.makeText(SearchResultActivity.this, "Removed from Favorites.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            menu.getMenuItems().get(0).setIcon(R.drawable.selectedstar);
+                            airZoonDoArrayList.get(position).setFaviourate(true);
+                            Toast.makeText(SearchResultActivity.this, "Added to Favorites.", Toast.LENGTH_SHORT).show();
+                        }
+                        swipeMenuView.refreshFavItem();
+                        MyApplication.getInstance().getAirZoonDB().updateFav(airZoonDoArrayList.get(position));
                     } else {
-                        menu.getMenuItems().get(0).setIcon(R.drawable.selectedstar);
-                        airZoonDoArrayList.get(position).setFaviourate(true);
-                        Toast.makeText(SearchResultActivity.this, "Added to Favorites.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SearchResultActivity.this, "Please login using facebook or twitter first.", Toast.LENGTH_SHORT).show();
                     }
-                    swipeMenuView.refreshFavItem();
                     break;
-
                 case 1:
                     onShareBtnClick(airZoonDoArrayList.get(position));
                     break;

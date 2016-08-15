@@ -139,7 +139,7 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
         guideArrowImageView = (ImageView) findViewById(R.id.guideArrowImageView);
         guideBoxImageView = (ImageView) findViewById(R.id.guideBoxImageView);
         guideText = (TextView) findViewById(R.id.guideText);
-        loadingBlanckBgView = findViewById(R.id.loadingBlanckBgView);
+//        loadingBlanckBgView = findViewById(R.id.loadingBlanckBgView);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         lastSyncTextView = (TextView) findViewById(R.id.lastSyncTextView);
@@ -189,22 +189,28 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
         airZoonDoArrayList = airZoonModel.getFilteredList();
         System.out.println(">>map refresh size" + airZoonDoArrayList.size());
         for (int i = 0; i < airZoonDoArrayList.size(); i++) {
-            final AirZoonDo airZoonDo = airZoonDoArrayList.get(i);
-            LatLng locationLatLong = new LatLng(Double.parseDouble(airZoonDo.getLat()), Double.parseDouble(airZoonDo.getLng()));
-            Bitmap markerBitmap = BitmapFactory.decodeResource(getResources(), airZoonModel.getHotSpotMarkerResByType(airZoonDo.getType()));
 
-            mMap.addMarker(new MarkerOptions().position(locationLatLong).icon(BitmapDescriptorFactory.fromBitmap(markerBitmap)).title(i + ""));
-            mMap.setInfoWindowAdapter(new CustomInfoAdapter());
-            mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-                @Override
-                public void onInfoWindowClick(Marker marker) {
-                    onMarkerInfoWindowClick(marker);
+            try {
+                final AirZoonDo airZoonDo = airZoonDoArrayList.get(i);
+                LatLng locationLatLong = new LatLng(Double.parseDouble(airZoonDo.getLat()), Double.parseDouble(airZoonDo.getLng()));
+                Bitmap markerBitmap = BitmapFactory.decodeResource(getResources(), airZoonModel.getHotSpotMarkerResByType(airZoonDo.getType()));
+
+                mMap.addMarker(new MarkerOptions().position(locationLatLong).icon(BitmapDescriptorFactory.fromBitmap(markerBitmap)).title(i + ""));
+                mMap.setInfoWindowAdapter(new CustomInfoAdapter());
+                mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                    @Override
+                    public void onInfoWindowClick(Marker marker) {
+                        onMarkerInfoWindowClick(marker);
+                    }
+                });
+                if (i == airZoonDoArrayList.size() - 1) {
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(locationLatLong));
+                    moveToCurrentLocation(locationLatLong);
                 }
-            });
-            if (i == airZoonDoArrayList.size() - 1) {
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(locationLatLong));
-                moveToCurrentLocation(locationLatLong);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+
         }
     }
 
@@ -238,9 +244,8 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
     public void onAPISuccessResponse(int requestId, String responseString) {
         switch (requestId) {
             case RequestConstant.REQUEST_GET_HOTSPOT_LIST:
-                airZoonModel.loadAndParseHotSpot(responseString);
+                airZoonModel.loadAndParseHotSpot(responseString, MyApplication.getInstance().getAirZoonDB());
                 loadAirZoonShops();
-                loadingBlanckBgView.setVisibility(View.GONE);
                 progressBar.setVisibility(View.GONE);
                 //setting last sync time
                 prefManager.setLastSyncTime(MyApplication.getInstance().getCurrentDate());
@@ -253,7 +258,7 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
     @Override
     public void onAPIFailureResponse(int requestId, String errorString) {
         Toast.makeText(this, errorString, Toast.LENGTH_SHORT).show();
-        loadingBlanckBgView.setVisibility(View.GONE);
+//        loadingBlanckBgView.setVisibility(View.GONE);
         progressBar.setVisibility(View.GONE);
     }
 
@@ -527,7 +532,7 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
 
 
     public void refreshMapAsPerFilterAlsoPerformSync() {
-        loadingBlanckBgView.setVisibility(View.VISIBLE);
+//        loadingBlanckBgView.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.VISIBLE);
         APIHandler apiHandler = new APIHandler(this, this, RequestConstant.REQUEST_GET_HOTSPOT_LIST,
                 Request.Method.GET, URLConstants.URL_GET_HOTSPOT_LIST, false, null, null, null);

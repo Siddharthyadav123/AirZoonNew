@@ -13,6 +13,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+import com.az.airzoon.database.AirZoonDB;
 import com.az.airzoon.dataobjects.UserProfileDO;
 import com.az.airzoon.models.AirZoonModel;
 import com.az.airzoon.models.FontModel;
@@ -33,6 +34,7 @@ public class MyApplication extends Application {
     private ImageLoader mImageLoader;
 
     public UserProfileDO userProfileDO;
+    public AirZoonDB airZoonDB;
 
     public static MyApplication getInstance() {
         return myApplication;
@@ -47,12 +49,15 @@ public class MyApplication extends Application {
         //load fonts
         FontModel.getInstance().loadFonts(this);
 
-        //loading static shops list intially
-        AirZoonModel.getInstance().loadAndParseHotSpot(null);
-
         //load user profile
         userProfileDO = new UserProfileDO(this);
         userProfileDO.loadProfile();
+
+        //load db
+        airZoonDB = new AirZoonDB(this);
+
+        //loading static shops list intially
+        AirZoonModel.getInstance().loadAndParseHotSpot(null, airZoonDB);
     }
 
     @Override
@@ -173,6 +178,10 @@ public class MyApplication extends Application {
 
     public UserProfileDO getUserProfileDO() {
         return userProfileDO;
+    }
+
+    public AirZoonDB getAirZoonDB() {
+        return airZoonDB;
     }
 
     /**

@@ -57,6 +57,7 @@ public class APIHandler implements Response.Listener<Object>, Response.ErrorList
 
     public void requestAPI() {
         System.out.println("[API] request url=" + url);
+        System.out.println("[API] request body=" + requestBody);
         if (showLoading) {
             showLoading();
         }
