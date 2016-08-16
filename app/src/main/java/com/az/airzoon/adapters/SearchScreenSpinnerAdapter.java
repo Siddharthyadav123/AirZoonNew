@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.az.airzoon.R;
 import com.az.airzoon.application.MyApplication;
+import com.az.airzoon.models.FontModel;
 
 import java.util.ArrayList;
 
@@ -46,6 +47,7 @@ public class SearchScreenSpinnerAdapter extends BaseAdapter {
     public TextView getView(int position, View convertView, ViewGroup parent) {
         TextView v = new TextView(context);
         v.setTextColor(context.getResources().getColor(R.color.White));
+        v.setTypeface(FontModel.getInstance().getGothamBook());
         v.setTextSize(MyApplication.getInstance().convertDpToPixel(8f, context));
         v.setText(itemList.get(position));
         int padding = (int) MyApplication.getInstance().convertDpToPixel(5f, context);
@@ -57,6 +59,7 @@ public class SearchScreenSpinnerAdapter extends BaseAdapter {
     public TextView getDropDownView(int position, View convertView, ViewGroup parent) {
         TextView v = new TextView(context);
         v.setTextSize(MyApplication.getInstance().convertDpToPixel(8f, context));
+        v.setTypeface(FontModel.getInstance().getGothamBook());
         v.setText(itemList.get(position));
         int padding = (int) MyApplication.getInstance().convertDpToPixel(8f, context);
         v.setPadding(padding, padding, padding, padding);

@@ -65,7 +65,6 @@ public class SearchResultActivity extends Activity {
                 finish();
             }
         });
-
         submitAHotspotButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,14 +73,13 @@ public class SearchResultActivity extends Activity {
             }
         });
 
-
         hotspotListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                 onHotSpotItemClick(position);
             }
         });
+        hotspotListView.setSwipeDirection(SwipeMenuListView.DIRECTION_RIGHT);
 
     }
 

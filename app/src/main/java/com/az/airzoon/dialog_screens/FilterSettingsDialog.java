@@ -56,7 +56,7 @@ public class FilterSettingsDialog extends AbstractBaseDialog {
 
         // Change seekbar color to green.
         rangeSeekBar.getProgressDrawable().setColorFilter(0xFF00FF00, PorterDuff.Mode.MULTIPLY);
-        rangeSeekBar.getThumb().setColorFilter(0xFF00FF00, PorterDuff.Mode.MULTIPLY);
+//        rangeSeekBar.getThumb().setColorFilter(0xFF00FF00, PorterDuff.Mode.MULTIPLY);
 
     }
 

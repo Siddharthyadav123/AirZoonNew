@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/itemParentLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -15,7 +16,7 @@
         android:layout_marginTop="10dp"
         android:src="@drawable/restset" />
 
-    <TextView
+    <com.az.airzoon.customviews.CustomFontTextView
         android:id="@+id/itemNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,7 +25,8 @@
         android:layout_toLeftOf="@+id/downArrow"
         android:layout_toRightOf="@+id/itemImageView"
         android:text="Item Name"
-        android:textSize="20dp" />
+        android:textSize="17dp"
+        app:sid_customFont="gotham_book" />
 
     <ImageView
         android:id="@+id/downArrow"

@@ -108,8 +108,8 @@ public class SearchResultListAdapter extends BaseAdapter implements SwipeMenuVie
 
     private void createMenu(SwipeMenu menu, int position) {
         SwipeMenuItem item = new SwipeMenuItem(context);
-        item.setBackground(new ColorDrawable(Color.RED));
-        item.setWidth((int) MyApplication.getInstance().convertDpToPixel(90, context));
+        item.setBackground(new ColorDrawable(Color.TRANSPARENT));
+        item.setWidth((int) MyApplication.getInstance().convertDpToPixel(120, context));
         if (airZoonDoArrayList.get(position).isFaviourate()) {
             item.setIcon(R.drawable.selectedstar);
         } else {
@@ -117,11 +117,11 @@ public class SearchResultListAdapter extends BaseAdapter implements SwipeMenuVie
         }
         menu.addMenuItem(item);
 
-        item = new SwipeMenuItem(context);
-        item.setBackground(new ColorDrawable(Color.GRAY));
-        item.setWidth((int) MyApplication.getInstance().convertDpToPixel(90, context));
-        item.setIcon(R.drawable.share);
-        menu.addMenuItem(item);
+//        item = new SwipeMenuItem(context);
+//        item.setBackground(new ColorDrawable(Color.GRAY));
+//        item.setWidth((int) MyApplication.getInstance().convertDpToPixel(90, context));
+//        item.setIcon(R.drawable.share);
+//        menu.addMenuItem(item);
         System.out.println(">>inside22>>" + menu.getMenuItems().size() + "  >>pos" + position);
     }
 

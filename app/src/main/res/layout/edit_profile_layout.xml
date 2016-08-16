@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center"
@@ -51,7 +52,7 @@
                         android:layout_centerVertical="true"
                         android:src="@drawable/profilename" />
 
-                    <EditText
+                    <com.az.airzoon.customviews.CustomFontEditText
                         android:id="@+id/nameEditText"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
@@ -63,7 +64,8 @@
                         android:singleLine="true"
                         android:textColor="@color/White"
                         android:textColorHint="@color/White"
-                        android:textSize="15dp" />
+                        android:textSize="15dp"
+                        app:sid_customFont="open_sans_regular" />
 
 
                 </RelativeLayout>
@@ -96,7 +98,7 @@
                         android:layout_centerVertical="true"
                         android:src="@drawable/facebookedit" />
 
-                    <TextView
+                    <com.az.airzoon.customviews.CustomFontTextView
                         android:id="@+id/fbText"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
@@ -106,7 +108,8 @@
                         android:gravity="center|left"
                         android:text="@string/facebookText"
                         android:textColor="@color/White"
-                        android:textSize="15dp" />
+                        android:textSize="15dp"
+                        app:sid_customFont="gotham_book" />
 
                     <!-- <ImageView
                          android:id="@+id/fbOnOffImageView"
@@ -147,7 +150,7 @@
                         android:layout_centerVertical="true"
                         android:src="@drawable/tweetedit" />
 
-                    <TextView
+                    <com.az.airzoon.customviews.CustomFontTextView
                         android:id="@+id/twText"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
@@ -157,7 +160,8 @@
                         android:gravity="center|left"
                         android:text="@string/twitterText"
                         android:textColor="@color/White"
-                        android:textSize="15dp" />
+                        android:textSize="15dp"
+                        app:sid_customFont="gotham_book" />
 
 
                     <!--  <ImageView
@@ -199,7 +203,7 @@
                         android:layout_centerVertical="true"
                         android:src="@drawable/name" />
 
-                    <EditText
+                    <com.az.airzoon.customviews.CustomFontEditText
                         android:id="@+id/emailEditText"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
@@ -210,7 +214,8 @@
                         android:hint="@string/enterEmailHintText"
                         android:textColor="@color/White"
                         android:textColorHint="@color/White"
-                        android:textSize="15dp" />
+                        android:textSize="15dp"
+                        app:sid_customFont="open_sans_regular" />
                 </RelativeLayout>
 
                 <View
@@ -242,7 +247,7 @@
                         android:layout_centerVertical="true"
                         android:src="@drawable/call_large" />
 
-                    <EditText
+                    <com.az.airzoon.customviews.CustomFontEditText
                         android:id="@+id/phoneNumEditText"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
@@ -252,7 +257,8 @@
                         android:hint="@string/enterPhoneNoHintText"
                         android:textColor="@color/White"
                         android:textColorHint="@color/White"
-                        android:textSize="15dp" />
+                        android:textSize="15dp"
+                        app:sid_customFont="open_sans_regular" />
 
 
                 </RelativeLayout>
@@ -326,7 +332,7 @@
                         android:layout_centerVertical="true"
                         android:src="@drawable/cloud" />
 
-                    <TextView
+                    <com.az.airzoon.customviews.CustomFontTextView
                         android:id="@+id/cloudeBackupTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
@@ -336,7 +342,8 @@
                         android:gravity="center|left"
                         android:text="@string/cloudBackupText"
                         android:textColor="@color/White"
-                        android:textSize="15dp" />
+                        android:textSize="15dp"
+                        app:sid_customFont="gotham_book" />
 
 
                 </RelativeLayout>

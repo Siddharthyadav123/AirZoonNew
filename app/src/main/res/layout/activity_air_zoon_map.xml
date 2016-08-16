@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         tools:context=".screens.AirZoonMapActivity" />
 
-    <TextView
+    <com.az.airzoon.customviews.CustomFontTextView
         android:id="@+id/lastSyncTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,7 +29,8 @@
         android:paddingTop="5dp"
         android:text="last sync:"
         android:textColor="@color/White"
-        android:textSize="15dp" />
+        android:textSize="14dp"
+        app:sid_customFont="gotham_book" />
 
     <LinearLayout
         android:id="@+id/topLayout"
@@ -142,7 +143,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/guideBoxImageView"
-        android:layout_marginLeft="47dp"
+        android:layout_marginLeft="53dp"
         android:layout_toRightOf="@+id/moreImageView"
         android:alpha="0.7"
         android:src="@drawable/guide_logo1"
@@ -154,13 +155,13 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="23dp"
-        android:layout_marginLeft="58dp"
+        android:layout_marginLeft="61dp"
         android:layout_toRightOf="@+id/profileImageView"
         android:alpha="0.7"
         android:src="@drawable/guide_logo2"
         android:visibility="gone" />
 
-    <TextView
+    <com.az.airzoon.customviews.CustomFontTextView
         android:id="@+id/guideText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -169,8 +170,9 @@
         android:padding="20dp"
         android:text="@string/guideText"
         android:textColor="@color/White"
-        android:textSize="22dp"
-        android:visibility="gone" />
+        android:textSize="20dp"
+        android:visibility="gone"
+        app:sid_customFont="gotham_book" />
 
     <!--<View-->
     <!--android:id="@+id/loadingBlanckBgView"-->

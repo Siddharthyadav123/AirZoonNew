@@ -27,6 +27,7 @@ public class NewHotspotDailog extends AbstractBaseDialog {
     private EditText enterPhoneNumEditText;
     private EditText addressEditText;
     private TextView addImageTextView;
+    private ImageView closeProfileImageView;
 
     private Button cancelButton;
     private Button submitButton;
@@ -51,6 +52,8 @@ public class NewHotspotDailog extends AbstractBaseDialog {
         addressEditText = (EditText) view.findViewById(R.id.addressEditText);
         addImageTextView = (TextView) view.findViewById(R.id.addImageTextView);
 
+        closeProfileImageView = (ImageView) view.findViewById(R.id.closeProfileImageView);
+
         cancelButton = (Button) view.findViewById(R.id.cancelButton);
         submitButton = (Button) view.findViewById(R.id.submitButton);
     }
@@ -61,6 +64,13 @@ public class NewHotspotDailog extends AbstractBaseDialog {
             @Override
             public void onClick(View v) {
                 enterSpotNameEditText.setText("");
+            }
+        });
+
+        closeProfileImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
             }
         });
         cancelButton.setOnClickListener(new View.OnClickListener() {

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,7 +14,7 @@
         android:minHeight="50dp"
         android:orientation="vertical">
 
-        <TextView
+        <com.az.airzoon.customviews.CustomFontTextView
             android:id="@+id/headerTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -23,7 +24,8 @@
             android:text="All hotspots in one app!"
             android:textColor="@color/Black"
             android:textSize="16.5dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:sid_customFont="gotham_book" />
     </LinearLayout>
 
     <LinearLayout
@@ -37,13 +39,14 @@
         android:padding="5dp"
         android:visibility="gone">
 
-        <TextView
+        <com.az.airzoon.customviews.CustomFontTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/p2_body_string_3_types"
             android:textColor="@color/OrangeRed"
             android:textSize="17dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:sid_customFont="gotham_book" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -66,11 +69,12 @@
                     android:layout_height="60dp"
                     android:src="@drawable/marker_airzoon" />
 
-                <TextView
+                <com.az.airzoon.customviews.CustomFontTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="@string/airZoonText" />
+                    android:text="@string/airZoonText"
+                    app:sid_customFont="gotham_book" />
 
             </LinearLayout>
 
@@ -86,11 +90,12 @@
                     android:layout_height="60dp"
                     android:src="@drawable/marker_free" />
 
-                <TextView
+                <com.az.airzoon.customviews.CustomFontTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="@string/freeText" />
+                    android:text="@string/freeText"
+                    app:sid_customFont="gotham_book" />
 
             </LinearLayout>
 
@@ -106,24 +111,26 @@
                     android:layout_height="60dp"
                     android:src="@drawable/marker_paid" />
 
-                <TextView
+                <com.az.airzoon.customviews.CustomFontTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="@string/paidText" />
+                    android:text="@string/paidText"
+                    app:sid_customFont="gotham_book" />
 
             </LinearLayout>
 
         </LinearLayout>
 
-        <TextView
+        <com.az.airzoon.customviews.CustomFontTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/serveralCatText"
             android:textColor="@color/OrangeRed"
             android:textSize="17dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:sid_customFont="gotham_book" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -146,11 +153,12 @@
                     android:layout_height="60dp"
                     android:src="@drawable/bar2" />
 
-                <TextView
+                <com.az.airzoon.customviews.CustomFontTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="@string/barText" />
+                    android:text="@string/barText"
+                    app:sid_customFont="gotham_book" />
 
             </LinearLayout>
 
@@ -166,11 +174,12 @@
                     android:layout_height="60dp"
                     android:src="@drawable/fastfood" />
 
-                <TextView
+                <com.az.airzoon.customviews.CustomFontTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="@string/fastFoodText" />
+                    android:text="@string/fastFoodText"
+                    app:sid_customFont="gotham_book" />
 
             </LinearLayout>
 
@@ -186,11 +195,12 @@
                     android:layout_height="60dp"
                     android:src="@drawable/airport" />
 
-                <TextView
+                <com.az.airzoon.customviews.CustomFontTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="@string/airportText" />
+                    android:text="@string/airportText"
+                    app:sid_customFont="gotham_book" />
             </LinearLayout>
         </LinearLayout>
 
@@ -217,15 +227,16 @@
             android:orientation="vertical"
             android:paddingLeft="20dp">
 
-            <TextView
+            <com.az.airzoon.customviews.CustomFontTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/freeText"
                 android:textColor="@color/OrangeRed"
                 android:textSize="18dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:sid_customFont="gotham_book" />
 
-            <TextView
+            <com.az.airzoon.customviews.CustomFontTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
@@ -233,9 +244,10 @@
                 android:text="@string/unlimitedText"
                 android:textColor="@color/OrangeRed"
                 android:textSize="18dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:sid_customFont="gotham_book" />
 
-            <TextView
+            <com.az.airzoon.customviews.CustomFontTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="70dp"
@@ -243,9 +255,10 @@
                 android:text="@string/reliableText"
                 android:textColor="@color/OrangeRed"
                 android:textSize="18dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:sid_customFont="gotham_book" />
 
-            <TextView
+            <com.az.airzoon.customviews.CustomFontTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="100dp"
@@ -253,7 +266,8 @@
                 android:text="@string/secureHotSpotText"
                 android:textColor="@color/OrangeRed"
                 android:textSize="18dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:sid_customFont="gotham_book" />
 
         </LinearLayout>
 
@@ -280,14 +294,15 @@
         android:orientation="vertical"
         android:padding="5dp">
 
-        <TextView
+        <com.az.airzoon.customviews.CustomFontTextView
             android:id="@+id/footerTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="air"
             android:textColor="@color/Black"
-            android:textSize="15dp" />
+            android:textSize="15dp"
+            app:sid_customFont="gotham_book" />
 
     </LinearLayout>
 
@@ -299,7 +314,7 @@
         android:gravity="center|right"
         android:orientation="vertical">
 
-        <TextView
+        <com.az.airzoon.customviews.CustomFontTextView
             android:id="@+id/goTextView"
             android:layout_width="80dp"
             android:layout_height="match_parent"
@@ -307,7 +322,8 @@
             android:gravity="center"
             android:text="@string/go_text"
             android:textColor="@color/OrangeRed"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:sid_customFont="gotham_book" />
 
     </LinearLayout>
 

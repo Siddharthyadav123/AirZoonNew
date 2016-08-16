@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="horizontal"
     android:padding="5dp">
 
-    <TextView
+    <com.az.airzoon.customviews.CustomFontTextView
         android:id="@+id/hotSpotName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -14,8 +15,9 @@
         android:maxWidth="180dp"
         android:text="Title"
         android:textColor="@color/Black"
-        android:textSize="18dp"
-        android:textStyle="bold" />
+        android:textSize="17dp"
+        android:textStyle="bold"
+        app:sid_customFont="gotham_book" />
 
     <ImageView
         android:id="@+id/hotspotCatImageView"

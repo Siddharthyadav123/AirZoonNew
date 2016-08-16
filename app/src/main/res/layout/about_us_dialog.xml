@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:gravity="center"
@@ -35,7 +36,7 @@
                 android:padding="10dp"
                 android:src="@drawable/logo" />
 
-            <TextView
+            <com.az.airzoon.customviews.CustomFontTextView
                 android:id="@+id/aboutUsTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -45,9 +46,10 @@
                 android:text="@string/aboutUsText"
                 android:textAllCaps="true"
                 android:textColor="@color/Gray"
-                android:textSize="27dp" />
+                android:textSize="22dp"
+                app:sid_customFont="gotham_book" />
 
-            <TextView
+            <com.az.airzoon.customviews.CustomFontTextView
                 android:id="@+id/versionTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -55,7 +57,8 @@
                 android:layout_centerHorizontal="true"
                 android:text="@string/versionText"
                 android:textColor="@color/Black"
-                android:textSize="18dp" />
+                android:textSize="17dp"
+                app:sid_customFont="gotham_book" />
 
             <View
                 android:id="@+id/sepraterView"
@@ -79,16 +82,17 @@
                 android:layout_marginTop="10dp"
                 android:padding="10dp">
 
-                <TextView
+                <com.az.airzoon.customviews.CustomFontTextView
                     android:id="@+id/bodyText1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:text="@string/aboutUsBody1"
                     android:textColor="@color/Black"
-                    android:textSize="18dp" />
+                    android:textSize="15dp"
+                    app:sid_customFont="gotham_book" />
 
-                <TextView
+                <com.az.airzoon.customviews.CustomFontTextView
                     android:id="@+id/bodyText2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -97,7 +101,8 @@
                     android:layout_marginTop="20dp"
                     android:text="@string/aboutUsBody2"
                     android:textColor="@color/Black"
-                    android:textSize="18dp" />
+                    android:textSize="15dp"
+                    app:sid_customFont="gotham_book" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -107,7 +112,7 @@
                     android:layout_marginTop="55dp"
                     android:orientation="horizontal">
 
-                    <TextView
+                    <com.az.airzoon.customviews.CustomFontTextView
                         android:id="@+id/fbBtnTextView"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -118,7 +123,8 @@
                         android:padding="5dp"
                         android:text="@string/facebookText"
                         android:textColor="@color/DarkBlue"
-                        android:textSize="18dp" />
+                        android:textSize="17dp"
+                        app:sid_customFont="gotham_book" />
 
                     <View
                         android:layout_width="1dp"
@@ -129,7 +135,7 @@
                         android:alpha="0.8"
                         android:background="@color/Gray" />
 
-                    <TextView
+                    <com.az.airzoon.customviews.CustomFontTextView
                         android:id="@+id/twitterBtnTextView"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -141,7 +147,8 @@
                         android:padding="5dp"
                         android:text="@string/twitterText"
                         android:textColor="@color/SkyBlue"
-                        android:textSize="18dp" />
+                        android:textSize="17dp"
+                        app:sid_customFont="gotham_book" />
 
 
                 </LinearLayout>
@@ -157,7 +164,7 @@
                 android:background="@color/LightGreen"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.az.airzoon.customviews.CustomFontTextView
                     android:id="@+id/sendFeedbackBtnTextView"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -168,7 +175,8 @@
                     android:text="@string/sendAFeedbackText"
                     android:textAllCaps="true"
                     android:textColor="@color/White"
-                    android:textSize="19dp" />
+                    android:textSize="17dp"
+                    app:sid_customFont="gotham_book" />
 
                 <View
                     android:layout_width="1dp"
@@ -178,7 +186,7 @@
                     android:layout_marginTop="5dp"
                     android:background="@color/White" />
 
-                <TextView
+                <com.az.airzoon.customviews.CustomFontTextView
                     android:id="@+id/watchTheGuideBtnTextView"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -189,7 +197,8 @@
                     android:text="@string/watchTheGuidedTourText"
                     android:textAllCaps="true"
                     android:textColor="@color/White"
-                    android:textSize="19dp" />
+                    android:textSize="17dp"
+                    app:sid_customFont="gotham_book" />
 
 
             </LinearLayout>

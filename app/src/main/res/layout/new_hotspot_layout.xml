@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center"
@@ -27,7 +28,7 @@
                 android:padding="10dp"
                 android:src="@drawable/close1" />
 
-            <TextView
+            <com.az.airzoon.customviews.CustomFontTextView
                 android:id="@+id/newHotspotHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -38,7 +39,8 @@
                 android:text="@string/newSpotText"
                 android:textAllCaps="true"
                 android:textColor="@color/LightGrey"
-                android:textSize="27dp" />
+                android:textSize="22dp"
+                app:sid_customFont="gotham_book" />
 
             <View
                 android:id="@+id/sepraterView"
@@ -76,7 +78,7 @@
                         android:layout_centerVertical="true"
                         android:src="@drawable/newspot" />
 
-                    <EditText
+                    <com.az.airzoon.customviews.CustomFontEditText
                         android:id="@+id/enterSpotNameEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -94,7 +96,8 @@
                         android:singleLine="true"
                         android:textColor="@color/White"
                         android:textColorHint="@color/White"
-                        android:textSize="20dp" />
+                        android:textSize="17dp"
+                        app:sid_customFont="open_sans_regular" />
 
                     <ImageView
                         android:id="@+id/clearSpotNameImageView"
@@ -156,7 +159,7 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/call_large" />
 
-                    <EditText
+                    <com.az.airzoon.customviews.CustomFontEditText
                         android:id="@+id/enterPhoneNumEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -171,7 +174,8 @@
                         android:singleLine="true"
                         android:textColor="@color/White"
                         android:textColorHint="@color/White"
-                        android:textSize="20dp" />
+                        android:textSize="17dp"
+                        app:sid_customFont="open_sans_regular" />
 
 
                 </LinearLayout>
@@ -192,7 +196,7 @@
                         android:layout_centerVertical="true"
                         android:src="@drawable/location" />
 
-                    <EditText
+                    <com.az.airzoon.customviews.CustomFontEditText
                         android:id="@+id/addressEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -210,7 +214,8 @@
                         android:singleLine="true"
                         android:textColor="@color/White"
                         android:textColorHint="@color/White"
-                        android:textSize="20dp" />
+                        android:textSize="17dp"
+                        app:sid_customFont="open_sans_regular" />
 
                     <ImageView
                         android:id="@+id/locImage"
@@ -238,7 +243,7 @@
                         android:src="@drawable/location"
                         android:visibility="invisible" />
 
-                    <TextView
+                    <com.az.airzoon.customviews.CustomFontTextView
                         android:id="@+id/addImageTextView"
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
@@ -252,7 +257,8 @@
                         android:text="@string/addAnImageText"
                         android:textColor="@color/White"
                         android:textColorHint="@color/White"
-                        android:textSize="20dp" />
+                        android:textSize="17dp"
+                        app:sid_customFont="gotham_book" />
 
                     <ImageView
                         android:layout_width="20dp"

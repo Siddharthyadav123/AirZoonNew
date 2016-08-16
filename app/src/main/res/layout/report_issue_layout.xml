@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center"
@@ -29,7 +30,7 @@
                 android:padding="10dp"
                 android:src="@drawable/close1" />
 
-            <TextView
+            <com.az.airzoon.customviews.CustomFontTextView
                 android:id="@+id/reportTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -37,7 +38,8 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/reportText"
                 android:textColor="@color/LightGrey"
-                android:textSize="27dp" />
+                android:textSize="27dp"
+                app:sid_customFont="gotham_book" />
 
             <View
                 android:id="@+id/sepraterView"
@@ -71,67 +73,74 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <TextView
+                        <com.az.airzoon.customviews.CustomFontTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="header"
                             android:textColor="@color/White"
                             android:textSize="15dp"
-                            android:visibility="invisible" />
+                            android:visibility="invisible"
+                            app:sid_customFont="gotham_book" />
 
-                        <TextView
+                        <com.az.airzoon.customviews.CustomFontTextView
                             android:layout_width="wrap_content"
                             android:layout_height="24dp"
                             android:layout_marginTop="10dp"
                             android:text="@string/nameText"
                             android:textColor="@color/White"
                             android:textSize="15dp"
-                            android:visibility="visible" />
+                            android:visibility="visible"
+                            app:sid_customFont="gotham_book" />
 
-                        <TextView
+                        <com.az.airzoon.customviews.CustomFontTextView
                             android:layout_width="wrap_content"
                             android:layout_height="24dp"
                             android:layout_marginTop="9dp"
                             android:text="@string/addressText"
                             android:textColor="@color/White"
                             android:textSize="15dp"
-                            android:visibility="visible" />
+                            android:visibility="visible"
+                            app:sid_customFont="gotham_book" />
 
-                        <TextView
+                        <com.az.airzoon.customviews.CustomFontTextView
                             android:layout_width="wrap_content"
                             android:layout_height="24dp"
                             android:layout_marginTop="9dp"
                             android:text="@string/categoryText"
                             android:textColor="@color/White"
                             android:textSize="15dp"
-                            android:visibility="visible" />
+                            android:visibility="visible"
+                            app:sid_customFont="gotham_book" />
 
-                        <TextView
+                        <com.az.airzoon.customviews.CustomFontTextView
                             android:layout_width="wrap_content"
                             android:layout_height="24dp"
                             android:layout_marginTop="9dp"
                             android:text="@string/hoursText"
                             android:textColor="@color/White"
                             android:textSize="15dp"
-                            android:visibility="visible" />
+                            android:visibility="visible"
+                            app:sid_customFont="gotham_book" />
 
-                        <TextView
+                        <com.az.airzoon.customviews.CustomFontTextView
                             android:layout_width="wrap_content"
                             android:layout_height="24dp"
                             android:layout_marginTop="9dp"
                             android:text="@string/phoneText"
                             android:textColor="@color/White"
                             android:textSize="15dp"
-                            android:visibility="visible" />
+                            android:visibility="visible"
+                            app:sid_customFont="gotham_book" />
 
-                        <TextView
+                        <com.az.airzoon.customviews.CustomFontTextView
                             android:layout_width="wrap_content"
                             android:layout_height="24dp"
                             android:layout_marginTop="9dp"
                             android:text="@string/speedText"
                             android:textColor="@color/White"
                             android:textSize="15dp"
-                            android:visibility="visible" />
+                            android:visibility="visible"
+                            app:sid_customFont="gotham_book" />
 
                     </LinearLayout>
 
@@ -142,17 +151,18 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <TextView
+                        <com.az.airzoon.customviews.CustomFontTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/errorText"
                             android:textColor="@color/White"
-                            android:textSize="15dp"
-                            android:visibility="visible" />
+                            android:textSize="14dp"
+                            android:visibility="visible"
+                            app:sid_customFont="gotham_book" />
 
                         <ImageView
                             android:id="@+id/nameCheckBoxImageView"
-                            android:layout_width="wrap_content"
+                            android:layout_width="50dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:src="@drawable/com_facebook_button_check_off"
@@ -160,7 +170,7 @@
 
                         <ImageView
                             android:id="@+id/addressCheckBoxImageView"
-                            android:layout_width="wrap_content"
+                            android:layout_width="50dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:src="@drawable/com_facebook_button_check_off"
@@ -168,7 +178,7 @@
 
                         <ImageView
                             android:id="@+id/categoryCheckBoxImageView"
-                            android:layout_width="wrap_content"
+                            android:layout_width="50dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:src="@drawable/com_facebook_button_check_off"
@@ -176,7 +186,7 @@
 
                         <ImageView
                             android:id="@+id/hoursCheckBoxImageView"
-                            android:layout_width="wrap_content"
+                            android:layout_width="50dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:src="@drawable/com_facebook_button_check_off"
@@ -184,7 +194,7 @@
 
                         <ImageView
                             android:id="@+id/phoneCheckBoxImageView"
-                            android:layout_width="wrap_content"
+                            android:layout_width="50dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:src="@drawable/com_facebook_button_check_off"
@@ -192,7 +202,7 @@
 
                         <ImageView
                             android:id="@+id/speedCheckBoxImageView"
-                            android:layout_width="wrap_content"
+                            android:layout_width="50dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:src="@drawable/com_facebook_button_check_off"
@@ -217,17 +227,18 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <TextView
+                        <com.az.airzoon.customviews.CustomFontTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/requestInfoText"
                             android:textColor="@color/White"
-                            android:textSize="15dp"
-                            android:visibility="visible" />
+                            android:textSize="14dp"
+                            android:visibility="visible"
+                            app:sid_customFont="gotham_book" />
 
                         <ImageView
                             android:id="@+id/nameRICheckBoxImageView"
-                            android:layout_width="wrap_content"
+                            android:layout_width="50dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:src="@drawable/com_facebook_button_check_off"
@@ -235,7 +246,7 @@
 
                         <ImageView
                             android:id="@+id/addressRICheckBoxImageView"
-                            android:layout_width="wrap_content"
+                            android:layout_width="50dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:src="@drawable/com_facebook_button_check_off"
@@ -243,7 +254,7 @@
 
                         <ImageView
                             android:id="@+id/categoryRICheckBoxImageView"
-                            android:layout_width="wrap_content"
+                            android:layout_width="50dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:src="@drawable/com_facebook_button_check_off"
@@ -251,7 +262,7 @@
 
                         <ImageView
                             android:id="@+id/hoursRICheckBoxImageView"
-                            android:layout_width="wrap_content"
+                            android:layout_width="50dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:src="@drawable/com_facebook_button_check_off"
@@ -259,7 +270,7 @@
 
                         <ImageView
                             android:id="@+id/phoneRICheckBoxImageView"
-                            android:layout_width="wrap_content"
+                            android:layout_width="50dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:src="@drawable/com_facebook_button_check_off"
@@ -267,7 +278,7 @@
 
                         <ImageView
                             android:id="@+id/speedRICheckBoxImageView"
-                            android:layout_width="wrap_content"
+                            android:layout_width="50dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:src="@drawable/com_facebook_button_check_off"
@@ -279,7 +290,7 @@
                 </LinearLayout>
 
 
-                <EditText
+                <com.az.airzoon.customviews.CustomFontEditText
                     android:id="@+id/commentEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -295,7 +306,8 @@
                     android:paddingTop="10dp"
                     android:textColor="@color/White"
                     android:textColorHint="@color/White"
-                    android:textSize="20dp" />
+                    android:textSize="18dp"
+                    app:sid_customFont="open_sans_regular" />
 
                 <View
                     android:id="@+id/sepraterView3"
