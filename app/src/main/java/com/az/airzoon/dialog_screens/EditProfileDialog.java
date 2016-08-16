@@ -121,7 +121,7 @@ public class EditProfileDialog extends AbstractBaseDialog {
             userProfileDO.setGender("female");
         userProfileDO.saveProfile(userProfileDO.getLoginType());
 
-        Toast.makeText(activity, "Saved successfully", Toast.LENGTH_SHORT).show();
+        Toast.makeText(activity, activity.getResources().getString(R.string.savedSuccessfulText), Toast.LENGTH_SHORT).show();
     }
 
     @Override

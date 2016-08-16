@@ -136,15 +136,15 @@ public class HotspotDetailDailog extends AbstractBaseDialog {
             if (!airZoonDo.isFaviourate()) {
                 faviourateImageView.setImageResource(R.drawable.selectedstar);
                 airZoonDo.setFaviourate(true);
-                Toast.makeText(activity, "Added to Favorites", Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, activity.getResources().getString(R.string.addedToFavText), Toast.LENGTH_SHORT).show();
             } else {
                 faviourateImageView.setImageResource(R.drawable.star);
                 airZoonDo.setFaviourate(false);
-                Toast.makeText(activity, "Removed from Favorites", Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, activity.getResources().getString(R.string.removedFromFavText), Toast.LENGTH_SHORT).show();
             }
             MyApplication.getInstance().getAirZoonDB().updateFav(airZoonDo);
         } else {
-            Toast.makeText(activity, "Please login using facebook or twitter first.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, activity.getResources().getString(R.string.loginErrorText), Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -163,7 +163,7 @@ public class HotspotDetailDailog extends AbstractBaseDialog {
 
     private void onCallBtnClick() {
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(activity, "Provide Calling permission", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, activity.getResources().getString(R.string.provideCallingPermsnText), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -173,7 +173,7 @@ public class HotspotDetailDailog extends AbstractBaseDialog {
             callIntent.setData(Uri.parse(phoneNum));
             activity.startActivity(callIntent);
         } else {
-            Toast.makeText(activity, "Contact number not found", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, activity.getResources().getString(R.string.contactNumNotFoundText), Toast.LENGTH_SHORT).show();
         }
 
     }

@@ -153,16 +153,16 @@ public class SearchResultActivity extends Activity {
                         if (airZoonDoArrayList.get(position).isFaviourate()) {
                             menu.getMenuItems().get(0).setIcon(R.drawable.unselectedstar);
                             airZoonDoArrayList.get(position).setFaviourate(false);
-                            Toast.makeText(SearchResultActivity.this, "Removed from Favorites.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SearchResultActivity.this, getString(R.string.removedFromFavText), Toast.LENGTH_SHORT).show();
                         } else {
                             menu.getMenuItems().get(0).setIcon(R.drawable.selectedstar);
                             airZoonDoArrayList.get(position).setFaviourate(true);
-                            Toast.makeText(SearchResultActivity.this, "Added to Favorites.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SearchResultActivity.this, getString(R.string.addedToFavText), Toast.LENGTH_SHORT).show();
                         }
                         swipeMenuView.refreshFavItem();
                         MyApplication.getInstance().getAirZoonDB().updateFav(airZoonDoArrayList.get(position));
                     } else {
-                        Toast.makeText(SearchResultActivity.this, "Please login using facebook or twitter first.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SearchResultActivity.this, getString(R.string.loginErrorText), Toast.LENGTH_SHORT).show();
                     }
                     break;
                 case 1:

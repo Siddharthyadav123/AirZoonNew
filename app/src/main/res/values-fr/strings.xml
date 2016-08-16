@@ -1,0 +1,133 @@
+<resources>
+    <string name="app_name">AirZoon New</string>
+    <string name="fb_app_id">743222562429147</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="next">PROCHAIN</string>
+    <string name="skip">SAUTER</string>
+    <string name="start">"JE L'AI"</string>
+
+    <string name="tt_p1_header_text">"Tous les points d'accès dans une application !"</string>
+    <string name="tt_p1_footer_text">"airZoon affiche les meilleurs hotspots wifi autour de vous . Vous pouvez rechercher par nom de hotspot , ville, adresse ..."</string>
+
+    <string name="tt_p2_header_text">"Choisissez le meilleur hotspot qui correspondent à vos besoins !"</string>
+    <string name="tt_p2_footer_text">"L'application mobile affiche tous les hotspots disponibles autour même si elles ne sont pas dans le réseau de airZoon . Utilisez le filtre pour choisir les catégories de points d'accès ( restaurants, bars, centre de gym .. )"</string>
+
+    <string name="tt_p3_header_text">"airZoon wifi est toujours gratuit!"</string>
+    <string name="tt_p3_footer_text">"airZoon vous offre un accès gratuit, illimité stable et sécurisé internet wifi . Atteindre un airZoon hotspots pour profiter de l'expérience ."</string>
+
+    <string name="tt_p4_header_text">"Ne perdez jamais vos données !"</string>
+    <string name="tt_p4_footer_text">"Connectez votre compte Facebook ou Twitter pour sauvegarder vos favoris dans notre nuage ."</string>
+    <string name="title_activity_air_zoon_map">"Carte"</string>
+
+    <string name="p2_body_string_3_types">"3 types de hotspot .."</string>
+    <string name="airZoonText">airZoon</string>
+    <string name="freeText">"Gratuit"</string>
+    <string name="paidText">"Payé"</string>
+
+    <string name="serveralCatText">"Plusieurs catégories"</string>
+    <string name="barText">Bar</string>
+    <string name="fastFoodText">"Fast food"</string>
+    <string name="airportText">"Aéroport"</string>
+    <string name="unlimitedText">"Illimité"</string>
+    <string name="reliableText">"Fiable"</string>
+    <string name="secureHotSpotText">"et Hotspots Sécurisé !"</string>
+    <string name="go_text">"ALLER"</string>
+
+    <string name="noNameText">"Sans nom"</string>
+    <string name="facebookText">Facebook</string>
+    <string name="twitterText">Twitter</string>
+    <string name="noEmailAddressText">"Aucune adresse email"</string>
+    <string name="noPhoneNumText">"Non Téléphone ."</string>
+    <string name="privateInfoText">"information privée"</string>
+    <string name="editProfileText">"Modifier le profil"</string>
+
+    <string name="searchText">"Chercher"</string>
+    <string name="enterYourSearchText">"Entrez votre recherche ( Hotspot nom etc .. )"</string>
+
+    <string name="allHotspotText">"Tous Hotspot"</string>
+    <string name="airzoonHotspotText">Airzoon Hotspot</string>
+    <string name="freeHotSpotText">gratuit Hotspot</string>
+    <string name="paidHotspotText">"Payé Hotspot"</string>
+
+    <string name="settingsText">"Paramètres"</string>
+    <string name="doneText">"Terminé"</string>
+
+    <string name="searchResultText">"Résultats de la recherche"</string>
+    <string name="submitAHotspotText">"Soumettre un Hotspot"</string>
+    <string name="notSuchHotspotFoundText">"Aucune Hotspot trouvé"</string>
+    <string name="guideText">"synchroniser manuellement la base de données airZoon pour mettre à jour la liste des hotspots pour utilisation hors ligne ."</string>
+
+    <!--About us text-->
+    <string name="aboutUsText">"À propos de nous"</string>
+    <string name="versionText">Version 1.1</string>
+    <string name="aboutUsBody1">"airZoon vous donne la météo de la wifi . Trouvez le meilleur hotspot qui correspondent à vos besoins ."</string>
+    <string name="aboutUsBody2">"hotspots airZoon sont gratuit, illimité et sécurisé."</string>
+    <string name="sendAFeedbackText">"Envoyer un feedback"</string>
+    <string name="watchTheGuidedTourText">"Regardez la visite guidée"</string>
+
+    <!--Feedback-->
+    <string name="feedbackText">"Retour d'information"</string>
+    <string name="enterUserNameText">"Entrez le nom d'utilisateur"</string>
+    <string name="enterEmailHintText">"Entrer l'adresse e-mail"</string>
+    <string name="writeYourCommentHintText">"Rédigez votre commentaire"</string>
+    <string name="submitText">"Soumettre"</string>
+    <string name="saveText">"sauvegarder"</string>
+
+    <!--Feedback-->
+    <string name="favoritesText">Favoris</string>
+
+    <!--Hotspot details screen-->
+    <string name="goText">"Aller"</string>
+    <string name="callText">"Appel"</string>
+    <string name="openingText">"Ouverture"</string>
+    <string name="requestAnErrorText"><u>"Signaler une erreur / Demande d'informations"</u></string>
+    <string name="shareStringText">"Partager"</string>
+    <!--Share intenet text-->
+    <string name="shareText">"hotspots airZoon offre un accès internet wifi gratuit, illimité et sécurisé >> Rejoignez"</string>
+    <string name="urlText">"http://www.airzoon.com/"</string>
+    <!--<string name="imgDownloadUrlText">"http://stevebercy.com/airzoon/img/"</string>-->
+
+
+    <!--Report issue-->
+    <string name="reportText">rapport</string>
+    <string name="errorText">Erreur</string>
+    <string name="requestInfoText">"Demande d'info."</string>
+    <string name="nameText">"prénom"</string>
+    <string name="addressText">"Adresse"</string>
+    <string name="categoryText">"Catégorie"</string>
+    <string name="hoursText">"Heures"</string>
+    <string name="phoneText">"Téléphone"</string>
+    <string name="speedText">"La vitesse"</string>
+    <string name="sendText">"Envoyer"</string>
+    <string name="dontMindText">"Ne vous occupez pas"</string>
+
+    <!--New spot-->
+    <string name="newSpotText">"Nouveau spot"</string>
+    <string name="enterSpotNameHintText">"Entrez le nom spot"</string>
+    <string name="selectHotspotTypeHintText">"Sélectionnez Hotspot type"</string>
+    <string name="selectHotspotCatHintText">"Sélectionnez Hotspot Catégorie"</string>
+    <string name="enterPhoneNoHintText">"Entrer n ° tél ."</string>
+    <string name="addAnImageText">"Ajouter une image"</string>
+    <string name="cancelText">"Annuler"</string>
+
+    <string name="cloudBackupText">"nuage de sauvegarde"</string>
+    <string name="genderMaleText">"Mâle"</string>
+    <string name="genderFeMaleText">"Femelle"</string>
+
+    <string name="connectedText">"Connecté"</string>
+
+    <string name="syncedSuccessFulText">"Synchronisé avec succès"</string>
+
+    <string name="addedToFavText">"Ajouté aux favoris"</string>
+    <string name="removedFromFavText">"Retiré de Favoris"</string>
+    <string name="loginErrorText">"S'il vous plaît vous connecter en utilisant Facebook ou Twitter en premier."</string>
+    <string name="profilePicDownloadFailedText">"Profil pic Télécharger échoué."</string>
+    <string name="profilePicNotFoungText">"Profil Pic pas trouvé."</string>
+    <string name="contactNumNotFoundText">"Numéro de contact ne se trouve pas."</string>
+    <string name="provideCallingPermsnText">"Fournir appel permission."</string>
+    <string name="pleaseWaitText">"S'il vous plaît, attendez.."</string>
+    <string name="logoutSuccessfullyText">"Déconnexion avec succès"</string>
+    <string name="welcomeText">"Bienvenue"</string>
+    <string name="lastSyncText">"dernière synchronisation:"</string>
+    <string name="savedSuccessfulText">"Sauvegarde réussie."</string>
+</resources>

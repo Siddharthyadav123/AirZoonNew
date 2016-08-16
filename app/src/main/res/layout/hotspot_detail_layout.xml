@@ -293,7 +293,7 @@
                         android:layout_marginRight="15dp"
                         android:text="@string/go_text"
                         android:textColor="@color/OrangeRed"
-                        android:textSize="17dp"
+                        android:textSize="15dp"
                         app:sid_customFont="gotham_book" />
                 </LinearLayout>
 
@@ -320,7 +320,7 @@
                         android:text="@string/callText"
                         android:textAllCaps="true"
                         android:textColor="@color/Green"
-                        android:textSize="17dp"
+                        android:textSize="15dp"
                         app:sid_customFont="gotham_book" />
                 </LinearLayout>
 

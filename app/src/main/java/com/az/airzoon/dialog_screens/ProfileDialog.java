@@ -109,7 +109,7 @@ public class ProfileDialog extends AbstractBaseDialog implements SocialLoginInte
             EditProfileDialog editProfileDialog = new EditProfileDialog(activity);
             editProfileDialog.showDialog(EditProfileDialog.ANIM_TYPE_BOTTOM_IN_BOTTOM_OUT);
         } else {
-            Toast.makeText(activity, "Please login from FB or Twitter first", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, activity.getResources().getString(R.string.loginErrorText), Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -166,17 +166,17 @@ public class ProfileDialog extends AbstractBaseDialog implements SocialLoginInte
     }
 
     private void requestTwitterLogin() {
-        showPogress(activity.getString(R.string.twitterText), "Please wait...");
+        showPogress(activity.getString(R.string.twitterText), activity.getResources().getString(R.string.pleaseWaitText));
         ((AirZoonMapActivity) activity).requestTwitterLogin(this);
     }
 
     private void requestFbLogin() {
-        showPogress(activity.getString(R.string.facebookText), "Please wait...");
+        showPogress(activity.getString(R.string.facebookText), activity.getResources().getString(R.string.pleaseWaitText));
         ((AirZoonMapActivity) activity).requestFBLogin(this);
     }
 
     private void logout() {
-        Toast.makeText(activity, "logout Successful", Toast.LENGTH_SHORT).show();
+        Toast.makeText(activity, activity.getResources().getString(R.string.logoutSuccessfullyText), Toast.LENGTH_SHORT).show();
         if (userProfileDO != null)
             userProfileDO.destroyProfile();
         resetProfile();
@@ -195,7 +195,7 @@ public class ProfileDialog extends AbstractBaseDialog implements SocialLoginInte
     public void onSocialLoginSuccess(UserProfileDO userProfileDO, String socialType) {
         hideProgressLoading();
         this.userProfileDO = userProfileDO;
-        Toast.makeText(activity, "Welcome " + userProfileDO.getName(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(activity, activity.getResources().getString(R.string.welcomeText) + " " + userProfileDO.getName(), Toast.LENGTH_SHORT).show();
         setProfileUI();
 
         if (socialType.equalsIgnoreCase(Constants.LOGIN_TYPE_FB)) {
@@ -208,7 +208,7 @@ public class ProfileDialog extends AbstractBaseDialog implements SocialLoginInte
 
     private void loginToOurServer() {
         APIHandler apiHandler = new APIHandler(activity, this, RequestConstant.REQUEST_POST_NEW_USER,
-                Request.Method.POST, URLConstants.URL_POST_NEW_USER_OR_EDIT_USER, true, "Posting user profile", userProfileDO.formJSONToPostNewProfile(), null);
+                Request.Method.POST, URLConstants.URL_POST_NEW_USER_OR_EDIT_USER, false, "Posting user profile", userProfileDO.formJSONToPostNewProfile(), null);
         apiHandler.requestAPI();
     }
 
@@ -233,7 +233,8 @@ public class ProfileDialog extends AbstractBaseDialog implements SocialLoginInte
 
     @Override
     public void onSocialLoginFailure(String error, String socialType) {
-        Toast.makeText(activity, "Login fail " + error, Toast.LENGTH_SHORT).show();
+        Toast.makeText(activity, "Login failed " + error, Toast.LENGTH_SHORT).show();
+
         hideProgressLoading();
     }
 

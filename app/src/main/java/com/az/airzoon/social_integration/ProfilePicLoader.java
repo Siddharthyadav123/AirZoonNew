@@ -10,8 +10,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageLoader;
+import com.az.airzoon.R;
 import com.az.airzoon.application.MyApplication;
 import com.az.airzoon.dataobjects.UserProfileDO;
 import com.squareup.picasso.Picasso;
@@ -68,7 +67,8 @@ public class ProfilePicLoader implements Target {
 
 
             } else {
-                Toast.makeText(context, "Profile Pic not found.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, context.getResources().getString(R.string.profilePicNotFoungText), Toast.LENGTH_SHORT).show();
+
             }
         } else {
             if (imageView != null) {
@@ -118,7 +118,7 @@ public class ProfilePicLoader implements Target {
             if (userProfileDO.getUrl() != null && userProfileDO.getUrl().length() > 0) {
                 Picasso.with(context).load(userProfileDO.getUrl()).into(this);
             } else {
-                Toast.makeText(context, "Profile Pic not found.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, context.getResources().getString(R.string.profilePicNotFoungText), Toast.LENGTH_SHORT).show();
             }
         } else {
             if (imageView != null) {
@@ -134,7 +134,7 @@ public class ProfilePicLoader implements Target {
 
     @Override
     public void onBitmapFailed(Drawable errorDrawable) {
-        Toast.makeText(context, "Profile Download failed.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, context.getResources().getString(R.string.profilePicDownloadFailedText), Toast.LENGTH_SHORT).show();
     }
 
     @Override

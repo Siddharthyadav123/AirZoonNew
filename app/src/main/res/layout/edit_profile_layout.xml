@@ -60,7 +60,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_toRightOf="@+id/nameImage"
                         android:background="@null"
-                        android:hint="User name"
+                        android:hint="@string/enterUserNameText"
                         android:singleLine="true"
                         android:textColor="@color/White"
                         android:textColorHint="@color/White"
