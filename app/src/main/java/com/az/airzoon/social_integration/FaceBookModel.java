@@ -52,17 +52,15 @@ public class FaceBookModel implements FacebookCallback<LoginResult> {
      * @param loginResult
      */
     private void onLoginSuccess(LoginResult loginResult) {
-
+        userProfileDO.destroyProfile();
         userProfileDO.setFbid(loginResult.getAccessToken().getUserId());
-        userProfileDO.setAcess_token(loginResult.getAccessToken().getToken());
-        GraphRequest request = GraphRequest.newMeRequest(
-                loginResult.getAccessToken(),
+        userProfileDO.setToken(loginResult.getAccessToken().getToken());
+
+        GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
                 new GraphRequest.GraphJSONObjectCallback() {
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
                         try {
-
-                            userProfileDO.destroyProfile();
                             userProfileDO.parseJsonDataForFacebook(object);
                             userProfileDO.saveProfile(Constants.LOGIN_TYPE_FB);
                             if (socialLoginInterface != null)

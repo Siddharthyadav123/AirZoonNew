@@ -529,7 +529,7 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
 //        loadingBlanckBgView.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.VISIBLE);
         APIHandler apiHandler = new APIHandler(this, this, RequestConstant.REQUEST_GET_HOTSPOT_LIST,
-                Request.Method.GET, URLConstants.URL_GET_HOTSPOT_LIST, false, null, null, null);
+                Request.Method.GET, URLConstants.URL_GET_HOTSPOT_LIST, false, null, null, null, null);
         apiHandler.requestAPI();
 
     }

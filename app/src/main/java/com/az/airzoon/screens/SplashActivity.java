@@ -64,6 +64,34 @@ public class SplashActivity extends AppCompatActivity {
 
     }
 
+//    public void testMutipart() {
+//
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    MultipartUtility multipart = new MultipartUtility("http://airzoonapp.com/feedback.php", "UTF-8");
+//                    // In your case you are not adding form data so ignore this
+//                /*This is to add parameter values */
+//                    multipart.addFormField("feedback", "plz fix");
+//
+//                    multipart.addFormField("email", "sid@testmail.com");
+//
+//
+//                    List<String> response = multipart.finish();
+//
+//                    for (String line : response) {
+//                        System.out.println("line>>" + line);
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }).start();
+//
+//
+//    }
+
 
 }
 

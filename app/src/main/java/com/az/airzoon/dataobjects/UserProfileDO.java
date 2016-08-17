@@ -4,16 +4,18 @@ import android.content.Context;
 
 import com.az.airzoon.preferences.PrefManager;
 import com.az.airzoon.social_integration.ProfilePicLoader;
+import com.az.airzoon.volly.RequestParam;
 
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  * Created by sid on 7/26/2016.
  */
 
-public class UserProfileDO {
+public class UserProfileDO extends BaseModel {
 
     private final String KEY_ID = "key_id";
     private final String KEY_BIRTHDAY = "key_birth";
@@ -277,45 +279,34 @@ public class UserProfileDO {
      *
      * @return
      */
-    public String formJSONToPostNewProfile() {
-        try {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("name", getName());
-            jsonObject.put("fbid", getFbid());
-            jsonObject.put("gender", getGender());
-            jsonObject.put("email", getEmail());
-            jsonObject.put("phoneno", getPhoneNum());
-            jsonObject.put("token", getToken());
-
-            return jsonObject.toString();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "";
+    public ArrayList<RequestParam> getRequestParamsToRegisterUser() {
+        ArrayList<RequestParam> requestParams = new ArrayList<>();
+        requestParams.add(new RequestParam("name", getName()));
+        requestParams.add(new RequestParam("fbid", getFbid()));
+        requestParams.add(new RequestParam("gender", getGender()));
+        requestParams.add(new RequestParam("email", getEmail()));
+        requestParams.add(new RequestParam("phoneno", getPhoneNum()));
+        requestParams.add(new RequestParam("token", getToken()));
+        return requestParams;
     }
 
     /**
-     * Parameters =name, gender, email, phone, token, profile_pic, acess_token, user_id
+     * name, gender, email, phone, token, profile_pic, acess_token, user_id
      *
      * @return
      */
-    public String formJSONToEditProfile() {
-        try {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("name", getName());
-            jsonObject.put("gender", getGender());
-            jsonObject.put("email", getEmail());
-            jsonObject.put("phoneno", getPhoneNum());
-            jsonObject.put("token", getToken());
-            jsonObject.put("profile_pic", getProfile_pic());
-            jsonObject.put("access_token", getAcess_token());
-            jsonObject.put("user_id", getId());
-
-            return jsonObject.toString();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "";
+    public ArrayList<RequestParam> getRequestParamsToUpdateUserProfile() {
+        ArrayList<RequestParam> requestParams = new ArrayList<>();
+        requestParams.add(new RequestParam("name", getName()));
+        requestParams.add(new RequestParam("gender", getFbid()));
+        requestParams.add(new RequestParam("email", getGender()));
+        requestParams.add(new RequestParam("phoneno", getEmail()));
+        requestParams.add(new RequestParam("token", getPhoneNum()));
+        requestParams.add(new RequestParam("profile_pic", getToken()));
+        requestParams.add(new RequestParam("access_token", getToken()));
+        requestParams.add(new RequestParam("user_id", getToken()));
+        return requestParams;
     }
+
 
 }

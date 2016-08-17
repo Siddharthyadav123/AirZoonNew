@@ -30,7 +30,7 @@ import org.json.JSONObject;
  * }
  * Created by siddharth on 7/26/2016.
  */
-public class AirZoonDo implements Parcelable {
+public class AirZoonDo extends BaseModel implements Parcelable {
 
     private String zip;
     private String phone;

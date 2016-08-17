@@ -55,12 +55,16 @@ public class TwitterModel extends Callback<TwitterSession> {
      * @param session
      */
     private void getUserData(TwitterSession session) {
+
+        final UserProfileDO userProfileDO = MyApplication.getInstance().getUserProfileDO();
+        userProfileDO.destroyProfile();
+        userProfileDO.setToken(session.getAuthToken().token);
+        userProfileDO.setFbid(session.getUserId() + "");
+
         Twitter.getApiClient(session).getAccountService()
                 .verifyCredentials(true, false, new Callback<User>() {
                     @Override
                     public void success(Result<User> userResult) {
-                        UserProfileDO userProfileDO = MyApplication.getInstance().getUserProfileDO();
-                        userProfileDO.destroyProfile();
                         userProfileDO.setUrl(userResult.data.profileImageUrl);
                         userProfileDO.setEmail(userResult.data.email);
                         userProfileDO.setName(userResult.data.name);
@@ -68,8 +72,6 @@ public class TwitterModel extends Callback<TwitterSession> {
 
                         if (socialLoginInterface != null)
                             socialLoginInterface.onSocialLoginSuccess(userProfileDO, Constants.LOGIN_TYPE_TWITTER);
-
-
                     }
 
                     @Override
