@@ -10,7 +10,7 @@ import android.os.Parcelable;
  */
 public class BaseModel implements Parcelable {
     private String message;
-    private String sucess;
+    private boolean sucess = true;
 
     public BaseModel() {
 
@@ -24,11 +24,11 @@ public class BaseModel implements Parcelable {
         this.message = message;
     }
 
-    public String getSucess() {
+    public boolean isSucess() {
         return sucess;
     }
 
-    public void setSucess(String sucess) {
+    public void setSucess(boolean sucess) {
         this.sucess = sucess;
     }
 
@@ -40,12 +40,12 @@ public class BaseModel implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(message);
-        dest.writeString(sucess);
+        dest.writeByte((byte) (sucess ? 1 : 0));
     }
 
     protected BaseModel(Parcel in) {
         message = in.readString();
-        sucess = in.readString();
+        sucess = in.readByte() != 0;
     }
 
     public static final Creator<BaseModel> CREATOR = new Creator<BaseModel>() {

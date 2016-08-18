@@ -11,16 +11,21 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.az.airzoon.R;
 import com.az.airzoon.adapters.SearchScreenSpinnerAdapter;
 import com.az.airzoon.constants.Constants;
+import com.az.airzoon.constants.RequestConstant;
+import com.az.airzoon.constants.URLConstants;
+import com.az.airzoon.volly.APICallback;
+import com.az.airzoon.volly.APIHandler;
 
 import java.util.ArrayList;
 
 /**
  * Created by siddharth on 8/1/2016.
  */
-public class EditProfileDialog extends AbstractBaseDialog {
+public class EditProfileDialog extends AbstractBaseDialog implements APICallback {
 
     private ImageView closeProfileImageView;
     private ImageView userDPImageView;
@@ -112,20 +117,55 @@ public class EditProfileDialog extends AbstractBaseDialog {
     }
 
     private void onSaveBtnclick() {
-        userProfileDO.setName(nameEditText.getText().toString());
-        userProfileDO.setEmail(emailEditText.getText().toString());
-        userProfileDO.setPhoneNum(phoneNumEditText.getText().toString());
-        if (genderSpinner.getSelectedItemPosition() == 0)
-            userProfileDO.setGender("male");
-        else
-            userProfileDO.setGender("female");
-        userProfileDO.saveProfile(userProfileDO.getLoginType());
+        if (validateUI()) {
+            userProfileDO.setName(nameEditText.getText().toString());
+            userProfileDO.setEmail(emailEditText.getText().toString());
+            userProfileDO.setPhoneNum(phoneNumEditText.getText().toString());
+            if (genderSpinner.getSelectedItemPosition() == 0)
+                userProfileDO.setGender("male");
+            else
+                userProfileDO.setGender("female");
 
-        Toast.makeText(activity, activity.getResources().getString(R.string.savedSuccessfulText), Toast.LENGTH_SHORT).show();
+            //requesting
+            APIHandler apiHandler = new APIHandler(activity, this, RequestConstant.REQUEST_POST_EDIT_USER,
+                    Request.Method.POST, URLConstants.URL_POST_NEW_USER_OR_EDIT_USER, true,
+                    "Updating user profile", null, null, userProfileDO.getRequestParamsToUpdateUserProfile());
+            apiHandler.requestAPI();
+
+        }
+
+
+    }
+
+    private boolean validateUI() {
+        if (nameEditText.getText().toString().trim().length() == 0) {
+            Toast.makeText(activity, activity.getResources().getString(R.string.errorEnterName), Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (emailEditText.getText().toString().trim().length() == 0) {
+            Toast.makeText(activity, activity.getResources().getString(R.string.errorEnterEmailId), Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (phoneNumEditText.getText().toString().trim().length() == 0) {
+            Toast.makeText(activity, activity.getResources().getString(R.string.errorEnterContactNum), Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 
     @Override
     public void onClickEvent(View actionView) {
 
     }
+
+    @Override
+    public void onAPISuccessResponse(int requestId, String responseString) {
+        userProfileDO.saveProfile(userProfileDO.getLoginType());
+        Toast.makeText(activity, activity.getResources().getString(R.string.savedSuccessfulText), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onAPIFailureResponse(int requestId, String errorString) {
+
+    }
+
+
 }

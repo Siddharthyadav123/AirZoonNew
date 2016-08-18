@@ -1,12 +1,19 @@
 package com.az.airzoon.volly;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.az.airzoon.R;
 import com.az.airzoon.application.MyApplication;
+import com.az.airzoon.dataobjects.BaseModel;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 
@@ -47,17 +54,38 @@ public class APIHandler implements Response.Listener<Object>, Response.ErrorList
     }
 
     private void showLoading() {
-        pDialog = new ProgressDialog(context);
-        pDialog.setMessage(loadingText);
-        pDialog.show();
+        ((Activity) context).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                pDialog = new ProgressDialog(context);
+                pDialog.setMessage(loadingText);
+                pDialog.show();
+            }
+        });
     }
 
     private void hideLoading() {
-        if (pDialog != null)
-            pDialog.dismiss();
+        ((Activity) context).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (pDialog != null)
+                    pDialog.dismiss();
+            }
+        });
     }
 
     public void requestAPI() {
+
+        //check if internet connect found or not
+        if (!checkConnection(context)) {
+            String noInternetConnection = context.getResources().getString(R.string.errorcheckInternetConection);
+            if (apiCallback != null) {
+                apiCallback.onAPIFailureResponse(requestId, noInternetConnection);
+            }
+            Toast.makeText(context, noInternetConnection, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         System.out.println("[API] request url = " + url);
         System.out.println("[API] request body = " + requestBody);
         if (showLoading) {
@@ -109,20 +137,47 @@ public class APIHandler implements Response.Listener<Object>, Response.ErrorList
     }
 
     private void onMutipartPostSuccessResponse(String reaponseString) {
+        BaseModel baseModel = null;
         if (reaponseString != null && reaponseString.trim().startsWith("[")) {
             try {
                 System.out.println("[API] response body multipart before parsing= " + reaponseString);
                 JSONArray jsonArray = new JSONArray(reaponseString);
                 reaponseString = jsonArray.get(0).toString();
                 System.out.println("[API] response body multipart after parsing= " + reaponseString);
+
+                Gson gson = new Gson();
+                baseModel = gson.fromJson(reaponseString, BaseModel.class);
             } catch (Exception e) {
                 e.printStackTrace();
+                if (apiCallback != null) {
+                    apiCallback.onAPIFailureResponse(requestId, e.getMessage());
+                }
             }
         }
         hideLoading();
-        if (apiCallback != null) {
-            apiCallback.onAPISuccessResponse(requestId, reaponseString);
+
+        if (baseModel != null && baseModel.isSucess()) {
+            showToast(baseModel.getMessage());
+            if (apiCallback != null) {
+                apiCallback.onAPISuccessResponse(requestId, reaponseString);
+            }
+        } else {
+            showToast(baseModel.getMessage());
+            if (apiCallback != null) {
+                apiCallback.onAPIFailureResponse(requestId, baseModel.getMessage());
+            }
         }
+
+    }
+
+    private void showToast(final String text) {
+        ((Activity) context).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (text != null && text.length() > 0)
+                    Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
@@ -149,5 +204,22 @@ public class APIHandler implements Response.Listener<Object>, Response.ErrorList
             apiCallback.onAPIFailureResponse(requestId, error.getMessage());
         }
         hideLoading();
+    }
+
+
+    private boolean checkConnection(Context context) {
+        ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connMgr.getActiveNetworkInfo();
+        if (activeNetworkInfo != null) { // connected to the internet
+            Toast.makeText(context, activeNetworkInfo.getTypeName(), Toast.LENGTH_SHORT).show();
+            if (activeNetworkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
+                // connected to wifi
+                return true;
+            } else if (activeNetworkInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
+                // connected to the mobile provider's data plan
+                return true;
+            }
+        }
+        return false;
     }
 }

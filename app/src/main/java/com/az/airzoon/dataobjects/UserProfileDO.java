@@ -2,6 +2,7 @@ package com.az.airzoon.dataobjects;
 
 import android.content.Context;
 
+import com.az.airzoon.application.MyApplication;
 import com.az.airzoon.preferences.PrefManager;
 import com.az.airzoon.social_integration.ProfilePicLoader;
 import com.az.airzoon.volly.RequestParam;
@@ -185,6 +186,10 @@ public class UserProfileDO extends BaseModel {
 
 
     public void loadProfile() {
+        if (prefManager == null) {
+            prefManager = new PrefManager(MyApplication.getInstance());
+        }
+
         setLoginType(prefManager.getPref().getString(KEY_LOGIN_TYPE, ""));
         setId(prefManager.getPref().getString(KEY_ID, ""));
         setBirthday(prefManager.getPref().getString(KEY_BIRTHDAY, ""));
@@ -203,6 +208,9 @@ public class UserProfileDO extends BaseModel {
 
     public void saveProfile(String loginType) {
         this.loginType = loginType;
+        if (prefManager == null) {
+            prefManager = new PrefManager(MyApplication.getInstance());
+        }
         prefManager.getEditor().putString(KEY_LOGIN_TYPE, loginType);
         prefManager.getEditor().putString(KEY_ID, id);
         prefManager.getEditor().putString(KEY_BIRTHDAY, birthday);
@@ -266,6 +274,9 @@ public class UserProfileDO extends BaseModel {
     }
 
     public boolean isLoggedInAlrady() {
+        if (prefManager == null) {
+            prefManager = new PrefManager(MyApplication.getInstance());
+        }
         String userType = prefManager.getPref().getString(KEY_LOGIN_TYPE, "");
         if (userType != null && userType.trim().length() > 0) {
             return true;
@@ -298,13 +309,14 @@ public class UserProfileDO extends BaseModel {
     public ArrayList<RequestParam> getRequestParamsToUpdateUserProfile() {
         ArrayList<RequestParam> requestParams = new ArrayList<>();
         requestParams.add(new RequestParam("name", getName()));
-        requestParams.add(new RequestParam("gender", getFbid()));
-        requestParams.add(new RequestParam("email", getGender()));
-        requestParams.add(new RequestParam("phoneno", getEmail()));
-        requestParams.add(new RequestParam("token", getPhoneNum()));
-        requestParams.add(new RequestParam("profile_pic", getToken()));
-        requestParams.add(new RequestParam("access_token", getToken()));
-        requestParams.add(new RequestParam("user_id", getToken()));
+        requestParams.add(new RequestParam("gender", getGender()));
+        requestParams.add(new RequestParam("email", getEmail()));
+        requestParams.add(new RequestParam("phoneno", getPhoneNum()));
+        requestParams.add(new RequestParam("token", getToken()));
+        requestParams.add(new RequestParam("fbid", getFbid()));
+        requestParams.add(new RequestParam("profile_pic", getProfile_pic()));
+        requestParams.add(new RequestParam("access_token", getAcess_token()));
+        requestParams.add(new RequestParam("user_id", getId()));
         return requestParams;
     }
 

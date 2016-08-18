@@ -131,4 +131,8 @@
     <string name="lastSyncText">last sync:</string>
     <string name="savedSuccessfulText">Saved successfully</string>
 
+    <string name="errorEnterName">Please enter your name</string>
+    <string name="errorEnterEmailId">Please enter your email id</string>
+    <string name="errorEnterContactNum">Please enter your contact number</string>
+    <string name="errorcheckInternetConection">Please check your internet connection</string>
 </resources>
