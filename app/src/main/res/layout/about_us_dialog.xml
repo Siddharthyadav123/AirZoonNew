@@ -83,7 +83,7 @@
                 android:padding="10dp">
 
                 <com.az.airzoon.customviews.CustomFontTextView
-                    android:id="@+id/bodyText1"
+                    android:id="@+id/bodyText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
@@ -92,22 +92,11 @@
                     android:textSize="15dp"
                     app:sid_customFont="gotham_book" />
 
-                <com.az.airzoon.customviews.CustomFontTextView
-                    android:id="@+id/bodyText2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/bodyText1"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/aboutUsBody2"
-                    android:textColor="@color/Black"
-                    android:textSize="15dp"
-                    app:sid_customFont="gotham_book" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_below="@+id/bodyText2"
+                    android:layout_below="@+id/bodyText"
                     android:layout_marginBottom="15dp"
                     android:layout_marginTop="55dp"
                     android:orientation="horizontal">

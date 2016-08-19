@@ -48,8 +48,7 @@ public class ProfilePicLoader implements Target {
                 if (progressBar != null) {
                     progressBar.setVisibility(View.VISIBLE);
                 }
-                int picSize = (int) MyApplication.getInstance().convertDpToPixel(130, context);
-                Picasso.with(context).load(userProfileDO.getUrl()).resize(picSize, picSize).into(this);
+                Picasso.with(context).load(userProfileDO.getUrl()).into(this);
 
 //                ImageLoader imageLoader = MyApplication.getInstance().getImageLoader();
 //
@@ -119,6 +118,9 @@ public class ProfilePicLoader implements Target {
                 Picasso.with(context).load(userProfileDO.getUrl()).into(this);
             } else {
                 Toast.makeText(context, context.getResources().getString(R.string.profilePicNotFoungText), Toast.LENGTH_SHORT).show();
+                if (progressBar != null) {
+                    progressBar.setVisibility(View.GONE);
+                }
             }
         } else {
             if (imageView != null) {
@@ -135,6 +137,9 @@ public class ProfilePicLoader implements Target {
     @Override
     public void onBitmapFailed(Drawable errorDrawable) {
         Toast.makeText(context, context.getResources().getString(R.string.profilePicDownloadFailedText), Toast.LENGTH_SHORT).show();
+        if (progressBar != null) {
+            progressBar.setVisibility(View.GONE);
+        }
     }
 
     @Override

@@ -156,7 +156,7 @@ public class HotspotDetailDailog extends AbstractBaseDialog implements APICallba
     }
 
     private void onReportAnErrorClick() {
-        ReportIssueDialog reportIssueDialog = new ReportIssueDialog(activity);
+        ReportIssueDialog reportIssueDialog = new ReportIssueDialog(activity, airZoonDo.getName());
         reportIssueDialog.showDialog(ReportIssueDialog.ANIM_TYPE_BOTTOM_IN_BOTTOM_OUT);
     }
 

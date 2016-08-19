@@ -170,14 +170,15 @@ public class UserProfileDO extends BaseModel {
                     setEmail((String) object.get("email"));
                 }
                 if (object.has("picture")) {
-
-                    JSONObject pictureJsonObject = (JSONObject) object.get("picture");
-                    if (pictureJsonObject.has("data")) {
-                        JSONObject dataJsonObject = (JSONObject) pictureJsonObject.get("data");
-                        if (dataJsonObject.has("url")) {
-                            setUrl((String) dataJsonObject.get("url"));
-                        }
-                    }
+                    setUrl("https:\\\\graph.facebook.com\\" + getFbid() + "\\picture?width=300&height=300");
+//                    JSONObject pictureJsonObject = (JSONObject) object.get("picture");
+//                    if (pictureJsonObject.has("data")) {
+//                        JSONObject dataJsonObject = (JSONObject) pictureJsonObject.get("data");
+//                        if (dataJsonObject.has("url")) {
+//
+//                            setUrl((String) dataJsonObject.get("url"));
+//                        }
+//                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -299,6 +300,7 @@ public class UserProfileDO extends BaseModel {
         requestParams.add(new RequestParam("email", getEmail()));
         requestParams.add(new RequestParam("phoneno", getPhoneNum()));
         requestParams.add(new RequestParam("token", getToken()));
+        requestParams.add(new RequestParam("profile_pic", getUrl()));
         return requestParams;
     }
 
@@ -315,7 +317,7 @@ public class UserProfileDO extends BaseModel {
         requestParams.add(new RequestParam("phone", getPhoneNum()));
         requestParams.add(new RequestParam("token", getToken()));
         requestParams.add(new RequestParam("fbid", getFbid()));
-        requestParams.add(new RequestParam("profile_pic", getProfile_pic()));
+        requestParams.add(new RequestParam("profile_pic", getUrl()));
         requestParams.add(new RequestParam("access_token", getAcess_token()));
         requestParams.add(new RequestParam("user_id", getId()));
         return requestParams;

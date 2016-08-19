@@ -12,5 +12,5 @@ public class RequestConstant {
     public static final int REQUEST_POST_FEEDBACK = 5;
     public static final int REQUEST_POST_ERROR_REPORT = 6;
     public static final int REQUEST_POST_FAVIOURATES = 7;
-
+    public static final int REQUEST_GET_ADDRESS = 8;
 }

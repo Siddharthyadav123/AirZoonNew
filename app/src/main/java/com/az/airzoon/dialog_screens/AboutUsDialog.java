@@ -8,19 +8,25 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.Request;
 import com.az.airzoon.R;
+import com.az.airzoon.constants.RequestConstant;
+import com.az.airzoon.constants.URLConstants;
 import com.az.airzoon.screens.TutorialActivity;
+import com.az.airzoon.volly.APICallback;
+import com.az.airzoon.volly.APIHandler;
 
 /**
  * Created by sid on 30/07/2016.
  */
-public class AboutUsDialog extends AbstractBaseDialog {
+public class AboutUsDialog extends AbstractBaseDialog implements APICallback {
 
     private ImageView closeProfileImageView;
     private TextView fbBtnTextView;
     private TextView twitterBtnTextView;
     private TextView sendFeedbackBtnTextView;
     private TextView watchTheGuideBtnTextView;
+    private TextView bodyText;
 
     public AboutUsDialog(Context context) {
         super(context);
@@ -38,6 +44,8 @@ public class AboutUsDialog extends AbstractBaseDialog {
         twitterBtnTextView = (TextView) view.findViewById(R.id.twitterBtnTextView);
         sendFeedbackBtnTextView = (TextView) view.findViewById(R.id.sendFeedbackBtnTextView);
         watchTheGuideBtnTextView = (TextView) view.findViewById(R.id.watchTheGuideBtnTextView);
+        bodyText = (TextView) view.findViewById(R.id.bodyText);
+
     }
 
     @Override
@@ -51,7 +59,14 @@ public class AboutUsDialog extends AbstractBaseDialog {
 
     @Override
     public void setInfoInUI(View view) {
+        bodyText.setText(activity.getResources().getString(R.string.aboutUsBody1) + "\n\n\n" +
+                activity.getResources().getString(R.string.aboutUsBody2));
+        //requesting
+        APIHandler apiHandler = new APIHandler(activity, this, RequestConstant.REQUEST_GET_ABOUT_US_BODY_TEXT,
+                Request.Method.GET, URLConstants.URL_GET_ABOUT_US_BODY_TEXT, false,
+                null, null, null, null);
 
+        apiHandler.requestAPI();
     }
 
     @Override
@@ -94,5 +109,15 @@ public class AboutUsDialog extends AbstractBaseDialog {
     private void onFbBtnClick() {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/airzoon"));
         activity.startActivity(browserIntent);
+    }
+
+    @Override
+    public void onAPISuccessResponse(int requestId, String responseString) {
+        bodyText.setText(responseString);
+    }
+
+    @Override
+    public void onAPIFailureResponse(int requestId, String errorString) {
+
     }
 }

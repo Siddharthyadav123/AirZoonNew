@@ -212,6 +212,7 @@
                         android:layout_toRightOf="@+id/emailImage"
                         android:background="@null"
                         android:hint="@string/enterEmailHintText"
+                        android:inputType="textEmailAddress"
                         android:textColor="@color/White"
                         android:textColorHint="@color/White"
                         android:textSize="15dp"

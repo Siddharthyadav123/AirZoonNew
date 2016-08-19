@@ -6,18 +6,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.az.airzoon.R;
+import com.az.airzoon.application.MyApplication;
+import com.az.airzoon.constants.RequestConstant;
+import com.az.airzoon.constants.URLConstants;
+import com.az.airzoon.volly.APICallback;
+import com.az.airzoon.volly.APIHandler;
+import com.az.airzoon.volly.RequestParam;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
  * Created by sid on 31/07/2016.
  */
-public class ReportIssueDialog extends AbstractBaseDialog {
-
-    private final int FLAG_SELECTED = 0;
-    private final int FLAG_NOT_SELECTED = 1;
+public class ReportIssueDialog extends AbstractBaseDialog implements APICallback {
 
 
     private ImageView nameCheckBoxImageView;
@@ -41,8 +47,11 @@ public class ReportIssueDialog extends AbstractBaseDialog {
 
     HashMap<String, String> reportHasmap = new HashMap<>();
 
-    public ReportIssueDialog(Context context) {
+    private String airZoonName;
+
+    public ReportIssueDialog(Context context, String airZoonName) {
         super(context);
+        this.airZoonName = airZoonName;
     }
 
     @Override
@@ -53,55 +62,55 @@ public class ReportIssueDialog extends AbstractBaseDialog {
     @Override
     public void initViews(View view) {
         nameCheckBoxImageView = (ImageView) view.findViewById(R.id.nameCheckBoxImageView);
-        nameCheckBoxImageView.setTag("err_name");
-        reportHasmap.put("err_name", "false");
+        nameCheckBoxImageView.setTag("nameError");
+        reportHasmap.put("nameError", "none");
 
         addressCheckBoxImageView = (ImageView) view.findViewById(R.id.addressCheckBoxImageView);
-        addressCheckBoxImageView.setTag("err_address");
-        reportHasmap.put("err_address", "false");
+        addressCheckBoxImageView.setTag("addressError");
+        reportHasmap.put("addressError", "none");
 
 
         categoryCheckBoxImageView = (ImageView) view.findViewById(R.id.categoryCheckBoxImageView);
-        categoryCheckBoxImageView.setTag("err_category");
-        reportHasmap.put("err_category", "false");
+        categoryCheckBoxImageView.setTag("categoryError");
+        reportHasmap.put("categoryError", "none");
 
 
         hoursCheckBoxImageView = (ImageView) view.findViewById(R.id.hoursCheckBoxImageView);
-        hoursCheckBoxImageView.setTag("err_hours");
-        reportHasmap.put("err_hours", "false");
+        hoursCheckBoxImageView.setTag("hourError");
+        reportHasmap.put("hourError", "none");
 
         phoneCheckBoxImageView = (ImageView) view.findViewById(R.id.phoneCheckBoxImageView);
-        phoneCheckBoxImageView.setTag("err_phone");
-        reportHasmap.put("err_phone", "false");
+        phoneCheckBoxImageView.setTag("phoneError");
+        reportHasmap.put("phoneError", "none");
 
         speedCheckBoxImageView = (ImageView) view.findViewById(R.id.speedCheckBoxImageView);
-        speedCheckBoxImageView.setTag("err_speed");
-        reportHasmap.put("err_speed", "false");
+        speedCheckBoxImageView.setTag("speedError");
+        reportHasmap.put("speedError", "none");
 
         /////////resonse info
         nameRICheckBoxImageView = (ImageView) view.findViewById(R.id.nameRICheckBoxImageView);
-        nameRICheckBoxImageView.setTag("req_name");
-        reportHasmap.put("req_name", "false");
+        nameRICheckBoxImageView.setTag("nameRequest");
+        reportHasmap.put("nameRequest", "none");
 
         addressRICheckBoxImageView = (ImageView) view.findViewById(R.id.addressRICheckBoxImageView);
-        addressRICheckBoxImageView.setTag("req_address");
-        reportHasmap.put("req_address", "false");
+        addressRICheckBoxImageView.setTag("addressRequest");
+        reportHasmap.put("addressRequest", "none");
 
         categoryRICheckBoxImageView = (ImageView) view.findViewById(R.id.categoryRICheckBoxImageView);
-        categoryRICheckBoxImageView.setTag("req_category");
-        reportHasmap.put("req_category", "false");
+        categoryRICheckBoxImageView.setTag("categoryRequest");
+        reportHasmap.put("categoryRequest", "none");
 
         hoursRICheckBoxImageView = (ImageView) view.findViewById(R.id.hoursRICheckBoxImageView);
-        hoursRICheckBoxImageView.setTag("req_hours");
-        reportHasmap.put("req_hours", "false");
+        hoursRICheckBoxImageView.setTag("hourRequest");
+        reportHasmap.put("hourRequest", "none");
 
         phoneRICheckBoxImageView = (ImageView) view.findViewById(R.id.phoneRICheckBoxImageView);
-        phoneRICheckBoxImageView.setTag("req_phone");
-        reportHasmap.put("req_phone", "false");
+        phoneRICheckBoxImageView.setTag("phoneRequest");
+        reportHasmap.put("phoneRequest", "none");
 
         speedRICheckBoxImageView = (ImageView) view.findViewById(R.id.speedRICheckBoxImageView);
-        speedRICheckBoxImageView.setTag("req_speed");
-        reportHasmap.put("req_speed", "false");
+        speedRICheckBoxImageView.setTag("speedRequest");
+        reportHasmap.put("speedRequest", "none");
 
         commentEditText = (EditText) view.findViewById(R.id.commentEditText);
         closeProfileImageView = (ImageView) view.findViewById(R.id.closeProfileImageView);
@@ -135,7 +144,7 @@ public class ReportIssueDialog extends AbstractBaseDialog {
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dismiss();
+                onSendBtnClick();
             }
         });
 
@@ -147,6 +156,27 @@ public class ReportIssueDialog extends AbstractBaseDialog {
         });
     }
 
+    private void onSendBtnClick() {
+        if (validateUI()) {
+            //requesting
+            APIHandler apiHandler = new APIHandler(activity, this, RequestConstant.REQUEST_POST_ERROR_REPORT,
+                    Request.Method.POST, URLConstants.URL_POST_ERROR_REPORT, true,
+                    activity.getResources().getString(R.string.reportingIssueText), null, null,
+                    formRequestParams());
+
+            apiHandler.requestAPI();
+        }
+    }
+
+    private boolean validateUI() {
+        if (commentEditText.getText().toString().trim().length() == 0) {
+            Toast.makeText(activity, activity.getResources().getString(R.string.errorEnterComment),
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
     @Override
     public void setInfoInUI(View view) {
 
@@ -154,12 +184,51 @@ public class ReportIssueDialog extends AbstractBaseDialog {
 
     @Override
     public void onClickEvent(View actionView) {
-        if (reportHasmap.get(actionView.getTag().toString()).equals("true")) {
-            reportHasmap.put(actionView.getTag().toString(), "false");
-            ((ImageView) actionView).setImageResource(R.drawable.com_facebook_button_check_off);
-        } else {
-            reportHasmap.put(actionView.getTag().toString(), "true");
+        if (reportHasmap.get(actionView.getTag().toString()).equals("none")) {
+            reportHasmap.put(actionView.getTag().toString(), actionView.getTag().toString() + "Selected");
             ((ImageView) actionView).setImageResource(R.drawable.com_facebook_button_check_on);
+        } else {
+            reportHasmap.put(actionView.getTag().toString(), "none");
+            ((ImageView) actionView).setImageResource(R.drawable.com_facebook_button_check_off);
         }
+    }
+
+    /**
+     * hotspot, comment, err_name, err_address, err_category, err_hours, err_phone, err_speed,
+     * req_name, req_address, req_category, req_hours, req_phone, req_speed,
+     *
+     * @return
+     */
+    private ArrayList<RequestParam> formRequestParams() {
+        ArrayList<RequestParam> requestParams = new ArrayList<>();
+        requestParams.add(new RequestParam("hotspot", airZoonName));
+        requestParams.add(new RequestParam("comment", commentEditText.getText().toString()));
+
+        requestParams.add(new RequestParam("err_name", reportHasmap.get("nameError")));
+        requestParams.add(new RequestParam("err_address", reportHasmap.get("addressError")));
+        requestParams.add(new RequestParam("err_category", reportHasmap.get("categoryError")));
+        requestParams.add(new RequestParam("err_hours", reportHasmap.get("hourError")));
+        requestParams.add(new RequestParam("err_phone", reportHasmap.get("phoneError")));
+        requestParams.add(new RequestParam("err_speed", reportHasmap.get("speedError")));
+
+
+        requestParams.add(new RequestParam("req_name", reportHasmap.get("nameRequest")));
+        requestParams.add(new RequestParam("req_address", reportHasmap.get("addressRequest")));
+        requestParams.add(new RequestParam("req_category", reportHasmap.get("categoryRequest")));
+        requestParams.add(new RequestParam("req_hours", reportHasmap.get("hourRequest")));
+        requestParams.add(new RequestParam("req_phone", reportHasmap.get("phoneRequest")));
+        requestParams.add(new RequestParam("req_speed", reportHasmap.get("speedRequest")));
+
+        return requestParams;
+    }
+
+    @Override
+    public void onAPISuccessResponse(int requestId, String responseString) {
+        dismiss();
+    }
+
+    @Override
+    public void onAPIFailureResponse(int requestId, String errorString) {
+
     }
 }

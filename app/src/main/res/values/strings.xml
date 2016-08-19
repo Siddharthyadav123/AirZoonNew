@@ -59,11 +59,12 @@
 
     <!--About us text-->
     <string name="aboutUsText">About us</string>
-    <string name="versionText">Version 1.1</string>
+    <string name="versionText">Version 1.0</string>
     <string name="aboutUsBody1">airZoon gives you the weather of the wifi. Find the best hotspot that fit your needs.</string>
     <string name="aboutUsBody2">airZoon hotspots are free, unlimited and secured.</string>
     <string name="sendAFeedbackText">Send a Feedback</string>
     <string name="watchTheGuidedTourText">Watch the Guided Tour</string>
+
 
     <!--Feedback-->
     <string name="feedbackText">Feedback</string>
@@ -147,4 +148,9 @@
     <string name="errorEnterHotSpotNum">Please enter hotspot contact number</string>
     <string name="errorEnterHotSpotAddress">Please enter hotspot address</string>
     <string name="postingNewHotspotText">Posting new hotspot..</string>
+    <string name="reportingIssueText">Reporting your issue..</string>
+    <string name="fetchingAddressText">Fetching Address..</string>
+    <string name="addressNotFoundText">Unable to find address..</string>
+    <string name="issuesReportedSuccessfullyText">"Issues/Request info reported Succesfully.."</string>
+
 </resources>

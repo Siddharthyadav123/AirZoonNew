@@ -11,14 +11,26 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.az.airzoon.R;
+import com.az.airzoon.constants.RequestConstant;
+import com.az.airzoon.constants.URLConstants;
+import com.az.airzoon.volly.APICallback;
+import com.az.airzoon.volly.APIHandler;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 /**
  * Class to fetch lat long
  */
-public class LocationModel implements LocationListener {
+public class LocationModel implements LocationListener, APICallback {
 
     private Context mContext;
 
@@ -42,6 +54,7 @@ public class LocationModel implements LocationListener {
 
     // Declaring a Location Manager
     private LocationManager locationManager;
+    private AddressCallback addressCallback;
 
     public LocationModel(Context context) {
         this.mContext = context;
@@ -85,6 +98,8 @@ public class LocationModel implements LocationListener {
                         //                                          int[] grantResults)
                         // to handle the case where the user grants the permission. See the documentation
                         // for ActivityCompat#requestPermissions for more details.
+
+
                         return null;
                     }
                     locationManager.requestLocationUpdates(
@@ -127,6 +142,7 @@ public class LocationModel implements LocationListener {
 
         return location;
     }
+
 
     /**
      * Function to get latitude
@@ -172,7 +188,8 @@ public class LocationModel implements LocationListener {
     public void onStatusChanged(String provider, int status, Bundle extras) {
     }
 
-    public String getMyAddress(Context context) {
+    public void findMyAddress(Context context, AddressCallback addressCallback) {
+        this.addressCallback = addressCallback;
         String strAdd = "";
         Geocoder geocoder = new Geocoder(context, Locale.getDefault());
         try {
@@ -185,11 +202,67 @@ public class LocationModel implements LocationListener {
                 }
                 strAdd = strReturnedAddress.toString();
             }
+
+            if (addressCallback != null) {
+                addressCallback.onAddressResult(true, strAdd);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            addressFromAPI(context);
+        }
+
+    }
+
+    public void addressFromAPI(Context context) {
+        try {
+            String address = String.format(Locale.ENGLISH, "http://maps.googleapis.com/maps/api/geocode/json?latlng=%1$f,%2$f&sensor=true&language="
+                    + Locale.getDefault().getCountry(), latitude, longitude);
+
+            //requesting
+            APIHandler apiHandler = new APIHandler(context, this, RequestConstant.REQUEST_GET_ADDRESS,
+                    Request.Method.GET, address, true, context.getResources().getString(R.string.fetchingAddressText), null, null,
+                    null);
+
+            apiHandler.requestAPI();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return strAdd;
+    }
 
+    @Override
+    public void onAPISuccessResponse(int requestId, String responseString) {
+        try {
+            String address = "";
+            JSONObject jsonObject = new JSONObject(responseString.toString());
+
+            if ("OK".equalsIgnoreCase(jsonObject.getString("status"))) {
+                JSONArray results = jsonObject.getJSONArray("results");
+                for (int i = 0; i < results.length(); i++) {
+                    JSONObject result = results.getJSONObject(i);
+                    String indiStr = result.getString("formatted_address");
+                    Address addr = new Address(Locale.getDefault());
+                    addr.setAddressLine(0, indiStr);
+                    address = address + " " + addr;
+                }
+            }
+            if (addressCallback != null) {
+                addressCallback.onAddressResult(true, address);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (addressCallback != null) {
+            addressCallback.onAddressResult(false, mContext.getResources().getString(R.string.addressNotFoundText));
+        }
+    }
+
+    @Override
+    public void onAPIFailureResponse(int requestId, String errorString) {
+
+    }
+
+    public interface AddressCallback {
+        public void onAddressResult(boolean isFound, String addressOrError);
     }
 
 }

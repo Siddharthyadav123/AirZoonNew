@@ -54,6 +54,9 @@ public class SendAFeedbackDialog extends AbstractBaseDialog implements APICallba
 
     @Override
     public void setInfoInUI(View view) {
+        if (MyApplication.getInstance().getUserProfileDO().isLoggedInAlrady()) {
+            emailEditText.setText(MyApplication.getInstance().getUserProfileDO().getEmail());
+        }
 
     }
 
@@ -82,26 +85,23 @@ public class SendAFeedbackDialog extends AbstractBaseDialog implements APICallba
 
 
     private void onSubmitBtnClick() {
-        if (MyApplication.getInstance().getUserProfileDO().isLoggedInAlrady()) {
-            if (validateUI()) {
-                ArrayList<RequestParam> requestParams = new ArrayList<>();
-                requestParams.add(new RequestParam("email", emailEditText.getText().toString().trim()));
-                requestParams.add(new RequestParam("feedback", commentEditText.getText().toString().trim()));
+        if (validateUI()) {
+            ArrayList<RequestParam> requestParams = new ArrayList<>();
+            requestParams.add(new RequestParam("email", emailEditText.getText().toString().trim()));
+            requestParams.add(new RequestParam("feedback", commentEditText.getText().toString().trim()));
 
-                APIHandler apiHandler = new APIHandler(activity, this, RequestConstant.REQUEST_POST_FEEDBACK,
-                        Request.Method.POST, URLConstants.URL_POST_FEEDBACK, true,
-                        activity.getResources().getString(R.string.sendingYourFeedbackText), null,
-                        null, requestParams);
-                apiHandler.requestAPI();
-            }
-        } else {
-            Toast.makeText(activity, activity.getResources().getString(R.string.loginErrorText), Toast.LENGTH_SHORT).show();
+            APIHandler apiHandler = new APIHandler(activity, this, RequestConstant.REQUEST_POST_FEEDBACK,
+                    Request.Method.POST, URLConstants.URL_POST_FEEDBACK, true,
+                    activity.getResources().getString(R.string.sendingYourFeedbackText), null,
+                    null, requestParams);
+            apiHandler.requestAPI();
         }
 
     }
 
     @Override
     public void onAPISuccessResponse(int requestId, String responseString) {
+        Toast.makeText(activity, activity.getResources().getString(R.string.issuesReportedSuccessfullyText), Toast.LENGTH_SHORT).show();
         dismiss();
     }
 

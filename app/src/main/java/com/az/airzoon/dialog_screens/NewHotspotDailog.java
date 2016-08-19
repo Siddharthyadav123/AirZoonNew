@@ -1,6 +1,9 @@
 package com.az.airzoon.dialog_screens;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +20,8 @@ import com.az.airzoon.application.MyApplication;
 import com.az.airzoon.constants.Constants;
 import com.az.airzoon.constants.RequestConstant;
 import com.az.airzoon.constants.URLConstants;
+import com.az.airzoon.gps.LocationModel;
+import com.az.airzoon.screens.AirZoonMapActivity;
 import com.az.airzoon.volly.APICallback;
 import com.az.airzoon.volly.APIHandler;
 import com.az.airzoon.volly.RequestParam;
@@ -100,11 +105,28 @@ public class NewHotspotDailog extends AbstractBaseDialog implements APICallback 
         locImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fetchedAddress = MyApplication.getInstance().getLocationModel().getMyAddress(activity);
-                addressEditText.setText(fetchedAddress);
+                requestAddress();
             }
         });
+
+
     }
+
+    private void requestAddress() {
+        MyApplication.getInstance().getLocationModel().findMyAddress(activity, addressCallback);
+    }
+
+    LocationModel.AddressCallback addressCallback = new LocationModel.AddressCallback() {
+        @Override
+        public void onAddressResult(boolean isFound, String addressOrError) {
+            if (isFound) {
+                fetchedAddress = addressOrError;
+                addressEditText.setText(fetchedAddress);
+            } else {
+                Toast.makeText(activity, addressOrError, Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
 
 
     //Parameters = spot_name, type, category, ph_no, address, image

@@ -224,6 +224,7 @@
                         android:layout_height="30dp"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
+                        android:background="?android:selectableItemBackground"
                         android:padding="5dp"
                         android:src="@drawable/loc"
                         android:visibility="visible" />

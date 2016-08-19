@@ -59,7 +59,7 @@
 
     <!--About us text-->
     <string name="aboutUsText">"À propos de nous"</string>
-    <string name="versionText">Version 1.1</string>
+    <string name="versionText">Version 1.0</string>
     <string name="aboutUsBody1">"airZoon vous donne la météo de la wifi . Trouvez le meilleur hotspot qui correspondent à vos besoins ."</string>
     <string name="aboutUsBody2">"hotspots airZoon sont gratuit, illimité et sécurisé."</string>
     <string name="sendAFeedbackText">"Envoyer un feedback"</string>
