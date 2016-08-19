@@ -3,7 +3,10 @@ package com.az.airzoon.dataobjects;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import org.json.JSONObject;
+import com.az.airzoon.application.MyApplication;
+import com.az.airzoon.volly.RequestParam;
+
+import java.util.ArrayList;
 
 /**
  * {
@@ -304,37 +307,20 @@ public class AirZoonDo extends BaseModel implements Parcelable {
     }
 
 
-    //spot_name, type, category, ph_no, address, image
-    public String formJSONToPostHotspot() {
-        try {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("spot_name", getName());
-            jsonObject.put("type", getType());
-            jsonObject.put("category", getCategory());
-            jsonObject.put("ph_no", getPhone());
-            jsonObject.put("address", getAddress());
-            jsonObject.put("image", getImage());
-            return jsonObject.toString();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
-
     //user_id, spot_id, acess_token, favourite, spot_name
-    public String formJSONToSetFav(String userId, String access_token) {
+    public ArrayList<RequestParam> getRequestParamsForFav() {
         try {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("spot_id", getId());
-            jsonObject.put("spot_name", getName());
-            jsonObject.put("user_id", userId);
-            jsonObject.put("acess_token", access_token);
-            jsonObject.put("favourite", isFaviourate());
-
-            return jsonObject.toString();
+            ArrayList<RequestParam> requestParams = new ArrayList<>();
+            requestParams.add(new RequestParam("spot_id", getId()));
+            requestParams.add(new RequestParam("spot_name", getName()));
+            requestParams.add(new RequestParam("user_id", MyApplication.getInstance().getUserProfileDO().getId()));
+            requestParams.add(new RequestParam("acess_token", MyApplication.getInstance().getUserProfileDO().getAcess_token()));
+            requestParams.add(new RequestParam("favourite", isFaviourate() + ""));
+            return requestParams;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "";
+        return null;
     }
+
 }

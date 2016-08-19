@@ -207,7 +207,8 @@ public class ProfileDialog extends AbstractBaseDialog implements SocialLoginInte
     private void loginToOurServer() {
         APIHandler apiHandler = new APIHandler(activity, this, RequestConstant.REQUEST_POST_NEW_USER,
                 Request.Method.POST, URLConstants.URL_POST_NEW_USER_OR_EDIT_USER, true,
-                "Posting user profile", null, null, userProfileDO.getRequestParamsToRegisterUser());
+                activity.getResources().getString(R.string.postingUserProfileText), null,
+                null, userProfileDO.getRequestParamsToRegisterUser());
         apiHandler.requestAPI();
     }
 
@@ -246,9 +247,11 @@ public class ProfileDialog extends AbstractBaseDialog implements SocialLoginInte
     public void onAPISuccessResponse(int requestId, String responseString) {
         System.out.println(">>response>>" + responseString);
         Gson gson = new Gson();
-        String loginType = userProfileDO.getLoginType();
-        userProfileDO = gson.fromJson(responseString, UserProfileDO.class);
-        userProfileDO.saveProfile(loginType);
+        UserProfileDO userProfileDONew = gson.fromJson(responseString, UserProfileDO.class);
+        userProfileDO.setId(userProfileDONew.getId());
+        userProfileDO.setToken(userProfileDONew.getToken());
+        userProfileDO.setAcess_token(userProfileDONew.getAcess_token());
+        userProfileDO.saveProfile(userProfileDO.getLoginType());
     }
 
     @Override

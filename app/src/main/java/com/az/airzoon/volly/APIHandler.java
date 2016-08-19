@@ -12,10 +12,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.az.airzoon.R;
 import com.az.airzoon.application.MyApplication;
-import com.az.airzoon.dataobjects.BaseModel;
-import com.google.gson.Gson;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +36,7 @@ public class APIHandler implements Response.Listener<Object>, Response.ErrorList
     private String requestBody = null;
     private Map<String, String> headers = null;
     private ArrayList<RequestParam> requestParams = null;
+    private boolean showToastOnRespone = true;
 
     public APIHandler(Context context, APICallback apiCallback, int requestId, int methodType, String url,
                       boolean showLoading, String loadingText, String requestBody, Map<String, String> headers,
@@ -75,7 +75,6 @@ public class APIHandler implements Response.Listener<Object>, Response.ErrorList
     }
 
     public void requestAPI() {
-
         //check if internet connect found or not
         if (!checkConnection(context)) {
             String noInternetConnection = context.getResources().getString(R.string.errorcheckInternetConection);
@@ -121,12 +120,25 @@ public class APIHandler implements Response.Listener<Object>, Response.ErrorList
                     for (String line : response) {
                         reaponseString = reaponseString + line;
                     }
-                    onMutipartPostSuccessResponse(reaponseString);
-                } catch (Exception e) {
+
+                    final String finalReaponseString = reaponseString;
+                    ((Activity) context).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            onMutipartPostSuccessResponse(finalReaponseString);
+                        }
+                    });
+
+                } catch (final Exception e) {
                     e.printStackTrace();
-                    if (apiCallback != null) {
-                        apiCallback.onAPIFailureResponse(requestId, e.getMessage());
-                    }
+                    ((Activity) context).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (apiCallback != null) {
+                                apiCallback.onAPIFailureResponse(requestId, e.getMessage());
+                            }
+                        }
+                    });
                     System.out.println("[API] response fail multipart = " + e.getMessage());
                     hideLoading();
                 }
@@ -137,7 +149,10 @@ public class APIHandler implements Response.Listener<Object>, Response.ErrorList
     }
 
     private void onMutipartPostSuccessResponse(String reaponseString) {
-        BaseModel baseModel = null;
+        String errorMessage = null;
+        String responseMessage = null;
+
+
         if (reaponseString != null && reaponseString.trim().startsWith("[")) {
             try {
                 System.out.println("[API] response body multipart before parsing= " + reaponseString);
@@ -145,8 +160,23 @@ public class APIHandler implements Response.Listener<Object>, Response.ErrorList
                 reaponseString = jsonArray.get(0).toString();
                 System.out.println("[API] response body multipart after parsing= " + reaponseString);
 
-                Gson gson = new Gson();
-                baseModel = gson.fromJson(reaponseString, BaseModel.class);
+                if (reaponseString != null) {
+                    JSONObject jsonObject = new JSONObject(reaponseString);
+                    if (jsonObject.length() == 2) {
+                        if (jsonObject.has("sucess")) {
+                            if (jsonObject.getBoolean("sucess")) {
+                                responseMessage = jsonObject.get("message").toString();
+                            } else {
+                                errorMessage = jsonObject.get("message").toString();
+                            }
+                        } else {
+                            errorMessage = jsonObject.get("message").toString();
+                        }
+                    } else {
+                        responseMessage = jsonObject.get("message").toString();
+                    }
+                }
+
             } catch (Exception e) {
                 e.printStackTrace();
                 if (apiCallback != null) {
@@ -156,28 +186,30 @@ public class APIHandler implements Response.Listener<Object>, Response.ErrorList
         }
         hideLoading();
 
-        if (baseModel != null && baseModel.isSucess()) {
-            showToast(baseModel.getMessage());
+        if (errorMessage == null) {
+            showToast(responseMessage);
             if (apiCallback != null) {
                 apiCallback.onAPISuccessResponse(requestId, reaponseString);
             }
         } else {
-            showToast(baseModel.getMessage());
+            showToast(errorMessage);
             if (apiCallback != null) {
-                apiCallback.onAPIFailureResponse(requestId, baseModel.getMessage());
+                apiCallback.onAPIFailureResponse(requestId, errorMessage);
             }
         }
 
     }
 
     private void showToast(final String text) {
-        ((Activity) context).runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (text != null && text.length() > 0)
-                    Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
-            }
-        });
+        if (showToastOnRespone) {
+            ((Activity) context).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (text != null && text.length() > 0)
+                        Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
 
@@ -211,7 +243,6 @@ public class APIHandler implements Response.Listener<Object>, Response.ErrorList
         ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connMgr.getActiveNetworkInfo();
         if (activeNetworkInfo != null) { // connected to the internet
-            Toast.makeText(context, activeNetworkInfo.getTypeName(), Toast.LENGTH_SHORT).show();
             if (activeNetworkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
                 // connected to wifi
                 return true;
@@ -221,5 +252,13 @@ public class APIHandler implements Response.Listener<Object>, Response.ErrorList
             }
         }
         return false;
+    }
+
+    public boolean isShowToastOnRespone() {
+        return showToastOnRespone;
+    }
+
+    public void setShowToastOnRespone(boolean showToastOnRespone) {
+        this.showToastOnRespone = showToastOnRespone;
     }
 }

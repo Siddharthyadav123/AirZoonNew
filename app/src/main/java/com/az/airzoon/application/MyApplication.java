@@ -6,7 +6,6 @@ import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.multidex.MultiDex;
-import android.text.TextUtils;
 import android.util.DisplayMetrics;
 
 import com.android.volley.Request;
@@ -15,6 +14,7 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.az.airzoon.database.AirZoonDB;
 import com.az.airzoon.dataobjects.UserProfileDO;
+import com.az.airzoon.gps.LocationModel;
 import com.az.airzoon.models.AirZoonModel;
 import com.az.airzoon.models.FontModel;
 import com.az.airzoon.volly.LruBitmapCache;
@@ -36,6 +36,8 @@ public class MyApplication extends Application {
     public UserProfileDO userProfileDO;
     public AirZoonDB airZoonDB;
 
+    public LocationModel locationModel;
+
     public static MyApplication getInstance() {
         return myApplication;
     }
@@ -56,8 +58,15 @@ public class MyApplication extends Application {
         //load db
         airZoonDB = new AirZoonDB(this);
 
+        //location model
+        locationModel = new LocationModel(this);
+
         //loading static shops list intially
         AirZoonModel.getInstance().loadAndParseHotSpot(null, airZoonDB);
+
+        System.out.println(">>gps lat> >" + locationModel.getLatitude() + "  >>long >> " + locationModel.getLongitude());
+
+
     }
 
     @Override
@@ -182,6 +191,10 @@ public class MyApplication extends Application {
 
     public AirZoonDB getAirZoonDB() {
         return airZoonDB;
+    }
+
+    public LocationModel getLocationModel() {
+        return locationModel;
     }
 
     /**

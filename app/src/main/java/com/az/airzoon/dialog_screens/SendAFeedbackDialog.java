@@ -6,13 +6,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.az.airzoon.R;
+import com.az.airzoon.application.MyApplication;
+import com.az.airzoon.constants.RequestConstant;
+import com.az.airzoon.constants.URLConstants;
+import com.az.airzoon.volly.APICallback;
+import com.az.airzoon.volly.APIHandler;
+import com.az.airzoon.volly.RequestParam;
+
+import java.util.ArrayList;
 
 /**
  * Created by sid on 30/07/2016.
  */
-public class SendAFeedbackDialog extends AbstractBaseDialog {
+public class SendAFeedbackDialog extends AbstractBaseDialog implements APICallback {
 
     private ImageView closeProfileImageView;
     private EditText emailEditText;
@@ -59,7 +69,44 @@ public class SendAFeedbackDialog extends AbstractBaseDialog {
         }
     }
 
+    private boolean validateUI() {
+        if (emailEditText.getText().toString().trim().length() == 0) {
+            Toast.makeText(activity, activity.getResources().getString(R.string.errorEnterEmailId), Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (commentEditText.getText().toString().trim().length() == 0) {
+            Toast.makeText(activity, activity.getResources().getString(R.string.errorEnterComment), Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+
     private void onSubmitBtnClick() {
+        if (MyApplication.getInstance().getUserProfileDO().isLoggedInAlrady()) {
+            if (validateUI()) {
+                ArrayList<RequestParam> requestParams = new ArrayList<>();
+                requestParams.add(new RequestParam("email", emailEditText.getText().toString().trim()));
+                requestParams.add(new RequestParam("feedback", commentEditText.getText().toString().trim()));
+
+                APIHandler apiHandler = new APIHandler(activity, this, RequestConstant.REQUEST_POST_FEEDBACK,
+                        Request.Method.POST, URLConstants.URL_POST_FEEDBACK, true,
+                        activity.getResources().getString(R.string.sendingYourFeedbackText), null,
+                        null, requestParams);
+                apiHandler.requestAPI();
+            }
+        } else {
+            Toast.makeText(activity, activity.getResources().getString(R.string.loginErrorText), Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    @Override
+    public void onAPISuccessResponse(int requestId, String responseString) {
         dismiss();
+    }
+
+    @Override
+    public void onAPIFailureResponse(int requestId, String errorString) {
+
     }
 }

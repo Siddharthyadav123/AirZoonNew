@@ -255,6 +255,7 @@
                         android:layout_toRightOf="@+id/phoneImage"
                         android:background="@null"
                         android:hint="@string/enterPhoneNoHintText"
+                        android:inputType="phone"
                         android:textColor="@color/White"
                         android:textColorHint="@color/White"
                         android:textSize="15dp"

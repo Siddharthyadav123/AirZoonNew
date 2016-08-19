@@ -11,9 +11,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.az.airzoon.R;
 import com.az.airzoon.adapters.SearchResultListAdapter;
 import com.az.airzoon.application.MyApplication;
+import com.az.airzoon.constants.RequestConstant;
+import com.az.airzoon.constants.URLConstants;
 import com.az.airzoon.dataobjects.AirZoonDo;
 import com.az.airzoon.dialog_screens.HotspotDetailDailog;
 import com.az.airzoon.dialog_screens.NewHotspotDailog;
@@ -21,13 +24,15 @@ import com.az.airzoon.models.AirZoonModel;
 import com.az.airzoon.swipe_menu.SwipeMenu;
 import com.az.airzoon.swipe_menu.SwipeMenuListView;
 import com.az.airzoon.swipe_menu.SwipeMenuView;
+import com.az.airzoon.volly.APICallback;
+import com.az.airzoon.volly.APIHandler;
 
 import java.util.ArrayList;
 
 /**
  * Created by sid on 29/07/2016.
  */
-public class SearchResultActivity extends Activity {
+public class SearchResultActivity extends Activity implements APICallback {
 
     public static final String KEY_FILTER_TEXT = "keyFilterText";
     public static final String KEY_FILTER_TYPE = "keyFilterType";
@@ -161,6 +166,14 @@ public class SearchResultActivity extends Activity {
                         }
                         swipeMenuView.refreshFavItem();
                         MyApplication.getInstance().getAirZoonDB().updateFav(airZoonDoArrayList.get(position));
+
+                        //hitting server
+                        APIHandler apiHandler = new APIHandler(SearchResultActivity.this, SearchResultActivity.this, RequestConstant.REQUEST_POST_FAVIOURATES,
+                                Request.Method.POST, URLConstants.URL_POST_FAVIOURATES, false, null, null,
+                                null, airZoonDoArrayList.get(position).getRequestParamsForFav());
+                        apiHandler.setShowToastOnRespone(false);
+                        apiHandler.requestAPI();
+
                     } else {
                         Toast.makeText(SearchResultActivity.this, getString(R.string.loginErrorText), Toast.LENGTH_SHORT).show();
                     }
@@ -176,4 +189,13 @@ public class SearchResultActivity extends Activity {
     };
 
 
+    @Override
+    public void onAPISuccessResponse(int requestId, String responseString) {
+
+    }
+
+    @Override
+    public void onAPIFailureResponse(int requestId, String errorString) {
+
+    }
 }

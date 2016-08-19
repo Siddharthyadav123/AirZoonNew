@@ -43,6 +43,7 @@ public class UserProfileDO extends BaseModel {
     private String token;
     private String acess_token;
     private String profile_pic;
+//    private String fb_id;
 
     private Context context;
     private PrefManager prefManager;
@@ -154,7 +155,7 @@ public class UserProfileDO extends BaseModel {
         if (object != null) {
             try {
                 if (object.has("id")) {
-                    setId((String) object.get("id"));
+                    setFbid((String) object.get("id"));
                 }
                 if (object.has("birthday")) {
                     setBirthday((String) object.get("birthday"));
@@ -311,7 +312,7 @@ public class UserProfileDO extends BaseModel {
         requestParams.add(new RequestParam("name", getName()));
         requestParams.add(new RequestParam("gender", getGender()));
         requestParams.add(new RequestParam("email", getEmail()));
-        requestParams.add(new RequestParam("phoneno", getPhoneNum()));
+        requestParams.add(new RequestParam("phone", getPhoneNum()));
         requestParams.add(new RequestParam("token", getToken()));
         requestParams.add(new RequestParam("fbid", getFbid()));
         requestParams.add(new RequestParam("profile_pic", getProfile_pic()));

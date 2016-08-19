@@ -129,7 +129,7 @@ public class EditProfileDialog extends AbstractBaseDialog implements APICallback
             //requesting
             APIHandler apiHandler = new APIHandler(activity, this, RequestConstant.REQUEST_POST_EDIT_USER,
                     Request.Method.POST, URLConstants.URL_POST_NEW_USER_OR_EDIT_USER, true,
-                    "Updating user profile", null, null, userProfileDO.getRequestParamsToUpdateUserProfile());
+                    activity.getResources().getString(R.string.updatingUserProfileText), null, null, userProfileDO.getRequestParamsToUpdateUserProfile());
             apiHandler.requestAPI();
 
         }
@@ -147,9 +147,13 @@ public class EditProfileDialog extends AbstractBaseDialog implements APICallback
         } else if (phoneNumEditText.getText().toString().trim().length() == 0) {
             Toast.makeText(activity, activity.getResources().getString(R.string.errorEnterContactNum), Toast.LENGTH_SHORT).show();
             return false;
+        } else if (phoneNumEditText.getText().toString().trim().length() < 10) {
+            Toast.makeText(activity, activity.getResources().getString(R.string.errorEnterCorrectNum), Toast.LENGTH_SHORT).show();
+            return false;
         }
         return true;
     }
+
 
     @Override
     public void onClickEvent(View actionView) {
@@ -159,7 +163,12 @@ public class EditProfileDialog extends AbstractBaseDialog implements APICallback
     @Override
     public void onAPISuccessResponse(int requestId, String responseString) {
         userProfileDO.saveProfile(userProfileDO.getLoginType());
-        Toast.makeText(activity, activity.getResources().getString(R.string.savedSuccessfulText), Toast.LENGTH_SHORT).show();
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(activity, activity.getResources().getString(R.string.savedSuccessfulText), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

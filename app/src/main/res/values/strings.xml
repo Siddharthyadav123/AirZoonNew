@@ -133,6 +133,18 @@
 
     <string name="errorEnterName">Please enter your name</string>
     <string name="errorEnterEmailId">Please enter your email id</string>
+    <string name="errorEnterCorrectEmailId">Please enter correct email id</string>
+    <string name="errorEnterComment">Please enter comment</string>
     <string name="errorEnterContactNum">Please enter your contact number</string>
+    <string name="errorEnterCorrectNum">Please enter correct phone number</string>
     <string name="errorcheckInternetConection">Please check your internet connection</string>
+    <string name="updatingUserProfileText">Updating user profile</string>
+    <string name="postingUserProfileText">"Posting user profile"</string>
+    <string name="sendingYourFeedbackText">"Sending your valuable feedback.."</string>
+    <string name="addingFavouriteText">Adding favourite...</string>
+    <string name="removingFavouriteText">Removing favourite...</string>
+    <string name="errorEnterHotSpotName">Please enter hotspot name</string>
+    <string name="errorEnterHotSpotNum">Please enter hotspot contact number</string>
+    <string name="errorEnterHotSpotAddress">Please enter hotspot address</string>
+    <string name="postingNewHotspotText">Posting new hotspot..</string>
 </resources>

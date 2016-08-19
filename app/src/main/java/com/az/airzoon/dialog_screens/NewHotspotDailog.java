@@ -8,17 +8,25 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.az.airzoon.R;
 import com.az.airzoon.adapters.NewSpotSpinnerAdapter;
+import com.az.airzoon.application.MyApplication;
 import com.az.airzoon.constants.Constants;
+import com.az.airzoon.constants.RequestConstant;
+import com.az.airzoon.constants.URLConstants;
+import com.az.airzoon.volly.APICallback;
+import com.az.airzoon.volly.APIHandler;
+import com.az.airzoon.volly.RequestParam;
 
 import java.util.ArrayList;
 
 /**
  * Created by sid on 31/07/2016.
  */
-public class NewHotspotDailog extends AbstractBaseDialog {
+public class NewHotspotDailog extends AbstractBaseDialog implements APICallback {
 
     private EditText enterSpotNameEditText;
     private ImageView clearSpotNameImageView;
@@ -28,10 +36,11 @@ public class NewHotspotDailog extends AbstractBaseDialog {
     private EditText addressEditText;
     private TextView addImageTextView;
     private ImageView closeProfileImageView;
+    private ImageView locImage;
 
     private Button cancelButton;
     private Button submitButton;
-
+    private String fetchedAddress = null;
 
     public NewHotspotDailog(Context context) {
         super(context);
@@ -51,6 +60,7 @@ public class NewHotspotDailog extends AbstractBaseDialog {
         enterPhoneNumEditText = (EditText) view.findViewById(R.id.enterPhoneNumEditText);
         addressEditText = (EditText) view.findViewById(R.id.addressEditText);
         addImageTextView = (TextView) view.findViewById(R.id.addImageTextView);
+        locImage = (ImageView) view.findViewById(R.id.locImage);
 
         closeProfileImageView = (ImageView) view.findViewById(R.id.closeProfileImageView);
 
@@ -83,9 +93,83 @@ public class NewHotspotDailog extends AbstractBaseDialog {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dismiss();
+                onSubmitBtnClick();
             }
         });
+
+        locImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fetchedAddress = MyApplication.getInstance().getLocationModel().getMyAddress(activity);
+                addressEditText.setText(fetchedAddress);
+            }
+        });
+    }
+
+
+    //Parameters = spot_name, type, category, ph_no, address, image
+    private ArrayList<RequestParam> getRequestParams() {
+        ArrayList<RequestParam> requestParams = new ArrayList<>();
+        requestParams.add(new RequestParam("spot_name", enterSpotNameEditText.getText().toString().trim()));
+        requestParams.add(new RequestParam("type", getHotSpotType()));
+        requestParams.add(new RequestParam("category", getHotSpotCat()));
+        requestParams.add(new RequestParam("ph_no", enterPhoneNumEditText.getText().toString().trim()));
+        requestParams.add(new RequestParam("address", fetchedAddress));
+        requestParams.add(new RequestParam("image", "non.png"));
+        return requestParams;
+    }
+
+    private String getHotSpotCat() {
+        switch (hotSpotCategorySpinner.getSelectedItemPosition()) {
+            case 0:
+                return Constants.HOTSPOT_TYPE_AIRZOON;
+            case 1:
+                return Constants.HOTSPOT_TYPE_PAID;
+            case 2:
+                return Constants.HOTSPOT_TYPE_FREE;
+        }
+        return null;
+    }
+
+    private String getHotSpotType() {
+        switch (hotSpotTypeSpinner.getSelectedItemPosition()) {
+            case 0:
+                return Constants.HOTSPOT_CATEGORY_AIRPORT;
+            case 1:
+                return Constants.HOTSPOT_CATEGORY_BAR;
+            case 2:
+                return Constants.HOTSPOT_CATEGORY_BARBER;
+            case 3:
+                return Constants.HOTSPOT_CATEGORY_FAST_FOOD;
+            case 4:
+                return Constants.HOTSPOT_CATEGORY_HOTEL;
+            case 5:
+                return Constants.HOTSPOT_CATEGORY_MALL;
+            case 6:
+                return Constants.HOTSPOT_CATEGORY_OTHER;
+            case 7:
+                return Constants.HOTSPOT_CATEGORY_PANCAKES_WAFFLES;
+            case 8:
+                return Constants.HOTSPOT_CATEGORY_RESTAURANT;
+            case 9:
+                return Constants.HOTSPOT_CATEGORY_SPORT_CENTER;
+
+        }
+        return null;
+    }
+
+    private void onSubmitBtnClick() {
+        if (MyApplication.getInstance().getUserProfileDO().isLoggedInAlrady()) {
+            if (validateUI()) {
+                //requesting
+                APIHandler apiHandler = new APIHandler(activity, this, RequestConstant.REQUEST_POST_NEW_SPOT,
+                        Request.Method.POST, URLConstants.URL_POST_NEW_SPOT, true,
+                        activity.getResources().getString(R.string.postingNewHotspotText), null, null, getRequestParams());
+                apiHandler.requestAPI();
+            }
+        } else {
+            Toast.makeText(activity, activity.getResources().getString(R.string.loginErrorText), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -124,6 +208,31 @@ public class NewHotspotDailog extends AbstractBaseDialog {
 
     @Override
     public void onClickEvent(View actionView) {
+
+    }
+
+    //spot_name, type, category, ph_no, address, image
+    public boolean validateUI() {
+        if (enterSpotNameEditText.getText().toString().trim().length() == 0) {
+            Toast.makeText(activity, activity.getResources().getString(R.string.errorEnterHotSpotName), Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (enterPhoneNumEditText.getText().toString().trim().length() == 0) {
+            Toast.makeText(activity, activity.getResources().getString(R.string.errorEnterHotSpotNum), Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (addressEditText.getText().toString().trim().length() == 0) {
+            Toast.makeText(activity, activity.getResources().getString(R.string.errorEnterHotSpotAddress), Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void onAPISuccessResponse(int requestId, String responseString) {
+        dismiss();
+    }
+
+    @Override
+    public void onAPIFailureResponse(int requestId, String errorString) {
 
     }
 }

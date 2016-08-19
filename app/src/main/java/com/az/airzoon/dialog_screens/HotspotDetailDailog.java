@@ -14,15 +14,20 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.az.airzoon.R;
 import com.az.airzoon.application.MyApplication;
+import com.az.airzoon.constants.RequestConstant;
+import com.az.airzoon.constants.URLConstants;
 import com.az.airzoon.dataobjects.AirZoonDo;
 import com.az.airzoon.models.AirZoonModel;
+import com.az.airzoon.volly.APICallback;
+import com.az.airzoon.volly.APIHandler;
 
 /**
  * Created by sid on 30/07/2016.
  */
-public class HotspotDetailDailog extends AbstractBaseDialog {
+public class HotspotDetailDailog extends AbstractBaseDialog implements APICallback {
 
     private ImageView defaultImageView;
     private ImageView closeProfileImageView;
@@ -131,18 +136,19 @@ public class HotspotDetailDailog extends AbstractBaseDialog {
     }
 
     private void onFaviourateImageClick() {
-
         if (MyApplication.getInstance().getUserProfileDO().isLoggedInAlrady()) {
+            String requestString = null;
             if (!airZoonDo.isFaviourate()) {
-                faviourateImageView.setImageResource(R.drawable.selectedstar);
-                airZoonDo.setFaviourate(true);
-                Toast.makeText(activity, activity.getResources().getString(R.string.addedToFavText), Toast.LENGTH_SHORT).show();
+                requestString = activity.getResources().getString(R.string.addingFavouriteText);
             } else {
-                faviourateImageView.setImageResource(R.drawable.star);
-                airZoonDo.setFaviourate(false);
-                Toast.makeText(activity, activity.getResources().getString(R.string.removedFromFavText), Toast.LENGTH_SHORT).show();
+                requestString = activity.getResources().getString(R.string.removingFavouriteText);
             }
-            MyApplication.getInstance().getAirZoonDB().updateFav(airZoonDo);
+            //hitting server
+            APIHandler apiHandler = new APIHandler(activity, this, RequestConstant.REQUEST_POST_FAVIOURATES,
+                    Request.Method.POST, URLConstants.URL_POST_FAVIOURATES, true, requestString, null,
+                    null, airZoonDo.getRequestParamsForFav());
+            apiHandler.requestAPI();
+
         } else {
             Toast.makeText(activity, activity.getResources().getString(R.string.loginErrorText), Toast.LENGTH_SHORT).show();
         }
@@ -188,4 +194,22 @@ public class HotspotDetailDailog extends AbstractBaseDialog {
     }
 
 
+    @Override
+    public void onAPISuccessResponse(int requestId, String responseString) {
+        if (!airZoonDo.isFaviourate()) {
+            faviourateImageView.setImageResource(R.drawable.selectedstar);
+            airZoonDo.setFaviourate(true);
+            Toast.makeText(activity, activity.getResources().getString(R.string.addedToFavText), Toast.LENGTH_SHORT).show();
+        } else {
+            faviourateImageView.setImageResource(R.drawable.star);
+            airZoonDo.setFaviourate(false);
+            Toast.makeText(activity, activity.getResources().getString(R.string.removedFromFavText), Toast.LENGTH_SHORT).show();
+        }
+        MyApplication.getInstance().getAirZoonDB().updateFav(airZoonDo);
+    }
+
+    @Override
+    public void onAPIFailureResponse(int requestId, String errorString) {
+
+    }
 }
