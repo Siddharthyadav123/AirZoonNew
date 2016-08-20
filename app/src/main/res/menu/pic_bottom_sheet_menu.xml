@@ -1,0 +1,8 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/gallary"
+        android:title="@string/gallaryText" />
+    <item
+        android:id="@+id/camera"
+        android:title="@string/cameraText" />
+</menu>

@@ -38,7 +38,7 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/reportText"
                 android:textColor="@color/LightGrey"
-                android:textSize="27dp"
+                android:textSize="23dp"
                 app:sid_customFont="gotham_book" />
 
             <View
@@ -84,7 +84,7 @@
 
                         <com.az.airzoon.customviews.CustomFontTextView
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
+                            android:layout_height="27dp"
                             android:layout_marginTop="10dp"
                             android:gravity="center|left"
                             android:text="@string/nameText"
@@ -95,7 +95,7 @@
 
                         <com.az.airzoon.customviews.CustomFontTextView
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
+                            android:layout_height="27dp"
                             android:layout_marginTop="9dp"
                             android:gravity="center|left"
                             android:text="@string/addressText"
@@ -106,7 +106,7 @@
 
                         <com.az.airzoon.customviews.CustomFontTextView
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
+                            android:layout_height="27dp"
                             android:layout_marginTop="9dp"
                             android:gravity="center|left"
                             android:text="@string/categoryText"
@@ -117,7 +117,7 @@
 
                         <com.az.airzoon.customviews.CustomFontTextView
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
+                            android:layout_height="27dp"
                             android:layout_marginTop="9dp"
                             android:gravity="center|left"
                             android:text="@string/hoursText"
@@ -128,7 +128,7 @@
 
                         <com.az.airzoon.customviews.CustomFontTextView
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
+                            android:layout_height="27dp"
                             android:layout_marginTop="9dp"
                             android:gravity="center|left"
                             android:text="@string/phoneText"
@@ -139,7 +139,7 @@
 
                         <com.az.airzoon.customviews.CustomFontTextView
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
+                            android:layout_height="27dp"
                             android:layout_marginTop="9dp"
                             android:gravity="center|left"
                             android:text="@string/speedText"
@@ -169,7 +169,7 @@
                         <ImageView
                             android:id="@+id/nameCheckBoxImageView"
                             android:layout_width="50dp"
-                            android:layout_height="30dp"
+                            android:layout_height="27dp"
                             android:layout_marginTop="10dp"
                             android:src="@drawable/com_facebook_button_check_off"
                             android:visibility="visible" />
@@ -177,7 +177,7 @@
                         <ImageView
                             android:id="@+id/addressCheckBoxImageView"
                             android:layout_width="50dp"
-                            android:layout_height="30dp"
+                            android:layout_height="27dp"
                             android:layout_marginTop="10dp"
                             android:src="@drawable/com_facebook_button_check_off"
                             android:visibility="visible" />
@@ -185,7 +185,7 @@
                         <ImageView
                             android:id="@+id/categoryCheckBoxImageView"
                             android:layout_width="50dp"
-                            android:layout_height="30dp"
+                            android:layout_height="27dp"
                             android:layout_marginTop="10dp"
                             android:src="@drawable/com_facebook_button_check_off"
                             android:visibility="visible" />
@@ -201,7 +201,7 @@
                         <ImageView
                             android:id="@+id/phoneCheckBoxImageView"
                             android:layout_width="50dp"
-                            android:layout_height="30dp"
+                            android:layout_height="27dp"
                             android:layout_marginTop="10dp"
                             android:src="@drawable/com_facebook_button_check_off"
                             android:visibility="visible" />
@@ -209,7 +209,7 @@
                         <ImageView
                             android:id="@+id/speedCheckBoxImageView"
                             android:layout_width="50dp"
-                            android:layout_height="30dp"
+                            android:layout_height="27dp"
                             android:layout_marginTop="10dp"
                             android:src="@drawable/com_facebook_button_check_off"
                             android:visibility="visible" />
@@ -245,7 +245,7 @@
                         <ImageView
                             android:id="@+id/nameRICheckBoxImageView"
                             android:layout_width="50dp"
-                            android:layout_height="30dp"
+                            android:layout_height="27dp"
                             android:layout_marginTop="10dp"
                             android:src="@drawable/com_facebook_button_check_off"
                             android:visibility="visible" />
@@ -253,7 +253,7 @@
                         <ImageView
                             android:id="@+id/addressRICheckBoxImageView"
                             android:layout_width="50dp"
-                            android:layout_height="30dp"
+                            android:layout_height="27dp"
                             android:layout_marginTop="10dp"
                             android:src="@drawable/com_facebook_button_check_off"
                             android:visibility="visible" />
@@ -261,7 +261,7 @@
                         <ImageView
                             android:id="@+id/categoryRICheckBoxImageView"
                             android:layout_width="50dp"
-                            android:layout_height="30dp"
+                            android:layout_height="27dp"
                             android:layout_marginTop="10dp"
                             android:src="@drawable/com_facebook_button_check_off"
                             android:visibility="visible" />
@@ -269,7 +269,7 @@
                         <ImageView
                             android:id="@+id/hoursRICheckBoxImageView"
                             android:layout_width="50dp"
-                            android:layout_height="30dp"
+                            android:layout_height="27dp"
                             android:layout_marginTop="10dp"
                             android:src="@drawable/com_facebook_button_check_off"
                             android:visibility="visible" />
@@ -277,7 +277,7 @@
                         <ImageView
                             android:id="@+id/phoneRICheckBoxImageView"
                             android:layout_width="50dp"
-                            android:layout_height="30dp"
+                            android:layout_height="27dp"
                             android:layout_marginTop="10dp"
                             android:src="@drawable/com_facebook_button_check_off"
                             android:visibility="visible" />
@@ -285,7 +285,7 @@
                         <ImageView
                             android:id="@+id/speedRICheckBoxImageView"
                             android:layout_width="50dp"
-                            android:layout_height="30dp"
+                            android:layout_height="27dp"
                             android:layout_marginTop="10dp"
                             android:src="@drawable/com_facebook_button_check_off"
                             android:visibility="visible" />
@@ -312,7 +312,7 @@
                     android:paddingTop="10dp"
                     android:textColor="@color/White"
                     android:textColorHint="@color/White"
-                    android:textSize="18dp"
+                    android:textSize="15dp"
                     app:sid_customFont="open_sans_regular" />
 
                 <View
@@ -340,7 +340,7 @@
                     android:background="@drawable/white_btn_drawable"
                     android:text="@string/sendText"
                     android:textColor="@color/White"
-                    android:textSize="19dp" />
+                    android:textSize="17dp" />
 
                 <Button
                     android:id="@+id/dontMindButton"
@@ -350,7 +350,7 @@
                     android:background="@drawable/white_btn_drawable"
                     android:text="@string/dontMindText"
                     android:textColor="@color/White"
-                    android:textSize="19dp" />
+                    android:textSize="17dp" />
             </LinearLayout>
 
 

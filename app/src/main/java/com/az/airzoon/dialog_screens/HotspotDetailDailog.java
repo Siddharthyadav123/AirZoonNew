@@ -138,17 +138,20 @@ public class HotspotDetailDailog extends AbstractBaseDialog implements APICallba
     private void onFaviourateImageClick() {
         if (MyApplication.getInstance().getUserProfileDO().isLoggedInAlrady()) {
             String requestString = null;
+
+            String fav = "";
             if (!airZoonDo.isFaviourate()) {
                 requestString = activity.getResources().getString(R.string.addingFavouriteText);
+                fav = "Yes";
             } else {
                 requestString = activity.getResources().getString(R.string.removingFavouriteText);
+                fav = "No";
             }
             //hitting server
             APIHandler apiHandler = new APIHandler(activity, this, RequestConstant.REQUEST_POST_FAVIOURATES,
                     Request.Method.POST, URLConstants.URL_POST_FAVIOURATES, true, requestString, null,
-                    null, airZoonDo.getRequestParamsForFav());
+                    null, airZoonDo.getRequestParamsForFav(fav));
             apiHandler.requestAPI();
-
         } else {
             Toast.makeText(activity, activity.getResources().getString(R.string.loginErrorText), Toast.LENGTH_SHORT).show();
         }

@@ -121,7 +121,7 @@
 
     <string name="addedToFavText">Added to Favorites.</string>
     <string name="removedFromFavText">Removed from Favorites.</string>
-    <string name="loginErrorText">Please login using facebook or twitter first.</string>
+    <string name="loginErrorText">Please link to facebook or twitter.</string>
     <string name="profilePicDownloadFailedText">Profile pic Download failed.</string>
     <string name="profilePicNotFoungText">Profile Pic not found.</string>
     <string name="contactNumNotFoundText">Contact number not found.</string>
@@ -132,18 +132,31 @@
     <string name="lastSyncText">last sync:</string>
     <string name="savedSuccessfulText">Saved successfully</string>
 
+    <string name="catAirport">Airport</string>
+    <string name="catBar">Bar</string>
+    <string name="catBarber">Barber</string>
+    <string name="catFastFood">"Fast-food &amp; Snack"</string>
+    <string name="catHotel">Hotel</string>
+    <string name="catMall">Mall</string>
+    <string name="catOther">Other</string>
+    <string name="catPancakesWaffles">"Pancakes &amp; Waffles"</string>
+    <string name="catRestaurant">Restaurant</string>
+    <string name="catSportCenter">Sport Center</string>
+    <string name="catHealthAndWellness">"Health &amp; Wellness"</string>
+
+
     <string name="errorEnterName">Please enter your name</string>
-    <string name="errorEnterEmailId">Please enter your email id</string>
-    <string name="errorEnterCorrectEmailId">Please enter correct email id</string>
+    <string name="errorEnterEmailId">No email id found</string>
+    <string name="errorEnterCorrectEmailId">Please provide valid email id</string>
     <string name="errorEnterComment">Please enter comment</string>
     <string name="errorEnterContactNum">Please enter your contact number</string>
-    <string name="errorEnterCorrectNum">Please enter correct phone number</string>
+    <string name="errorEnterCorrectNum">Please provide valid phone number</string>
     <string name="errorcheckInternetConection">Please check your internet connection</string>
-    <string name="updatingUserProfileText">Updating user profile</string>
-    <string name="postingUserProfileText">"Posting user profile"</string>
+    <string name="updatingUserProfileText">Updating your profile..</string>
+    <string name="postingUserProfileText">"Posting your profile.."</string>
     <string name="sendingYourFeedbackText">"Sending your valuable feedback.."</string>
-    <string name="addingFavouriteText">Adding favourite...</string>
-    <string name="removingFavouriteText">Removing favourite...</string>
+    <string name="addingFavouriteText">Adding to your favourite...</string>
+    <string name="removingFavouriteText">Removing from your favourite...</string>
     <string name="errorEnterHotSpotName">Please enter hotspot name</string>
     <string name="errorEnterHotSpotNum">Please enter hotspot contact number</string>
     <string name="errorEnterHotSpotAddress">Please enter hotspot address</string>
@@ -151,6 +164,12 @@
     <string name="reportingIssueText">Reporting your issue..</string>
     <string name="fetchingAddressText">Fetching Address..</string>
     <string name="addressNotFoundText">Unable to find address..</string>
-    <string name="issuesReportedSuccessfullyText">"Issues/Request info reported Succesfully.."</string>
+    <string name="issuesReportedSuccessfullyText">"Thank you, your informations will be processed soon.."</string>
+    <string name="youHaveNotReportedAnEntryText">"You have not reported an entry"</string>
+
+
+    <string name="selectPictureText">"Select picture via"</string>
+    <string name="gallaryText">Gallery</string>
+    <string name="cameraText">Camera</string>
 
 </resources>

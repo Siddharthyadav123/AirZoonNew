@@ -51,7 +51,7 @@ public class FilterSettingAdapter extends BaseAdapter {
         ImageView filterCheckBoxImage = (ImageView) convertView.findViewById(R.id.filterCheckBoxImage);
 
         String category = Constants.FILTER_SETTING_ARRAY[position];
-        filterTypeText.setText(category);
+        filterTypeText.setText(AirZoonModel.getInstance().getHotSpotTypeCatLanguageProtedText(category));
         filterImage.setImageResource(AirZoonModel.getInstance().getHotSpotSmallImageResByCat(category));
 
         if (FilterSettingModel.getInstance().getFilterSetting(Constants.FILTER_SETTING_ARRAY[position])) {

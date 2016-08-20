@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.az.airzoon.R;
-import com.az.airzoon.application.MyApplication;
 import com.az.airzoon.constants.RequestConstant;
 import com.az.airzoon.constants.URLConstants;
 import com.az.airzoon.volly.APICallback;
@@ -19,6 +18,8 @@ import com.az.airzoon.volly.RequestParam;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Created by sid on 31/07/2016.
@@ -169,12 +170,16 @@ public class ReportIssueDialog extends AbstractBaseDialog implements APICallback
     }
 
     private boolean validateUI() {
-        if (commentEditText.getText().toString().trim().length() == 0) {
-            Toast.makeText(activity, activity.getResources().getString(R.string.errorEnterComment),
-                    Toast.LENGTH_SHORT).show();
-            return false;
+        Iterator it = reportHasmap.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            if (!pair.getValue().equals("none")) {
+                return true;
+            }
+            it.remove(); // avoids a ConcurrentModificationException
         }
-        return true;
+        Toast.makeText(activity, activity.getResources().getString(R.string.youHaveNotReportedAnEntryText), Toast.LENGTH_SHORT).show();
+        return false;
     }
 
     @Override

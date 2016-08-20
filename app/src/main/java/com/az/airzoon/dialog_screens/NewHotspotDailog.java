@@ -1,9 +1,7 @@
 package com.az.airzoon.dialog_screens;
 
-import android.Manifest;
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.support.v4.app.ActivityCompat;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -21,7 +19,9 @@ import com.az.airzoon.constants.Constants;
 import com.az.airzoon.constants.RequestConstant;
 import com.az.airzoon.constants.URLConstants;
 import com.az.airzoon.gps.LocationModel;
+import com.az.airzoon.listeners.ImageCallback;
 import com.az.airzoon.screens.AirZoonMapActivity;
+import com.az.airzoon.screens.SearchResultActivity;
 import com.az.airzoon.volly.APICallback;
 import com.az.airzoon.volly.APIHandler;
 import com.az.airzoon.volly.RequestParam;
@@ -31,7 +31,7 @@ import java.util.ArrayList;
 /**
  * Created by sid on 31/07/2016.
  */
-public class NewHotspotDailog extends AbstractBaseDialog implements APICallback {
+public class NewHotspotDailog extends AbstractBaseDialog implements APICallback, ImageCallback {
 
     private EditText enterSpotNameEditText;
     private ImageView clearSpotNameImageView;
@@ -42,6 +42,7 @@ public class NewHotspotDailog extends AbstractBaseDialog implements APICallback 
     private TextView addImageTextView;
     private ImageView closeProfileImageView;
     private ImageView locImage;
+    private ImageView imageToBeuploaded;
 
     private Button cancelButton;
     private Button submitButton;
@@ -66,6 +67,7 @@ public class NewHotspotDailog extends AbstractBaseDialog implements APICallback 
         addressEditText = (EditText) view.findViewById(R.id.addressEditText);
         addImageTextView = (TextView) view.findViewById(R.id.addImageTextView);
         locImage = (ImageView) view.findViewById(R.id.locImage);
+        imageToBeuploaded = (ImageView) view.findViewById(R.id.imageToBeuploaded);
 
         closeProfileImageView = (ImageView) view.findViewById(R.id.closeProfileImageView);
 
@@ -79,6 +81,19 @@ public class NewHotspotDailog extends AbstractBaseDialog implements APICallback 
             @Override
             public void onClick(View v) {
                 enterSpotNameEditText.setText("");
+            }
+        });
+
+
+        addImageTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (activity instanceof AirZoonMapActivity) {
+                    ((AirZoonMapActivity) activity).showProfilePicBottomSheet(NewHotspotDailog.this);
+                } else {
+                    ((SearchResultActivity) activity).showProfilePicBottomSheet(NewHotspotDailog.this);
+                }
+
             }
         });
 
@@ -255,6 +270,17 @@ public class NewHotspotDailog extends AbstractBaseDialog implements APICallback 
 
     @Override
     public void onAPIFailureResponse(int requestId, String errorString) {
+
+    }
+
+    @Override
+    public void onImageFetched(Bitmap bitmap) {
+        if (bitmap != null) {
+            imageToBeuploaded.setVisibility(View.VISIBLE);
+            imageToBeuploaded.setImageBitmap(bitmap);
+        } else {
+            imageToBeuploaded.setVisibility(View.GONE);
+        }
 
     }
 }

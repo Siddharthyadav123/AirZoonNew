@@ -59,7 +59,8 @@ public class NewSpotSpinnerAdapter extends BaseAdapter {
         itemNameTextView.setTextColor(context.getResources().getColor(R.color.White));
 
         itemImageView.setImageResource(AirZoonModel.getInstance().getHotSpotSmallImageResByCat(itemList.get(position)));
-        itemNameTextView.setText(itemList.get(position));
+
+        itemNameTextView.setText(AirZoonModel.getInstance().getHotSpotTypeCatLanguageProtedText(itemList.get(position)));
 
         return convertView;
     }
@@ -78,7 +79,8 @@ public class NewSpotSpinnerAdapter extends BaseAdapter {
         itemParentLayout.setPadding(10, 0, 10, 0);
 
         itemImageView.setImageResource(AirZoonModel.getInstance().getHotSpotSmallImageResByCat(itemList.get(position)));
-        itemNameTextView.setText(itemList.get(position));
+
+        itemNameTextView.setText(AirZoonModel.getInstance().getHotSpotTypeCatLanguageProtedText(itemList.get(position)));
 
         return convertView;
     }

@@ -1,12 +1,16 @@
 package com.az.airzoon.screens;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -29,6 +33,7 @@ import com.az.airzoon.dialog_screens.FilterSettingsDialog;
 import com.az.airzoon.dialog_screens.HotspotDetailDailog;
 import com.az.airzoon.dialog_screens.ProfileDialog;
 import com.az.airzoon.dialog_screens.SearchSpotDialog;
+import com.az.airzoon.listeners.ImageCallback;
 import com.az.airzoon.models.AirZoonModel;
 import com.az.airzoon.preferences.PrefManager;
 import com.az.airzoon.social_integration.FaceBookModel;
@@ -36,6 +41,7 @@ import com.az.airzoon.social_integration.SocialLoginInterface;
 import com.az.airzoon.social_integration.TwitterModel;
 import com.az.airzoon.volly.APICallback;
 import com.az.airzoon.volly.APIHandler;
+import com.cocosw.bottomsheet.BottomSheet;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
@@ -50,6 +56,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -57,6 +68,8 @@ import io.fabric.sdk.android.Fabric;
 
 public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCallback, View.OnClickListener, APICallback {
 
+    private final int SELECT_FILE = 101;
+    private final int REQUEST_CAMERA = 102;
     private GoogleMap mMap;
     private ImageView moreImageView;
     private ImageView searchImageView;
@@ -173,9 +186,9 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
         String syncDate = prefManager.getLstSyncTime();
         if (syncDate == null) {
             prefManager.setLastSyncTime(MyApplication.getInstance().getCurrentDate());
-            lastSyncTextView.setText(MyApplication.getInstance().getCurrentDate());
+            lastSyncTextView.setText(getResources().getString(R.string.lastSyncText) + " " + MyApplication.getInstance().getCurrentDate());
         } else {
-            lastSyncTextView.setText(syncDate);
+            lastSyncTextView.setText(getResources().getString(R.string.lastSyncText) + " " + syncDate);
         }
     }
 
@@ -583,18 +596,6 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
         twitLoginButton.performClick();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (fbCallbackManager != null) {
-            fbCallbackManager.onActivityResult(requestCode, resultCode, data);
-        }
-
-        if (twitLoginButton != null) {
-            twitLoginButton.onActivityResult(requestCode, resultCode, data);
-        }
-    }
 
     public static final int REQUEST_LOCATION = 111;
 
@@ -609,14 +610,124 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
                     // contacts-related task you need to do.
                     MyApplication.getInstance().getLocationModel().initialize();
                 } else {
-
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
                 }
                 return;
             }
-            // other 'case' lines to check for other
-            // permissions this app might request
+            case MyApplication.MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (isCameraSelected)
+                        cameraIntent();
+                    else
+                        galleryIntent();
+                } else {
+                }
+                break;
         }
     }
+
+
+    ////////////bottom sheet////////
+    private BottomSheet bottomSheet;
+    private ImageCallback imageCallback;
+
+    public void showProfilePicBottomSheet(ImageCallback imageCallback) {
+        this.imageCallback = imageCallback;
+
+        bottomSheet = new BottomSheet.Builder(this).title(this.getResources().getString(R.string.selectPictureText))
+                .sheet(R.menu.pic_bottom_sheet_menu).listener(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case R.id.gallary:
+                                galleryIntent();
+                                break;
+                            case R.id.camera:
+                                cameraIntent();
+                                break;
+                        }
+                    }
+                }).show();
+    }
+
+    boolean isCameraSelected = true;
+
+    private void cameraIntent() {
+        boolean result = MyApplication.getInstance().checkPermission(this);
+        if (result) {
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(intent, REQUEST_CAMERA);
+            isCameraSelected = true;
+        }
+    }
+
+    private void galleryIntent() {
+        boolean result = MyApplication.getInstance().checkPermission(this);
+        if (result) {
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);//
+            startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_FILE);
+            isCameraSelected = false;
+        }
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == SELECT_FILE)
+                onSelectFromGalleryResult(data);
+            else if (requestCode == REQUEST_CAMERA)
+                onCaptureImageResult(data);
+            else {
+                if (fbCallbackManager != null) {
+                    fbCallbackManager.onActivityResult(requestCode, resultCode, data);
+                }
+                if (twitLoginButton != null) {
+                    twitLoginButton.onActivityResult(requestCode, resultCode, data);
+                }
+            }
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    private void onSelectFromGalleryResult(Intent data) {
+        Bitmap bm = null;
+        if (data != null) {
+            try {
+                bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (imageCallback != null) {
+                imageCallback.onImageFetched(bm);
+            }
+        }
+    }
+
+    private void onCaptureImageResult(Intent data) {
+        Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+        File destination = new File(Environment.getExternalStorageDirectory(),
+                System.currentTimeMillis() + ".jpg");
+        FileOutputStream fo;
+        try {
+            destination.createNewFile();
+            fo = new FileOutputStream(destination);
+            fo.write(bytes.toByteArray());
+            fo.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (imageCallback != null) {
+            imageCallback.onImageFetched(thumbnail);
+        }
+    }
+
+
 }

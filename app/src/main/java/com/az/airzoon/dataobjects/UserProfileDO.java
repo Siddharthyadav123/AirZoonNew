@@ -170,7 +170,7 @@ public class UserProfileDO extends BaseModel {
                     setEmail((String) object.get("email"));
                 }
                 if (object.has("picture")) {
-                    setUrl("https:\\\\graph.facebook.com\\" + getFbid() + "\\picture?width=300&height=300");
+                    setUrl("https://graph.facebook.com/" + getFbid() + "/picture?width=300&height=300");
 //                    JSONObject pictureJsonObject = (JSONObject) object.get("picture");
 //                    if (pictureJsonObject.has("data")) {
 //                        JSONObject dataJsonObject = (JSONObject) pictureJsonObject.get("data");

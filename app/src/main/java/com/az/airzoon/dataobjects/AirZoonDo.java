@@ -133,13 +133,6 @@ public class AirZoonDo extends BaseModel implements Parcelable {
         return faviourate;
     }
 
-    public String isFaviourateYESNO() {
-        if (faviourate) {
-            return "Yes";
-        } else {
-            return "No";
-        }
-    }
 
     public void setFaviourate(boolean faviourate) {
         this.faviourate = faviourate;
@@ -316,14 +309,14 @@ public class AirZoonDo extends BaseModel implements Parcelable {
 
 
     //user_id, spot_id, acess_token, favourite, spot_name
-    public ArrayList<RequestParam> getRequestParamsForFav() {
+    public ArrayList<RequestParam> getRequestParamsForFav(String favYesNo) {
         try {
             ArrayList<RequestParam> requestParams = new ArrayList<>();
             requestParams.add(new RequestParam("spot_id", getId()));
             requestParams.add(new RequestParam("spot_name", getName()));
             requestParams.add(new RequestParam("user_id", MyApplication.getInstance().getUserProfileDO().getId()));
             requestParams.add(new RequestParam("acess_token", MyApplication.getInstance().getUserProfileDO().getAcess_token()));
-            requestParams.add(new RequestParam("favourite", isFaviourateYESNO()));
+            requestParams.add(new RequestParam("favourite", favYesNo));
             return requestParams;
         } catch (Exception e) {
             e.printStackTrace();

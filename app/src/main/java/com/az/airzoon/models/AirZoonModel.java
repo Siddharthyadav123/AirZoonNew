@@ -187,6 +187,39 @@ public class AirZoonModel {
 
     }
 
+    public int getHotSpotTypeCatLanguageProtedText(String cateogry) {
+        if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_TYPE_AIRZOON)) {
+            return R.string.airZoonText;
+        } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_TYPE_PAID)) {
+            return R.string.paidText;
+        } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_TYPE_FREE)) {
+            return R.string.freeText;
+        } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_RESTAURANT)) {
+            return R.string.catRestaurant;
+        } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_HOTEL)) {
+            return R.string.catHotel;
+        } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_SPORT_CENTER)) {
+            return R.string.catSportCenter;
+        } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_BAR)) {
+            return R.string.catBar;
+        } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_FAST_FOOD)) {
+            return R.string.catFastFood;
+        } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_MALL)) {
+            return R.string.catMall;
+        } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_AIRPORT)) {
+            return R.string.catAirport;
+        } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_BARBER)) {
+            return R.string.catBarber;
+        } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_PANCAKES_WAFFLES)) {
+            return R.string.catPancakesWaffles;
+        } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_HEALTH_AND_WELLNESS)) {
+            return R.string.catHealthAndWellness;
+        } else {
+            //others
+            return R.string.catOther;
+        }
+
+    }
 
     public int getHotSpotSmallImageResByCat(String cateogry) {
         if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_TYPE_AIRZOON)) {

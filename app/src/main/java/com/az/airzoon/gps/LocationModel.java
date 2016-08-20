@@ -11,19 +11,16 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.az.airzoon.R;
 import com.az.airzoon.constants.RequestConstant;
-import com.az.airzoon.constants.URLConstants;
 import com.az.airzoon.volly.APICallback;
 import com.az.airzoon.volly.APIHandler;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -239,10 +236,8 @@ public class LocationModel implements LocationListener, APICallback {
                 JSONArray results = jsonObject.getJSONArray("results");
                 for (int i = 0; i < results.length(); i++) {
                     JSONObject result = results.getJSONObject(i);
-                    String indiStr = result.getString("formatted_address");
-                    Address addr = new Address(Locale.getDefault());
-                    addr.setAddressLine(0, indiStr);
-                    address = address + " " + addr;
+                    address = result.getString("formatted_address");
+                    break;
                 }
             }
             if (addressCallback != null) {

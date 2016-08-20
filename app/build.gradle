@@ -38,11 +38,11 @@ android {
         }
     }
 
-   // dexOptions {
-   //   incremental = true;
-   //     preDexLibraries = false
-   //     javaMaxHeapSize "4g" // 2g should be also OK
-   // }
+    dexOptions {
+        incremental = true;
+        preDexLibraries = false
+        javaMaxHeapSize "4g" // 2g should be also OK
+    }
 
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
@@ -68,10 +68,11 @@ dependencies {
     compile 'com.facebook.android:facebook-android-sdk:4.6.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.android.volley:volley:1.0.0'
+    compile 'com.cocosw:bottomsheet:1.+@aar'
     // for twitter
     compile('com.twitter.sdk.android:twitter:1.14.1@aar') {
         transitive = true
     }
 
- 
+
 }

@@ -5,7 +5,10 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,13 +26,20 @@ import com.az.airzoon.constants.URLConstants;
 import com.az.airzoon.dataobjects.AirZoonDo;
 import com.az.airzoon.dialog_screens.HotspotDetailDailog;
 import com.az.airzoon.dialog_screens.NewHotspotDailog;
+import com.az.airzoon.listeners.ImageCallback;
 import com.az.airzoon.models.AirZoonModel;
 import com.az.airzoon.swipe_menu.SwipeMenu;
 import com.az.airzoon.swipe_menu.SwipeMenuListView;
 import com.az.airzoon.swipe_menu.SwipeMenuView;
 import com.az.airzoon.volly.APICallback;
 import com.az.airzoon.volly.APIHandler;
+import com.cocosw.bottomsheet.BottomSheet;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -174,14 +184,19 @@ public class SearchResultActivity extends Activity implements APICallback {
             switch (index) {
                 case 0:
                     if (MyApplication.getInstance().getUserProfileDO().isLoggedInAlrady()) {
+
+                        String fav = "";
+
                         if (airZoonDoArrayList.get(position).isFaviourate()) {
                             menu.getMenuItems().get(0).setIcon(R.drawable.unselectedstar);
                             airZoonDoArrayList.get(position).setFaviourate(false);
                             Toast.makeText(SearchResultActivity.this, getString(R.string.removedFromFavText), Toast.LENGTH_SHORT).show();
+                            fav = "No";
                         } else {
                             menu.getMenuItems().get(0).setIcon(R.drawable.selectedstar);
                             airZoonDoArrayList.get(position).setFaviourate(true);
                             Toast.makeText(SearchResultActivity.this, getString(R.string.addedToFavText), Toast.LENGTH_SHORT).show();
+                            fav = "Yes";
                         }
                         swipeMenuView.refreshFavItem();
                         MyApplication.getInstance().getAirZoonDB().updateFav(airZoonDoArrayList.get(position));
@@ -189,7 +204,7 @@ public class SearchResultActivity extends Activity implements APICallback {
                         //hitting server
                         APIHandler apiHandler = new APIHandler(SearchResultActivity.this, SearchResultActivity.this, RequestConstant.REQUEST_POST_FAVIOURATES,
                                 Request.Method.POST, URLConstants.URL_POST_FAVIOURATES, false, null, null,
-                                null, airZoonDoArrayList.get(position).getRequestParamsForFav());
+                                null, airZoonDoArrayList.get(position).getRequestParamsForFav(fav));
                         apiHandler.setShowToastOnRespone(false);
                         apiHandler.requestAPI();
 
@@ -216,5 +231,119 @@ public class SearchResultActivity extends Activity implements APICallback {
     @Override
     public void onAPIFailureResponse(int requestId, String errorString) {
 
+    }
+
+
+    ////////////bottom sheet////////
+    private BottomSheet bottomSheet;
+    private ImageCallback imageCallback;
+
+    public void showProfilePicBottomSheet(ImageCallback imageCallback) {
+        this.imageCallback = imageCallback;
+
+        bottomSheet = new BottomSheet.Builder(this).title(this.getResources().getString(R.string.selectPictureText))
+                .sheet(R.menu.pic_bottom_sheet_menu).listener(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case R.id.gallary:
+                                galleryIntent();
+                                break;
+                            case R.id.camera:
+                                cameraIntent();
+                                break;
+                        }
+                    }
+                }).show();
+    }
+
+    boolean isCameraSelected = true;
+    private final int SELECT_FILE = 101;
+    private final int REQUEST_CAMERA = 102;
+
+    private void cameraIntent() {
+        boolean result = MyApplication.getInstance().checkPermission(this);
+        if (result) {
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(intent, REQUEST_CAMERA);
+            isCameraSelected = true;
+        }
+    }
+
+    private void galleryIntent() {
+        boolean result = MyApplication.getInstance().checkPermission(this);
+        if (result) {
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);//
+            startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_FILE);
+            isCameraSelected = false;
+        }
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == SELECT_FILE)
+                onSelectFromGalleryResult(data);
+            else if (requestCode == REQUEST_CAMERA)
+                onCaptureImageResult(data);
+
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    private void onSelectFromGalleryResult(Intent data) {
+        Bitmap bm = null;
+        if (data != null) {
+            try {
+                bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (imageCallback != null) {
+                imageCallback.onImageFetched(bm);
+            }
+        }
+    }
+
+    private void onCaptureImageResult(Intent data) {
+        Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+        File destination = new File(Environment.getExternalStorageDirectory(),
+                System.currentTimeMillis() + ".jpg");
+        FileOutputStream fo;
+        try {
+            destination.createNewFile();
+            fo = new FileOutputStream(destination);
+            fo.write(bytes.toByteArray());
+            fo.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (imageCallback != null) {
+            imageCallback.onImageFetched(thumbnail);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MyApplication.MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (isCameraSelected)
+                        cameraIntent();
+                    else
+                        galleryIntent();
+                } else {
+                }
+                break;
+        }
     }
 }

@@ -257,5 +257,6 @@ public class ProfileDialog extends AbstractBaseDialog implements SocialLoginInte
     @Override
     public void onAPIFailureResponse(int requestId, String errorString) {
         System.out.println(">>response fail>>" + errorString);
+        hideProgressLoading();
     }
 }

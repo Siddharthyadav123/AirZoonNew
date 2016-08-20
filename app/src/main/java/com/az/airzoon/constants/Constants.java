@@ -23,6 +23,8 @@ public class Constants {
     public static final String HOTSPOT_CATEGORY_PANCAKES_WAFFLES = "Pancakes & Waffles";
     public static final String HOTSPOT_CATEGORY_RESTAURANT = "Restaurant";
     public static final String HOTSPOT_CATEGORY_SPORT_CENTER = "Sport Center";
+    public static final String HOTSPOT_CATEGORY_HEALTH_AND_WELLNESS = "Health & Wellness";
+
 
     public static String[] FILTER_SETTING_ARRAY = {
             HOTSPOT_TYPE_AIRZOON,
@@ -37,7 +39,8 @@ public class Constants {
             HOTSPOT_CATEGORY_OTHER,
             HOTSPOT_CATEGORY_PANCAKES_WAFFLES,
             HOTSPOT_CATEGORY_RESTAURANT,
-            HOTSPOT_CATEGORY_SPORT_CENTER
+            HOTSPOT_CATEGORY_SPORT_CENTER,
+            HOTSPOT_CATEGORY_HEALTH_AND_WELLNESS
     };
 
 

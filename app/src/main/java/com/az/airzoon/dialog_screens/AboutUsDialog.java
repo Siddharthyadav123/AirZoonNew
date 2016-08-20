@@ -16,6 +16,8 @@ import com.az.airzoon.screens.TutorialActivity;
 import com.az.airzoon.volly.APICallback;
 import com.az.airzoon.volly.APIHandler;
 
+import java.util.Locale;
+
 /**
  * Created by sid on 30/07/2016.
  */
@@ -61,12 +63,17 @@ public class AboutUsDialog extends AbstractBaseDialog implements APICallback {
     public void setInfoInUI(View view) {
         bodyText.setText(activity.getResources().getString(R.string.aboutUsBody1) + "\n\n\n" +
                 activity.getResources().getString(R.string.aboutUsBody2));
-        //requesting
-        APIHandler apiHandler = new APIHandler(activity, this, RequestConstant.REQUEST_GET_ABOUT_US_BODY_TEXT,
-                Request.Method.GET, URLConstants.URL_GET_ABOUT_US_BODY_TEXT, false,
-                null, null, null, null);
 
-        apiHandler.requestAPI();
+        //server doesn't have frech text
+        if (!Locale.getDefault().getLanguage().equals("fr")) {
+            //requesting
+            APIHandler apiHandler = new APIHandler(activity, this, RequestConstant.REQUEST_GET_ABOUT_US_BODY_TEXT,
+                    Request.Method.GET, URLConstants.URL_GET_ABOUT_US_BODY_TEXT, false,
+                    null, null, null, null);
+
+            apiHandler.requestAPI();
+        }
+
     }
 
     @Override

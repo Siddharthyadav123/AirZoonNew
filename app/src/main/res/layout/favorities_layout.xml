@@ -87,7 +87,7 @@
                 android:background="@drawable/red_btn_drawable"
                 android:text="@string/submitAHotspotText"
                 android:textColor="@color/OrangeRed"
-                android:textSize="19dp" />
+                android:textSize="17dp" />
         </RelativeLayout>
 
 
