@@ -24,13 +24,13 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginLeft="15dp"
-        android:padding="2dp"
+        android:padding="1dp"
         android:src="@drawable/fastfoodset" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
+        android:layout_marginLeft="7dp"
         android:gravity="center"
         android:orientation="vertical">
 

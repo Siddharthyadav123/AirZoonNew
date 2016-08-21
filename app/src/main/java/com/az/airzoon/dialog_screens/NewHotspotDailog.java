@@ -190,6 +190,8 @@ public class NewHotspotDailog extends AbstractBaseDialog implements APICallback,
                 return Constants.HOTSPOT_CATEGORY_RESTAURANT;
             case 9:
                 return Constants.HOTSPOT_CATEGORY_SPORT_CENTER;
+            case 10:
+                return Constants.HOTSPOT_CATEGORY_HEALTH_AND_WELLNESS;
 
         }
         return null;
@@ -238,6 +240,7 @@ public class NewHotspotDailog extends AbstractBaseDialog implements APICallback,
         hotSpotCategoryList.add(Constants.HOTSPOT_CATEGORY_PANCAKES_WAFFLES);
         hotSpotCategoryList.add(Constants.HOTSPOT_CATEGORY_RESTAURANT);
         hotSpotCategoryList.add(Constants.HOTSPOT_CATEGORY_SPORT_CENTER);
+        hotSpotCategoryList.add(Constants.HOTSPOT_CATEGORY_HEALTH_AND_WELLNESS);
 
         NewSpotSpinnerAdapter newSpotSpinnerAdapter = new NewSpotSpinnerAdapter(activity, hotSpotCategoryList);
         hotSpotCategorySpinner.setAdapter(newSpotSpinnerAdapter);

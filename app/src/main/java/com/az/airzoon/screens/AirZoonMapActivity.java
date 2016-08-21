@@ -272,7 +272,7 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
                 progressBar.setVisibility(View.GONE);
                 //setting last sync time
                 prefManager.setLastSyncTime(MyApplication.getInstance().getCurrentDate());
-                lastSyncTextView.setText(prefManager.getLstSyncTime());
+                lastSyncTextView.setText(getResources().getString(R.string.lastSyncText) + " " + prefManager.getLstSyncTime());
                 Toast.makeText(this, getString(R.string.syncedSuccessFulText), Toast.LENGTH_SHORT).show();
                 break;
         }
@@ -305,8 +305,8 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
             TextView hotspotSpeedTextView = (TextView) snippetView.findViewById(R.id.hotspotSpeedTextView);
             ImageView moreImageView = (ImageView) snippetView.findViewById(R.id.moreImageView);
 
-            hotspotCatImageView.setImageResource(airZoonModel.getHotSpotSmallImageResByCat(airZoonDo.getCategory()));
-            hotspotSpeedImageView.setImageResource(airZoonModel.getHotSpotSpeedResBy(airZoonDo.getSpeed()));
+            hotspotCatImageView.setImageResource(airZoonModel.getHotSpotBigImageResByCat(airZoonDo.getCategory()));
+            hotspotSpeedImageView.setImageResource(airZoonModel.getSpeeddoMeterImage(airZoonDo.getSpeed()));
             hotSpotName.setText(airZoonDo.getName());
             hotspotSpeedTextView.setText(airZoonDo.getSpeed());
 
@@ -574,6 +574,7 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
         FacebookSdk.sdkInitialize(getApplicationContext());
         fbCallbackManager = CallbackManager.Factory.create();
         faceBookModel = new FaceBookModel(this, socialLoginInterface);
+        LoginManager.getInstance().logOut();
         LoginManager.getInstance().registerCallback(fbCallbackManager, faceBookModel);
         LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email", "user_status", "user_birthday"));
     }

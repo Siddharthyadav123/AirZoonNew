@@ -134,7 +134,7 @@
         android:id="@+id/guidFullScreenView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.5"
+        android:alpha="0.6"
         android:background="@color/Black"
         android:visibility="gone" />
 
@@ -163,16 +163,18 @@
 
     <com.az.airzoon.customviews.CustomFontTextView
         android:id="@+id/guideText"
-        android:layout_width="wrap_content"
+        android:layout_width="245dp"
         android:layout_height="wrap_content"
         android:layout_above="@+id/guideArrowImageView"
+        android:layout_marginLeft="10dp"
         android:alpha="0.7"
-        android:padding="20dp"
+        android:lineSpacingExtra="0.2dp"
+        android:padding="15dp"
         android:text="@string/guideText"
         android:textColor="@color/White"
         android:textSize="20dp"
         android:visibility="gone"
-        app:sid_customFont="gotham_book" />
+        app:sid_customFont="architech" />
 
     <!--<View-->
     <!--android:id="@+id/loadingBlanckBgView"-->

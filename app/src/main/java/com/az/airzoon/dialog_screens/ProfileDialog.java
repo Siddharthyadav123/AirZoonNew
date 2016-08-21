@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.az.airzoon.R;
+import com.az.airzoon.application.MyApplication;
 import com.az.airzoon.constants.Constants;
 import com.az.airzoon.constants.RequestConstant;
 import com.az.airzoon.constants.URLConstants;
@@ -150,8 +151,15 @@ public class ProfileDialog extends AbstractBaseDialog implements SocialLoginInte
             setFbBtnStateOFF();
             logout();
         } else {
-            setFbBtnStateOn();
-            requestFbLogin();
+            //check if internet connect found or not
+            if (!MyApplication.getInstance().checkConnection(activity)) {
+                String noInternetConnection = activity.getResources().getString(R.string.errorcheckInternetConection);
+                Toast.makeText(activity, noInternetConnection, Toast.LENGTH_SHORT).show();
+                return;
+            } else {
+                requestFbLogin();
+            }
+
         }
     }
 
@@ -160,8 +168,14 @@ public class ProfileDialog extends AbstractBaseDialog implements SocialLoginInte
             setTwitterBtnStateOFF();
             logout();
         } else {
-            setTwitterBtnStateOn();
-            requestTwitterLogin();
+            //check if internet connect found or not
+            if (!MyApplication.getInstance().checkConnection(activity)) {
+                String noInternetConnection = activity.getResources().getString(R.string.errorcheckInternetConection);
+                Toast.makeText(activity, noInternetConnection, Toast.LENGTH_SHORT).show();
+                return;
+            } else {
+                requestTwitterLogin();
+            }
         }
     }
 
@@ -249,9 +263,29 @@ public class ProfileDialog extends AbstractBaseDialog implements SocialLoginInte
         Gson gson = new Gson();
         UserProfileDO userProfileDONew = gson.fromJson(responseString, UserProfileDO.class);
         userProfileDO.setId(userProfileDONew.getId());
+        userProfileDO.setName(userProfileDONew.getName());
+        userProfileDO.setEmail(userProfileDONew.getEmail());
+        userProfileDO.setPhoneNum(userProfileDONew.getPhone());
         userProfileDO.setToken(userProfileDONew.getToken());
+        userProfileDO.setProfile_pic(userProfileDONew.getProfile_pic());
+        userProfileDO.setGender(userProfileDONew.getGender());
         userProfileDO.setAcess_token(userProfileDONew.getAcess_token());
         userProfileDO.saveProfile(userProfileDO.getLoginType());
+
+
+        userNameTextView.setText(userProfileDO.getName());
+
+        if (userProfileDO.getEmail() != null && userProfileDO.getEmail().length() > 0) {
+            userAddressTextView.setText(userProfileDO.getEmail());
+        } else {
+            userAddressTextView.setText(activity.getString(R.string.noEmailAddressText));
+        }
+
+        if (userProfileDO.getPhoneNum() != null && userProfileDO.getPhoneNum().length() > 0) {
+            phoneNumTextView.setText(userProfileDO.getPhoneNum());
+        } else {
+            phoneNumTextView.setText(activity.getString(R.string.noPhoneNumText));
+        }
     }
 
     @Override

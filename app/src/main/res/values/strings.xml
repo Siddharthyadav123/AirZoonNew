@@ -55,7 +55,7 @@
     <string name="searchResultText">Search Results</string>
     <string name="submitAHotspotText">Submit a Hotspot</string>
     <string name="notSuchHotspotFoundText">No such Hotspot found</string>
-    <string name="guideText">"Manually sync the \nairZoon database to \nupdate the hotspots list \nfor offline usage."</string>
+    <string name="guideText">"Manually sync the airZoon database to update the hotspots list for offline usage."</string>
 
     <!--About us text-->
     <string name="aboutUsText">About us</string>
@@ -151,7 +151,7 @@
     <string name="errorEnterComment">Please enter comment</string>
     <string name="errorEnterContactNum">Please enter your contact number</string>
     <string name="errorEnterCorrectNum">Please provide valid phone number</string>
-    <string name="errorcheckInternetConection">Please check your internet connection</string>
+    <string name="errorcheckInternetConection">Oups..no internet connection</string>
     <string name="updatingUserProfileText">Updating your profile..</string>
     <string name="postingUserProfileText">"Posting your profile.."</string>
     <string name="sendingYourFeedbackText">"Sending your valuable feedback.."</string>

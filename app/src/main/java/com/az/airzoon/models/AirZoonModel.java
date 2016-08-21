@@ -96,6 +96,12 @@ public class AirZoonModel {
         return newList;
     }
 
+    public void removeFavirates() {
+        for (int i = 0; i < airZoonDoArrayList.size(); i++) {
+            airZoonDoArrayList.get(i).setFaviourate(false);
+        }
+    }
+
     public ArrayList<AirZoonDo> getHotSpotListByCategory(String cateogry) {
         ArrayList<AirZoonDo> newList = new ArrayList<>();
         for (int i = 0; i < airZoonDoArrayList.size(); i++) {
@@ -163,29 +169,48 @@ public class AirZoonModel {
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_TYPE_FREE)) {
             return R.drawable.marker_free;
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_RESTAURANT)) {
-            return R.drawable.rest;
+            return R.drawable.resturant_black;
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_HOTEL)) {
-            return R.drawable.hotel;
+            return R.drawable.hotel_black;
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_SPORT_CENTER)) {
-            return R.drawable.fitnessset;
+            return R.drawable.fitness_black;
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_BAR)) {
-            return R.drawable.barset;
+            return R.drawable.bar1_black;
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_FAST_FOOD)) {
-            return R.drawable.fastfoodset;
+            return R.drawable.fast_food_black;
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_MALL)) {
-            return R.drawable.servicestoreset;
+            return R.drawable.mall_black;
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_AIRPORT)) {
-            return R.drawable.airset;
+            return R.drawable.airport_black;
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_BARBER)) {
-            return R.drawable.barberset;
+            return R.drawable.barber_black;
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_PANCAKES_WAFFLES)) {
-            return R.drawable.pancakewaffles;
+            return R.drawable.pancake_waffels_black;
+        } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_HEALTH_AND_WELLNESS)) {
+            return R.drawable.health_black;
         } else {
             //others
-            return R.drawable.otherset;
+            return R.drawable.others_cat_black;
         }
 
     }
+
+
+    public int getSpeeddoMeterImage(String speedText) {
+        if (speedText.contains("1--5")) {
+            return R.drawable.speedone;
+        } else if (speedText.contains("5--10")) {
+            return R.drawable.speedtwo;
+        } else if (speedText.contains("10--15")) {
+            return R.drawable.speedthree;
+        } else if (speedText.contains("15--20")) {
+            return R.drawable.speedfour;
+        } else {
+            return R.drawable.speedone;
+        }
+
+    }
+
 
     public int getHotSpotTypeCatLanguageProtedText(String cateogry) {
         if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_TYPE_AIRZOON)) {
@@ -246,16 +271,15 @@ public class AirZoonModel {
             return R.drawable.barberset;
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_PANCAKES_WAFFLES)) {
             return R.drawable.pancakewaffles;
+        } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_HEALTH_AND_WELLNESS)) {
+            return R.drawable.healthset;
         } else {
             //others
-            return R.drawable.otherset;
+            return R.drawable.others;
         }
 
     }
 
-    public int getHotSpotSpeedResBy(String speed) {
-        return R.drawable.speedthree;
-    }
 
     public int getHotSpotMarkerResByType(String type) {
         if (type.equalsIgnoreCase(Constants.HOTSPOT_TYPE_AIRZOON)) {

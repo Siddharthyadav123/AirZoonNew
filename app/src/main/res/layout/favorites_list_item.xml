@@ -35,7 +35,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
-        android:src="@drawable/resturant" />
+        android:src="@drawable/resturant_black" />
 
 
 </RelativeLayout>

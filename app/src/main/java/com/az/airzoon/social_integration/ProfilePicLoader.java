@@ -1,5 +1,6 @@
 package com.az.airzoon.social_integration;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -31,17 +32,22 @@ public class ProfilePicLoader implements Target {
     public static String IMAGE_AIRZOON_FOLDER = Environment.getExternalStorageDirectory().toString() + "/airZoon";
 
 
+    //for profile pic
     public ProfilePicLoader(Context context, UserProfileDO userProfileDO) {
         this.context = context;
         this.userProfileDO = userProfileDO;
     }
 
+    //for airzoon frame
+    public ProfilePicLoader(Context context) {
+        this.context = context;
+    }
 
-    public void downloadProfilePic(ImageView imageView, ProgressBar progressBar) {
+    public void downloadProfilePic(final ImageView imageView, final ProgressBar progressBar) {
         this.progressBar = progressBar;
         this.imageView = imageView;
 
-        Bitmap imageBitmap = getLocalImage(userProfileDO.getName() + ".png");
+        final Bitmap imageBitmap = getLocalImage(userProfileDO.getName() + ".png");
 
         if (imageBitmap == null) {
             if (userProfileDO.getUrl() != null && userProfileDO.getUrl().length() > 0) {
@@ -70,18 +76,88 @@ public class ProfilePicLoader implements Target {
 
             }
         } else {
-            if (imageView != null) {
-                imageView.setImageBitmap(imageBitmap);
+            ((Activity) context).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (imageView != null) {
+                        imageView.setImageBitmap(imageBitmap);
+                    }
+                    if (progressBar != null) {
+                        progressBar.setVisibility(View.GONE);
+                    }
+                }
+            });
+
+        }
+
+    }
+
+    public void downloadAirzoonFrame(final ImageView imageView, String url, String airZoonId) {
+        this.imageView = imageView;
+
+        final String airZoonFrameName = "airZoonBgImage" + airZoonId;
+        final Bitmap imageBitmap = getLocalImage(airZoonFrameName + ".png");
+
+        if (imageBitmap == null) {
+            if (url != null && url.length() > 0) {
+                Picasso.with(context).load(url).into(new Target() {
+                    @Override
+                    public void onBitmapLoaded(final Bitmap bitmap, Picasso.LoadedFrom from) {
+                        try {
+
+
+                            File myDir = new File(IMAGE_AIRZOON_FOLDER);
+                            if (!myDir.exists()) {
+                                myDir.mkdirs();
+                            }
+                            String name = airZoonFrameName + ".png";
+                            myDir = new File(myDir, name);
+                            FileOutputStream out = new FileOutputStream(myDir);
+                            bitmap.compress(Bitmap.CompressFormat.PNG, 0, out);
+                            out.flush();
+                            out.close();
+
+                            ((Activity) context).runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (imageView != null) {
+                                        imageView.setImageBitmap(bitmap);
+                                    }
+                                }
+                            });
+
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onBitmapFailed(Drawable errorDrawable) {
+
+                    }
+
+                    @Override
+                    public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                    }
+                });
             }
-            if (progressBar != null) {
-                progressBar.setVisibility(View.GONE);
-            }
+        } else {
+            ((Activity) context).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (imageView != null) {
+                        imageView.setImageBitmap(imageBitmap);
+                    }
+                }
+            });
         }
 
     }
 
 
-    private void saveBitmapInLocal(Bitmap bitmap) {
+    private void saveBitmapInLocal(final Bitmap bitmap) {
         try {
             File myDir = new File(IMAGE_AIRZOON_FOLDER);
             if (!myDir.exists()) {
@@ -93,6 +169,18 @@ public class ProfilePicLoader implements Target {
             bitmap.compress(Bitmap.CompressFormat.PNG, 0, out);
             out.flush();
             out.close();
+
+            ((Activity) context).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (imageView != null) {
+                        imageView.setImageBitmap(bitmap);
+                    }
+                    if (progressBar != null) {
+                        progressBar.setVisibility(View.GONE);
+                    }
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -112,23 +200,34 @@ public class ProfilePicLoader implements Target {
     }
 
     @Override
-    public void onBitmapLoaded(Bitmap imageBitmap, Picasso.LoadedFrom from) {
+    public void onBitmapLoaded(final Bitmap imageBitmap, Picasso.LoadedFrom from) {
         if (imageBitmap == null) {
             if (userProfileDO.getUrl() != null && userProfileDO.getUrl().length() > 0) {
                 Picasso.with(context).load(userProfileDO.getUrl()).into(this);
             } else {
-                Toast.makeText(context, context.getResources().getString(R.string.profilePicNotFoungText), Toast.LENGTH_SHORT).show();
-                if (progressBar != null) {
-                    progressBar.setVisibility(View.GONE);
-                }
+
+                ((Activity) context).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(context, context.getResources().getString(R.string.profilePicNotFoungText), Toast.LENGTH_SHORT).show();
+                        if (progressBar != null) {
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    }
+                });
             }
         } else {
-            if (imageView != null) {
-                imageView.setImageBitmap(imageBitmap);
-            }
-            if (progressBar != null) {
-                progressBar.setVisibility(View.GONE);
-            }
+            ((Activity) context).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (imageView != null) {
+                        imageView.setImageBitmap(imageBitmap);
+                    }
+                    if (progressBar != null) {
+                        progressBar.setVisibility(View.GONE);
+                    }
+                }
+            });
         }
 
         saveBitmapInLocal(imageBitmap);

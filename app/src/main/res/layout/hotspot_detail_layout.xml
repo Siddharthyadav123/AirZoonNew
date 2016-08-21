@@ -25,7 +25,8 @@
                 android:id="@+id/defaultImageView"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                android:background="@drawable/noimageavaliablenew" />
+                android:scaleType="centerCrop"
+                android:src="@drawable/noimageavaliablenew" />
 
             <ImageView
                 android:id="@+id/closeProfileImageView"
@@ -42,7 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_below="@+id/defaultImageView"
-                android:alpha="0.8"
+                android:alpha="0.7"
                 android:background="@color/Black"
                 android:orientation="horizontal">
 
@@ -144,7 +145,7 @@
                     android:layout_height="30dp"
                     android:layout_below="@+id/hotSpotNameTextView"
                     android:layout_marginTop="15dp"
-                    android:src="@drawable/resturant" />
+                    android:src="@drawable/resturant_black" />
 
                 <com.az.airzoon.customviews.CustomFontTextView
                     android:id="@+id/hotSpotTypeTextView"

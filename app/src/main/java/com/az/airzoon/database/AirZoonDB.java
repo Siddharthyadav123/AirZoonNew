@@ -160,6 +160,17 @@ public class AirZoonDB extends SQLiteOpenHelper {
         return true;
     }
 
+    public boolean removeAllFav() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_FAVIOURATE, false);
+        int count = db.update(AIRZOON_TABLE, contentValues, null, null);
+
+        System.out.println(">>rec sid fav updated count >>" + count);
+
+        return true;
+    }
+
     // Getting All Contacts
     public ArrayList<AirZoonDo> getAllHotSpotList() {
         ArrayList<AirZoonDo> hotSpotList = new ArrayList<AirZoonDo>();

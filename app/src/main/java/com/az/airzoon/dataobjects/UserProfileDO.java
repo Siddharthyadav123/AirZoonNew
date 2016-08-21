@@ -3,6 +3,7 @@ package com.az.airzoon.dataobjects;
 import android.content.Context;
 
 import com.az.airzoon.application.MyApplication;
+import com.az.airzoon.models.AirZoonModel;
 import com.az.airzoon.preferences.PrefManager;
 import com.az.airzoon.social_integration.ProfilePicLoader;
 import com.az.airzoon.volly.RequestParam;
@@ -43,6 +44,7 @@ public class UserProfileDO extends BaseModel {
     private String token;
     private String acess_token;
     private String profile_pic;
+    private String phone;
 //    private String fb_id;
 
     private Context context;
@@ -151,6 +153,14 @@ public class UserProfileDO extends BaseModel {
         this.profile_pic = profile_pic;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public void parseJsonDataForFacebook(JSONObject object) {
         if (object != null) {
             try {
@@ -242,6 +252,7 @@ public class UserProfileDO extends BaseModel {
         setToken(null);
         setAcess_token(null);
         setProfile_pic(null);
+        phone = null;
 
         prefManager.getEditor().putString(KEY_LOGIN_TYPE, loginType);
         prefManager.getEditor().putString(KEY_ID, id);
@@ -258,6 +269,10 @@ public class UserProfileDO extends BaseModel {
         prefManager.getEditor().putString(KEY_PROFILE_PIC, profile_pic);
         prefManager.getEditor().commit();
         deleteProfilePic();
+
+        //removing marked favs.
+        AirZoonModel.getInstance().removeFavirates();
+        MyApplication.getInstance().getAirZoonDB().removeAllFav();
     }
 
     private void deleteProfilePic() {
@@ -298,8 +313,8 @@ public class UserProfileDO extends BaseModel {
         requestParams.add(new RequestParam("fbid", getFbid()));
         requestParams.add(new RequestParam("gender", getGender()));
         requestParams.add(new RequestParam("email", getEmail()));
-        requestParams.add(new RequestParam("phoneno", getPhoneNum()));
         requestParams.add(new RequestParam("token", getToken()));
+        requestParams.add(new RequestParam("phoneno", getPhone()));
         requestParams.add(new RequestParam("profile_pic", getUrl()));
         return requestParams;
     }
@@ -318,7 +333,7 @@ public class UserProfileDO extends BaseModel {
         requestParams.add(new RequestParam("token", getToken()));
         requestParams.add(new RequestParam("fbid", getFbid()));
         requestParams.add(new RequestParam("profile_pic", getUrl()));
-        requestParams.add(new RequestParam("access_token", getAcess_token()));
+        requestParams.add(new RequestParam("acess_token", getAcess_token()));
         requestParams.add(new RequestParam("user_id", getId()));
         return requestParams;
     }

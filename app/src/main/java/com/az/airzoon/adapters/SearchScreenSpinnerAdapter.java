@@ -1,6 +1,7 @@
 package com.az.airzoon.adapters;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -44,26 +45,24 @@ public class SearchScreenSpinnerAdapter extends BaseAdapter {
     }
 
     @Override
-    public TextView getView(int position, View convertView, ViewGroup parent) {
-        TextView v = new TextView(context);
-        v.setTextColor(context.getResources().getColor(R.color.White));
-        v.setTypeface(FontModel.getInstance().getGothamBook());
-        v.setTextSize(MyApplication.getInstance().convertDpToPixel(8f, context));
-        v.setText(itemList.get(position));
-        int padding = (int) MyApplication.getInstance().convertDpToPixel(5f, context);
-        v.setPadding(padding, padding, padding, padding);
-        return v;
+    public View getView(int position, View convertView, ViewGroup parent) {
+        if (convertView == null) {
+            convertView = LayoutInflater.from(context).inflate(R.layout.basic_spinner_list_layout, null);
+        }
+        TextView textView = (TextView) convertView.findViewById(R.id.textView);
+        textView.setText(itemList.get(position));
+        return convertView;
     }
 
     @Override
-    public TextView getDropDownView(int position, View convertView, ViewGroup parent) {
-        TextView v = new TextView(context);
-        v.setTextSize(MyApplication.getInstance().convertDpToPixel(8f, context));
-        v.setTypeface(FontModel.getInstance().getGothamBook());
-        v.setText(itemList.get(position));
-        int padding = (int) MyApplication.getInstance().convertDpToPixel(8f, context);
-        v.setPadding(padding, padding, padding, padding);
-        return v;
+    public View getDropDownView(int position, View convertView, ViewGroup parent) {
+        if (convertView == null) {
+            convertView = LayoutInflater.from(context).inflate(R.layout.basic_spinner_list_layout, null);
+        }
+        TextView textView = (TextView) convertView.findViewById(R.id.textView);
+        textView.setText(itemList.get(position));
+        textView.setTextColor(context.getResources().getColor(R.color.Black));
+        return convertView;
     }
 
 }

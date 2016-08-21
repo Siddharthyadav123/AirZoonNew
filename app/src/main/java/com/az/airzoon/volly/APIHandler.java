@@ -76,7 +76,7 @@ public class APIHandler implements Response.Listener<Object>, Response.ErrorList
 
     public void requestAPI() {
         //check if internet connect found or not
-        if (!checkConnection(context)) {
+        if (!MyApplication.getInstance().checkConnection(context)) {
             String noInternetConnection = context.getResources().getString(R.string.errorcheckInternetConection);
             if (apiCallback != null) {
                 apiCallback.onAPIFailureResponse(requestId, noInternetConnection);
@@ -109,7 +109,7 @@ public class APIHandler implements Response.Listener<Object>, Response.ErrorList
                         for (int i = 0; i < requestParams.size(); i++) {
                             //if value is null need to set it as blank
                             if (requestParams.get(i).getValue() == null) {
-                                requestParams.get(i).setValue("non");
+                                requestParams.get(i).setValue("");
                             }
                             System.out.println("[API] multipart key = " + requestParams.get(i).getKey() + " >>value = " + requestParams.get(i).getValue());
                             multipart.addFormField(requestParams.get(i).getKey(), requestParams.get(i).getValue());
@@ -238,21 +238,6 @@ public class APIHandler implements Response.Listener<Object>, Response.ErrorList
         hideLoading();
     }
 
-
-    private boolean checkConnection(Context context) {
-        ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connMgr.getActiveNetworkInfo();
-        if (activeNetworkInfo != null) { // connected to the internet
-            if (activeNetworkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
-                // connected to wifi
-                return true;
-            } else if (activeNetworkInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
-                // connected to the mobile provider's data plan
-                return true;
-            }
-        }
-        return false;
-    }
 
     public boolean isShowToastOnRespone() {
         return showToastOnRespone;

@@ -155,6 +155,10 @@ public class AirZoonDo extends BaseModel implements Parcelable {
     }
 
     public String getSpeed() {
+        if (speed != null && speed.contains("--")) {
+            speed = speed.replace("--", "-");
+        }
+
         if (speed != null && !speed.contains("Mbps")) {
             return speed + " Mbps";
         } else

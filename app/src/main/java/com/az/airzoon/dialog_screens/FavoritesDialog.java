@@ -48,6 +48,7 @@ public class FavoritesDialog extends AbstractBaseDialog {
         favoritesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                dismiss();
                 AirZoonDo airZoonDo = faviourateList.get(position);
                 HotspotDetailDailog hotspotDetailDailog = new HotspotDetailDailog(activity, airZoonDo);
                 hotspotDetailDailog.showDialog(HotspotDetailDailog.ANIM_TYPE_BOTTOM_IN_BOTTOM_OUT);

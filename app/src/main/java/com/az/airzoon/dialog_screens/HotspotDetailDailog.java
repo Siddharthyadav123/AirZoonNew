@@ -21,6 +21,7 @@ import com.az.airzoon.constants.RequestConstant;
 import com.az.airzoon.constants.URLConstants;
 import com.az.airzoon.dataobjects.AirZoonDo;
 import com.az.airzoon.models.AirZoonModel;
+import com.az.airzoon.social_integration.ProfilePicLoader;
 import com.az.airzoon.volly.APICallback;
 import com.az.airzoon.volly.APIHandler;
 
@@ -95,6 +96,7 @@ public class HotspotDetailDailog extends AbstractBaseDialog implements APICallba
 
     @Override
     public void setInfoInUI(View view) {
+        loadImage();
         hotSpotNameTextView.setText(airZoonDo.getName());
         hotSpotTypeTextView.setText(airZoonDo.getCategory());
         hotSpotSpeedTextView.setText(airZoonDo.getSpeed());
@@ -107,6 +109,17 @@ public class HotspotDetailDailog extends AbstractBaseDialog implements APICallba
             faviourateImageView.setImageResource(R.drawable.selectedstar);
         } else {
             faviourateImageView.setImageResource(R.drawable.star);
+        }
+
+        speedImageView.setImageResource(AirZoonModel.getInstance().getSpeeddoMeterImage(airZoonDo.getSpeed()));
+    }
+
+    private void loadImage() {
+        if (airZoonDo.getImage() != null && airZoonDo.getImage().length() > 0
+                && !airZoonDo.getImage().equalsIgnoreCase("image/other.jpg")) {
+            String imageURL = "http://airzoonapp.com/" + airZoonDo.getImage();
+            ProfilePicLoader profilePicLoader = new ProfilePicLoader(activity);
+            profilePicLoader.downloadAirzoonFrame(defaultImageView, imageURL, airZoonDo.getId() + "");
         }
     }
 
