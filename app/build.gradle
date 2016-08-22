@@ -38,11 +38,11 @@ android {
         }
     }
 
-  //  dexOptions {
-   //     incremental = true;
-     //   preDexLibraries = false
-     //   javaMaxHeapSize "4g" // 2g should be also OK
-   // }
+    dexOptions {
+        incremental = true;
+        preDexLibraries = false
+        javaMaxHeapSize "4g" // 2g should be also OK
+    }
 
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'

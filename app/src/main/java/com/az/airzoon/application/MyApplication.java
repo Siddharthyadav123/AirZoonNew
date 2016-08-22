@@ -21,6 +21,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+import com.az.airzoon.R;
 import com.az.airzoon.database.AirZoonDB;
 import com.az.airzoon.dataobjects.UserProfileDO;
 import com.az.airzoon.gps.LocationModel;
@@ -145,7 +146,7 @@ public class MyApplication extends Application {
         return dp;
     }
 
-    public String getCurrentDate() {
+    public String getCurrentDate(Context context) {
         String currentDate = "";
         Calendar c = Calendar.getInstance();
         int cyear = c.get(Calendar.YEAR);//calender year starts from 1900 so you must add 1900 to the value recevie.i.e., 1990+112 = 2012
@@ -154,40 +155,40 @@ public class MyApplication extends Application {
 
         switch (cmonth + 1) {
             case 1:
-                currentDate = "Jan";
+                currentDate = context.getResources().getString(R.string.janText);
                 break;
             case 2:
-                currentDate = "Feb";
+                currentDate = context.getResources().getString(R.string.fabText);
                 break;
             case 3:
-                currentDate = "Mar";
+                currentDate = context.getResources().getString(R.string.marText);
                 break;
             case 4:
-                currentDate = "Apr";
+                currentDate = context.getResources().getString(R.string.aprText);
                 break;
             case 5:
-                currentDate = "May";
+                currentDate = context.getResources().getString(R.string.mayText);
                 break;
             case 6:
-                currentDate = "Jun";
+                currentDate = context.getResources().getString(R.string.juneText);
                 break;
             case 7:
-                currentDate = "Jul";
+                currentDate = context.getResources().getString(R.string.julyText);
                 break;
             case 8:
-                currentDate = "Aug";
+                currentDate = context.getResources().getString(R.string.augText);
                 break;
             case 9:
-                currentDate = "Sep";
+                currentDate = context.getResources().getString(R.string.sepText);
                 break;
             case 10:
-                currentDate = "Oct";
+                currentDate = context.getResources().getString(R.string.octText);
                 break;
             case 11:
-                currentDate = "Nov";
+                currentDate = context.getResources().getString(R.string.novText);
                 break;
             case 12:
-                currentDate = "Dec";
+                currentDate = context.getResources().getString(R.string.decText);
                 break;
         }
 

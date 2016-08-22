@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:alpha="0.87">
 
-        <RelativeLayout
+        <com.az.airzoon.customviews.CurveRelLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -395,7 +395,7 @@
             </RelativeLayout>
 
 
-        </RelativeLayout>
+        </com.az.airzoon.customviews.CurveRelLayout>
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/userDPImageView"

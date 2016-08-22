@@ -174,4 +174,17 @@
     <string name="gallaryText">"Galerie"</string>
     <string name="cameraText">"Caméra"</string>
 
+    <string name="janText">Jan</string>
+    <string name="fabText">"Fév"</string>
+    <string name="marText">Mar</string>
+    <string name="aprText">Avr</string>
+    <string name="mayText">Mai</string>
+    <string name="juneText">juin</string>
+    <string name="julyText">Juil</string>
+    <string name="augText">"août"</string>
+    <string name="sepText">Sep</string>
+    <string name="octText">Oct</string>
+    <string name="novText">Nov</string>
+    <string name="decText">"déc"</string>
+
 </resources>

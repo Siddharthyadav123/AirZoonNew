@@ -6,18 +6,19 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <com.az.airzoon.customviews.CurveRelLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="7dp"
         android:alpha="0.87"
         android:background="@drawable/dailog_shape_white">
 
-        <RelativeLayout
+        <com.az.airzoon.customviews.CurveRelLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true">
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/dailog_shape_white">
 
             <ImageView
                 android:id="@+id/closeProfileImageView"
@@ -85,7 +86,7 @@
                 <com.az.airzoon.customviews.CustomFontTextView
                     android:id="@+id/bodyText"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="120dp"
                     android:layout_centerHorizontal="true"
                     android:text="@string/aboutUsBody1"
                     android:textColor="@color/Black"
@@ -148,7 +149,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="67dp"
                 android:layout_below="@+id/bodyLayout"
                 android:background="@color/LightGreen"
                 android:orientation="horizontal">
@@ -192,10 +193,10 @@
 
             </LinearLayout>
 
-        </RelativeLayout>
+        </com.az.airzoon.customviews.CurveRelLayout>
 
 
-    </RelativeLayout>
+    </com.az.airzoon.customviews.CurveRelLayout>
 
 
 </LinearLayout>

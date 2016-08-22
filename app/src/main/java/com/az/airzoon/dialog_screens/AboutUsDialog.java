@@ -61,7 +61,7 @@ public class AboutUsDialog extends AbstractBaseDialog implements APICallback {
 
     @Override
     public void setInfoInUI(View view) {
-        bodyText.setText(activity.getResources().getString(R.string.aboutUsBody1) + "\n\n\n" +
+        bodyText.setText(activity.getResources().getString(R.string.aboutUsBody1) + "\n\n" +
                 activity.getResources().getString(R.string.aboutUsBody2));
 
         //server doesn't have frech text

@@ -39,7 +39,9 @@ public abstract class AbstractBaseDialog extends Dialog implements View.OnClickL
         this.activity = (Activity) context;
         layoutInflater = LayoutInflater.from(context);
         userProfileDO = MyApplication.getInstance().getUserProfileDO();
+
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -60,7 +60,7 @@
     <!--About us text-->
     <string name="aboutUsText">About us</string>
     <string name="versionText">Version 1.0</string>
-    <string name="aboutUsBody1">airZoon gives you the weather of the wifi. Find the best hotspot that fit your needs.</string>
+    <string name="aboutUsBody1">airZoon gives you the weather of the WIFI. Find the best hotspot that fit your needs.</string>
     <string name="aboutUsBody2">airZoon hotspots are free, unlimited and secured.</string>
     <string name="sendAFeedbackText">Send a Feedback</string>
     <string name="watchTheGuidedTourText">Watch the Guided Tour</string>
@@ -172,4 +172,17 @@
     <string name="gallaryText">Gallery</string>
     <string name="cameraText">Camera</string>
 
+
+    <string name="janText">Jan</string>
+    <string name="fabText">Feb</string>
+    <string name="marText">Mar</string>
+    <string name="aprText">Apr</string>
+    <string name="mayText">May</string>
+    <string name="juneText">Jun</string>
+    <string name="julyText">Jul</string>
+    <string name="augText">Aug</string>
+    <string name="sepText">Sep</string>
+    <string name="octText">Oct</string>
+    <string name="novText">Nov</string>
+    <string name="decText">Dec</string>
 </resources>

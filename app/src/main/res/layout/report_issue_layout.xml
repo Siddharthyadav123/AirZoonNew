@@ -6,7 +6,7 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <com.az.airzoon.customviews.CurveRelLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="25dp"
@@ -357,7 +357,7 @@
         </RelativeLayout>
 
 
-    </RelativeLayout>
+    </com.az.airzoon.customviews.CurveRelLayout>
 
 
 </LinearLayout>

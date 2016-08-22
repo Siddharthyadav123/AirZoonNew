@@ -12,7 +12,7 @@
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp">
 
-        <RelativeLayout
+        <com.az.airzoon.customviews.CurveRelLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -342,7 +342,7 @@
                 app:sid_customFont="gotham_book" />
 
 
-        </RelativeLayout>
+        </com.az.airzoon.customviews.CurveRelLayout>
 
 
     </RelativeLayout>

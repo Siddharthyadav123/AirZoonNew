@@ -185,8 +185,8 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
         PrefManager prefManager = new PrefManager(this);
         String syncDate = prefManager.getLstSyncTime();
         if (syncDate == null) {
-            prefManager.setLastSyncTime(MyApplication.getInstance().getCurrentDate());
-            lastSyncTextView.setText(getResources().getString(R.string.lastSyncText) + " " + MyApplication.getInstance().getCurrentDate());
+            prefManager.setLastSyncTime(MyApplication.getInstance().getCurrentDate(this));
+            lastSyncTextView.setText(getResources().getString(R.string.lastSyncText) + " " + MyApplication.getInstance().getCurrentDate(this));
         } else {
             lastSyncTextView.setText(getResources().getString(R.string.lastSyncText) + " " + syncDate);
         }
@@ -271,7 +271,7 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
                 loadAirZoonShops();
                 progressBar.setVisibility(View.GONE);
                 //setting last sync time
-                prefManager.setLastSyncTime(MyApplication.getInstance().getCurrentDate());
+                prefManager.setLastSyncTime(MyApplication.getInstance().getCurrentDate(this));
                 lastSyncTextView.setText(getResources().getString(R.string.lastSyncText) + " " + prefManager.getLstSyncTime());
                 Toast.makeText(this, getString(R.string.syncedSuccessFulText), Toast.LENGTH_SHORT).show();
                 break;

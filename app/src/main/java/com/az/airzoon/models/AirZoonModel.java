@@ -197,13 +197,13 @@ public class AirZoonModel {
 
 
     public int getSpeeddoMeterImage(String speedText) {
-        if (speedText.contains("1--5")) {
+        if (speedText.contains("1-5")) {
             return R.drawable.speedone;
-        } else if (speedText.contains("5--10")) {
+        } else if (speedText.contains("5-10")) {
             return R.drawable.speedtwo;
-        } else if (speedText.contains("10--15")) {
+        } else if (speedText.contains("10-15")) {
             return R.drawable.speedthree;
-        } else if (speedText.contains("15--20")) {
+        } else if (speedText.contains("15-20")) {
             return R.drawable.speedfour;
         } else {
             return R.drawable.speedone;
