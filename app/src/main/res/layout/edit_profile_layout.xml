@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:alpha="0.87">
+        android:alpha="0.8">
 
         <com.az.airzoon.customviews.CurveRelLayout
             android:layout_width="wrap_content"

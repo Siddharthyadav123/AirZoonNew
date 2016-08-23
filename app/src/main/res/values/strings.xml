@@ -68,8 +68,8 @@
 
     <!--Feedback-->
     <string name="feedbackText">Feedback</string>
-    <string name="enterUserNameText">Enter user name</string>
-    <string name="enterEmailHintText">Enter email address</string>
+    <string name="enterUserNameText">No name</string>
+    <string name="enterEmailHintText">No email address</string>
     <string name="writeYourCommentHintText">Write your comment</string>
     <string name="submitText">Submit</string>
     <string name="saveText">Save</string>
@@ -107,7 +107,7 @@
     <string name="enterSpotNameHintText">Enter Spot Name</string>
     <string name="selectHotspotTypeHintText">Select Hotspot Type</string>
     <string name="selectHotspotCatHintText">Select Hotspot Category</string>
-    <string name="enterPhoneNoHintText">Enter Phone no.</string>
+    <string name="enterPhoneNoHintText">No Phone no.</string>
     <string name="addAnImageText">Add an image</string>
     <string name="cancelText">Cancel</string>
 
@@ -129,8 +129,8 @@
     <string name="pleaseWaitText">Please wait..</string>
     <string name="logoutSuccessfullyText">Logout successfully</string>
     <string name="welcomeText">Welcome</string>
-    <string name="lastSyncText">last sync:</string>
-    <string name="savedSuccessfulText">Saved successfully</string>
+    <string name="lastSyncText">Last sync:</string>
+    <string name="savedSuccessfulText">User updated successfully</string>
 
     <string name="catAirport">Airport</string>
     <string name="catBar">Bar</string>
@@ -185,4 +185,17 @@
     <string name="octText">Oct</string>
     <string name="novText">Nov</string>
     <string name="decText">Dec</string>
+
+    <string name="alertText">Alert</string>
+    <string name="YesLogoutText">Yes Logout</string>
+    <string name="YesText">Yes</string>
+    <string name="NoText">No</string>
+    <string name="areYouSureLogoutText">Are you sure you want to logout?</string>
+    <string name="loadingText">Loading...</string>
+    <string name="signInText">Sign in</string>
+    <string name="reportErrorResponse">Thank you, your informations will be processed soon..</string>
+    <string name="feedbackResponse">Thank you for your feedback, we will process it soon...</string>
+    <string name="settingSavedText">Settings saved.</string>
+
+
 </resources>

@@ -6,11 +6,12 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <com.az.airzoon.customviews.CurveRelLayout
         android:layout_width="335dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="5dp"
+        android:alpha="0.8">
 
         <com.az.airzoon.customviews.CurveRelLayout
             android:layout_width="wrap_content"
@@ -24,9 +25,8 @@
             <ImageView
                 android:id="@+id/defaultImageView"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/noimageavaliablenew" />
+                android:layout_height="160dp"
+                android:background="@drawable/noimageavaliablenew" />
 
             <ImageView
                 android:id="@+id/closeProfileImageView"
@@ -42,8 +42,8 @@
                 android:id="@+id/topBtnsLayout"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_below="@+id/defaultImageView"
-                android:alpha="0.7"
+                android:layout_alignBottom="@+id/defaultImageView"
+                android:alpha="0.71"
                 android:background="@color/Black"
                 android:orientation="horizontal">
 
@@ -61,7 +61,7 @@
                     android:layout_height="match_parent"
                     android:layout_below="@+id/versionTextView"
                     android:alpha="0.8"
-                    android:background="@color/Gray" />
+                    android:background="@color/White" />
 
                 <LinearLayout
                     android:id="@+id/shareLayout"
@@ -85,6 +85,7 @@
                         android:text="@string/shareStringText"
                         android:textColor="@color/White"
                         android:textSize="16dp"
+                        android:textStyle="bold"
                         app:sid_customFont="gotham_book" />
 
                 </LinearLayout>
@@ -136,7 +137,7 @@
                     android:layout_toLeftOf="@+id/speedLayout"
                     android:text="Hotspot name"
                     android:textColor="@color/LightGrey"
-                    android:textSize="22dp"
+                    android:textSize="23dp"
                     app:sid_customFont="gotham_book" />
 
                 <ImageView
@@ -203,7 +204,7 @@
                     android:layout_toRightOf="@+id/hotSpotCategoryImage"
                     android:gravity="center|left"
                     android:maxLines="2"
-                    android:text="9595063464"
+                    android:text="@string/noPhoneNumText"
                     android:textColor="@color/White"
                     android:textSize="15dp"
                     app:sid_customFont="gotham_book" />
@@ -345,7 +346,7 @@
         </com.az.airzoon.customviews.CurveRelLayout>
 
 
-    </RelativeLayout>
+    </com.az.airzoon.customviews.CurveRelLayout>
 
 
 </LinearLayout>

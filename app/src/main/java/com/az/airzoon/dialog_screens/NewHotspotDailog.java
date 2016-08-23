@@ -251,6 +251,16 @@ public class NewHotspotDailog extends AbstractBaseDialog implements APICallback,
 
     }
 
+    @Override
+    public void onDailogYesClick() {
+
+    }
+
+    @Override
+    public void onDailogNoClick() {
+
+    }
+
     //spot_name, type, category, ph_no, address, image
     public boolean validateUI() {
         if (enterSpotNameEditText.getText().toString().trim().length() == 0) {

@@ -86,6 +86,16 @@ public class SearchSpotDialog extends AbstractBaseDialog {
         }
     }
 
+    @Override
+    public void onDailogYesClick() {
+
+    }
+
+    @Override
+    public void onDailogNoClick() {
+
+    }
+
     private String getSeletedHotSpotType() {
         switch (optionsSpinner.getSelectedItemPosition()) {
             case 1:
@@ -101,6 +111,7 @@ public class SearchSpotDialog extends AbstractBaseDialog {
 
 
     private void onSearchBtnClick() {
+        dismiss();
         Intent i = new Intent(activity, SearchResultActivity.class);
         i.putExtra(SearchResultActivity.KEY_FILTER_TYPE, getSeletedHotSpotType());
         i.putExtra(SearchResultActivity.KEY_FILTER_TEXT, searchSpotNameEditText.getText().toString().trim());

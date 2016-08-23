@@ -1,9 +1,11 @@
 package com.az.airzoon.dialog_screens;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -107,5 +109,60 @@ public abstract class AbstractBaseDialog extends Dialog implements View.OnClickL
         profilePicLoader.downloadProfilePic(imageView, progressBar);
     }
 
+    protected void showAleart(String title, String bodyText, String yesBtnText, String noBtnText) {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(activity);
+        builder1.setMessage(bodyText);
+        builder1.setTitle(title);
+        builder1.setCancelable(true);
 
+        builder1.setPositiveButton(
+                yesBtnText,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        onDailogYesClick();
+                    }
+                });
+
+        builder1.setNegativeButton(
+                noBtnText,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        onDailogNoClick();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
+
+    public abstract void onDailogYesClick();
+
+    public abstract void onDailogNoClick();
+
+    public final boolean isValidEmail(CharSequence target) {
+        if (target == null) {
+            return false;
+        } else {
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+        }
+    }
+
+    protected void showNormalDailog(String bodyText) {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(activity);
+        builder1.setMessage(bodyText);
+        builder1.setCancelable(true);
+
+        builder1.setPositiveButton(
+                activity.getString(R.string.YesText),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
 }

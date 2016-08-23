@@ -96,7 +96,8 @@ public class SearchResultListAdapter extends BaseAdapter implements SwipeMenuVie
 
         AirZoonDo airZoonDo = airZoonDoArrayList.get(position);
         hotSpotName.setText(airZoonDo.getName());
-        hotSpotAddress.setText(airZoonDo.getAddress() + " " + airZoonDo.getAddress2());
+        hotSpotAddress.setText(airZoonDo.getAddress() + " " + airZoonDo.getAddress2()
+                + airZoonDo.getCity() + " " + airZoonDo.getCountry());
         hotspotSpeedTextView.setText(airZoonDo.getSpeed());
 
         hotspotSpeedImageView.setImageResource(AirZoonModel.getInstance().getSpeeddoMeterImage(airZoonDo.getSpeed()));

@@ -179,6 +179,9 @@ public class AirZoonDo extends BaseModel implements Parcelable {
     }
 
     public String getAddress2() {
+        if (address2 == null) {
+            return "";
+        }
         return address2;
     }
 
@@ -211,6 +214,9 @@ public class AirZoonDo extends BaseModel implements Parcelable {
     }
 
     public String getCountry() {
+        if (country == null) {
+            return "";
+        }
         return country;
     }
 
@@ -219,6 +225,9 @@ public class AirZoonDo extends BaseModel implements Parcelable {
     }
 
     public String getCity() {
+        if (city == null) {
+            return "";
+        }
         return city;
     }
 
@@ -259,6 +268,9 @@ public class AirZoonDo extends BaseModel implements Parcelable {
     }
 
     public String getAddress() {
+        if (address == null) {
+            return "";
+        }
         return address;
     }
 

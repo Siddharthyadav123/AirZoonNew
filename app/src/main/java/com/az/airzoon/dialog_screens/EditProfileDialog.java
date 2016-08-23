@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +40,10 @@ public class EditProfileDialog extends AbstractBaseDialog implements APICallback
     private Button cancelButton;
     private Button submitButton;
     private ProgressBar progressBar;
+    private RelativeLayout cludeBackupLayout;
+    private ImageView cludeBackUpImage;
+
+    private boolean isSaveToServer = true;
 
 
     public EditProfileDialog(Context context) {
@@ -64,6 +69,8 @@ public class EditProfileDialog extends AbstractBaseDialog implements APICallback
         cancelButton = (Button) view.findViewById(R.id.cancelButton);
         submitButton = (Button) view.findViewById(R.id.submitButton);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        cludeBackupLayout = (RelativeLayout) view.findViewById(R.id.cludeBackupLayout);
+        cludeBackUpImage = (ImageView) view.findViewById(R.id.cludeBackUpImage);
     }
 
     @Override
@@ -84,6 +91,20 @@ public class EditProfileDialog extends AbstractBaseDialog implements APICallback
             @Override
             public void onClick(View v) {
                 onSaveBtnclick();
+            }
+        });
+        cludeBackupLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (isSaveToServer) {
+                    isSaveToServer = false;
+                    cludeBackUpImage.setAlpha(0.5f);
+                } else {
+                    isSaveToServer = true;
+                    cludeBackUpImage.setAlpha(1f);
+                }
+
             }
         });
     }
@@ -126,11 +147,24 @@ public class EditProfileDialog extends AbstractBaseDialog implements APICallback
             else
                 userProfileDO.setGender("female");
 
-            //requesting
-            APIHandler apiHandler = new APIHandler(activity, this, RequestConstant.REQUEST_POST_EDIT_USER,
-                    Request.Method.POST, URLConstants.URL_POST_NEW_USER_OR_EDIT_USER, true,
-                    activity.getResources().getString(R.string.updatingUserProfileText), null, null, userProfileDO.getRequestParamsToUpdateUserProfile());
-            apiHandler.requestAPI();
+            if (isSaveToServer) {
+                //requesting
+                APIHandler apiHandler = new APIHandler(activity, this, RequestConstant.REQUEST_POST_EDIT_USER,
+                        Request.Method.POST, URLConstants.URL_POST_NEW_USER_OR_EDIT_USER, true,
+                        activity.getResources().getString(R.string.loadingText), null, null,
+                        userProfileDO.getRequestParamsToUpdateUserProfile());
+                apiHandler.requestAPI();
+            } else {
+                dismiss();
+                userProfileDO.saveProfile(userProfileDO.getLoginType());
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        showNormalDailog(activity.getResources().getString(R.string.savedSuccessfulText));
+                    }
+                });
+            }
+
 
         }
 
@@ -139,16 +173,13 @@ public class EditProfileDialog extends AbstractBaseDialog implements APICallback
 
     private boolean validateUI() {
         if (nameEditText.getText().toString().trim().length() == 0) {
-            Toast.makeText(activity, activity.getResources().getString(R.string.errorEnterName), Toast.LENGTH_SHORT).show();
+            showNormalDailog(activity.getResources().getString(R.string.errorEnterName));
             return false;
         } else if (emailEditText.getText().toString().trim().length() == 0) {
-            Toast.makeText(activity, activity.getResources().getString(R.string.errorEnterEmailId), Toast.LENGTH_SHORT).show();
+            showNormalDailog(activity.getResources().getString(R.string.errorEnterEmailId));
             return false;
-        } else if (phoneNumEditText.getText().toString().trim().length() == 0) {
-            Toast.makeText(activity, activity.getResources().getString(R.string.errorEnterContactNum), Toast.LENGTH_SHORT).show();
-            return false;
-        } else if (phoneNumEditText.getText().toString().trim().length() < 10) {
-            Toast.makeText(activity, activity.getResources().getString(R.string.errorEnterCorrectNum), Toast.LENGTH_SHORT).show();
+        } else if (!isValidEmail(emailEditText.getText().toString().trim())) {
+            showNormalDailog(activity.getResources().getString(R.string.errorEnterCorrectEmailId));
             return false;
         }
         return true;
@@ -161,12 +192,23 @@ public class EditProfileDialog extends AbstractBaseDialog implements APICallback
     }
 
     @Override
+    public void onDailogYesClick() {
+
+    }
+
+    @Override
+    public void onDailogNoClick() {
+
+    }
+
+    @Override
     public void onAPISuccessResponse(int requestId, String responseString) {
+        dismiss();
         userProfileDO.saveProfile(userProfileDO.getLoginType());
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(activity, activity.getResources().getString(R.string.savedSuccessfulText), Toast.LENGTH_SHORT).show();
+                showNormalDailog(activity.getResources().getString(R.string.savedSuccessfulText));
             }
         });
     }

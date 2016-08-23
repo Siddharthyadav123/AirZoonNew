@@ -13,7 +13,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="25dp"
-        android:alpha="0.87">
+        android:alpha="0.8">
 
         <com.az.airzoon.customviews.CurveRelLayout
             android:layout_width="wrap_content"

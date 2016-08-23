@@ -105,13 +105,30 @@ public class ProfileDialog extends AbstractBaseDialog implements SocialLoginInte
         }
     }
 
+    @Override
+    public void onDailogYesClick() {
+        if (isFbOn) {
+            setFbBtnStateOFF();
+            logout();
+        } else {
+            setTwitterBtnStateOFF();
+            logout();
+        }
+
+    }
+
+    @Override
+    public void onDailogNoClick() {
+
+    }
+
     private void onEditProfileBtnClick() {
         if (userProfileDO.isLoggedInAlrady()) {
             dismiss();
             EditProfileDialog editProfileDialog = new EditProfileDialog(activity);
             editProfileDialog.showDialog(EditProfileDialog.ANIM_TYPE_BOTTOM_IN_BOTTOM_OUT);
         } else {
-            Toast.makeText(activity, activity.getResources().getString(R.string.loginErrorText), Toast.LENGTH_SHORT).show();
+            showNormalDailog(activity.getResources().getString(R.string.loginErrorText));
         }
 
     }
@@ -148,8 +165,11 @@ public class ProfileDialog extends AbstractBaseDialog implements SocialLoginInte
 
     private void onFbBtnClick() {
         if (isFbOn) {
-            setFbBtnStateOFF();
-            logout();
+            showAleart(activity.getString(R.string.alertText),
+                    activity.getString(R.string.areYouSureLogoutText),
+                    activity.getString(R.string.YesLogoutText),
+                    activity.getString(R.string.NoText));
+
         } else {
             //check if internet connect found or not
             if (!MyApplication.getInstance().checkConnection(activity)) {
@@ -165,8 +185,13 @@ public class ProfileDialog extends AbstractBaseDialog implements SocialLoginInte
 
     private void onTwitterBtnClick() {
         if (isTwitterOn) {
-            setTwitterBtnStateOFF();
-            logout();
+
+
+            showAleart(activity.getString(R.string.alertText),
+                    activity.getString(R.string.areYouSureLogoutText),
+                    activity.getString(R.string.YesLogoutText),
+                    activity.getString(R.string.NoText));
+
         } else {
             //check if internet connect found or not
             if (!MyApplication.getInstance().checkConnection(activity)) {
@@ -180,17 +205,17 @@ public class ProfileDialog extends AbstractBaseDialog implements SocialLoginInte
     }
 
     private void requestTwitterLogin() {
-        showPogress(activity.getString(R.string.twitterText), activity.getResources().getString(R.string.pleaseWaitText));
+        showPogress(activity.getString(R.string.twitterText), activity.getResources().getString(R.string.loadingText));
         ((AirZoonMapActivity) activity).requestTwitterLogin(this);
     }
 
     private void requestFbLogin() {
-        showPogress(activity.getString(R.string.facebookText), activity.getResources().getString(R.string.pleaseWaitText));
+        showPogress(activity.getString(R.string.facebookText), activity.getResources().getString(R.string.loadingText));
         ((AirZoonMapActivity) activity).requestFBLogin(this);
     }
 
     private void logout() {
-        Toast.makeText(activity, activity.getResources().getString(R.string.logoutSuccessfullyText), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(activity, activity.getResources().getString(R.string.logoutSuccessfullyText), Toast.LENGTH_SHORT).show();
         if (userProfileDO != null)
             userProfileDO.destroyProfile();
         resetProfile();
@@ -208,7 +233,7 @@ public class ProfileDialog extends AbstractBaseDialog implements SocialLoginInte
     public void onSocialLoginSuccess(UserProfileDO userProfileDO, String socialType) {
         hideProgressLoading();
         this.userProfileDO = userProfileDO;
-        Toast.makeText(activity, activity.getResources().getString(R.string.welcomeText) + " " + userProfileDO.getName(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(activity, activity.getResources().getString(R.string.welcomeText) + " " + userProfileDO.getName(), Toast.LENGTH_SHORT).show();
         setProfileUI();
         if (socialType.equalsIgnoreCase(Constants.LOGIN_TYPE_FB)) {
             setFbBtnStateOn();
@@ -221,7 +246,7 @@ public class ProfileDialog extends AbstractBaseDialog implements SocialLoginInte
     private void loginToOurServer() {
         APIHandler apiHandler = new APIHandler(activity, this, RequestConstant.REQUEST_POST_NEW_USER,
                 Request.Method.POST, URLConstants.URL_POST_NEW_USER_OR_EDIT_USER, true,
-                activity.getResources().getString(R.string.postingUserProfileText), null,
+                activity.getResources().getString(R.string.loadingText), null,
                 null, userProfileDO.getRequestParamsToRegisterUser());
         apiHandler.requestAPI();
     }
@@ -247,7 +272,7 @@ public class ProfileDialog extends AbstractBaseDialog implements SocialLoginInte
 
     @Override
     public void onSocialLoginFailure(String error, String socialType) {
-        Toast.makeText(activity, "Login failed " + error, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(activity, "Login failed " + error, Toast.LENGTH_SHORT).show();
         hideProgressLoading();
     }
 

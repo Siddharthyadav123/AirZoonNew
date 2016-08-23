@@ -65,14 +65,11 @@ public class AboutUsDialog extends AbstractBaseDialog implements APICallback {
                 activity.getResources().getString(R.string.aboutUsBody2));
 
         //server doesn't have frech text
-        if (!Locale.getDefault().getLanguage().equals("fr")) {
-            //requesting
-            APIHandler apiHandler = new APIHandler(activity, this, RequestConstant.REQUEST_GET_ABOUT_US_BODY_TEXT,
-                    Request.Method.GET, URLConstants.URL_GET_ABOUT_US_BODY_TEXT, false,
-                    null, null, null, null);
-
-            apiHandler.requestAPI();
-        }
+        //requesting
+        APIHandler apiHandler = new APIHandler(activity, this, RequestConstant.REQUEST_GET_ABOUT_US_BODY_TEXT,
+                Request.Method.GET, URLConstants.URL_GET_ABOUT_US_BODY_TEXT, false,
+                null, null, null, null);
+        apiHandler.requestAPI();
 
     }
 
@@ -95,6 +92,16 @@ public class AboutUsDialog extends AbstractBaseDialog implements APICallback {
                 onWatchTheGuideBtnClick();
                 break;
         }
+    }
+
+    @Override
+    public void onDailogYesClick() {
+
+    }
+
+    @Override
+    public void onDailogNoClick() {
+
     }
 
     private void onWatchTheGuideBtnClick() {

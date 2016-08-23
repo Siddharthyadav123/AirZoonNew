@@ -9,8 +9,8 @@
     <com.az.airzoon.customviews.CurveRelLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="7dp"
-        android:alpha="0.87"
+        android:layout_margin="5dp"
+        android:alpha="0.8"
         android:background="@drawable/dailog_shape_white">
 
         <com.az.airzoon.customviews.CurveRelLayout
@@ -151,7 +151,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="67dp"
                 android:layout_below="@+id/bodyLayout"
-                android:background="@color/LightGreen"
+                android:background="#7BC25F"
                 android:orientation="horizontal">
 
                 <com.az.airzoon.customviews.CustomFontTextView

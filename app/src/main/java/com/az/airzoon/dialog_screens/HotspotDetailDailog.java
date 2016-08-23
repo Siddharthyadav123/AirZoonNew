@@ -49,6 +49,7 @@ public class HotspotDetailDailog extends AbstractBaseDialog implements APICallba
     private LinearLayout shareLayout;
 
     private AirZoonDo airZoonDo;
+    boolean openFromFav = false;
 
     public HotspotDetailDailog(Context context, AirZoonDo airZoonDo) {
         super(context);
@@ -100,8 +101,16 @@ public class HotspotDetailDailog extends AbstractBaseDialog implements APICallba
         hotSpotNameTextView.setText(airZoonDo.getName());
         hotSpotTypeTextView.setText(airZoonDo.getCategory());
         hotSpotSpeedTextView.setText(airZoonDo.getSpeed());
-        hotSpotAddressTextView.setText(airZoonDo.getAddress() + " " + airZoonDo.getAddress2());
-        hotSpotContactNoTextView.setText(airZoonDo.getPhone());
+
+        hotSpotAddressTextView.setText(airZoonDo.getAddress() + " " + airZoonDo.getAddress2()
+                + airZoonDo.getCity() + " " + airZoonDo.getCountry());
+
+        if (airZoonDo.getPhone() != null && airZoonDo.getPhone().length() > 0) {
+            hotSpotContactNoTextView.setText(airZoonDo.getPhone());
+        } else {
+            hotSpotContactNoTextView.setText(activity.getString(R.string.noPhoneNumText));
+        }
+
         hotSpotOpening1TextView.setText(airZoonDo.getOpening_one());
         hotSpotOpening2TextView.setText(airZoonDo.getOpening_two());
         hotSpotCategoryImage.setImageResource(AirZoonModel.getInstance().getHotSpotBigImageResByCat(airZoonDo.getCategory()));
@@ -128,6 +137,10 @@ public class HotspotDetailDailog extends AbstractBaseDialog implements APICallba
         switch (actionView.getId()) {
             case R.id.closeProfileImageView:
                 dismiss();
+                if (openFromFav) {
+                    FavoritesDialog favoritesDialog = new FavoritesDialog(activity);
+                    favoritesDialog.showDialog(EditProfileDialog.ANIM_TYPE_BOTTOM_IN_BOTTOM_OUT);
+                }
                 break;
             case R.id.faviourateImageView:
                 onFaviourateImageClick();
@@ -148,6 +161,19 @@ public class HotspotDetailDailog extends AbstractBaseDialog implements APICallba
         }
     }
 
+    @Override
+    public void onDailogYesClick() {
+        dismiss();
+        ProfileDialog profileDialog = new ProfileDialog(activity);
+        profileDialog.showDialog(EditProfileDialog.ANIM_TYPE_BOTTOM_IN_BOTTOM_OUT);
+
+    }
+
+    @Override
+    public void onDailogNoClick() {
+
+    }
+
     private void onFaviourateImageClick() {
         if (MyApplication.getInstance().getUserProfileDO().isLoggedInAlrady()) {
             String requestString = null;
@@ -166,7 +192,10 @@ public class HotspotDetailDailog extends AbstractBaseDialog implements APICallba
                     null, airZoonDo.getRequestParamsForFav(fav));
             apiHandler.requestAPI();
         } else {
-            Toast.makeText(activity, activity.getResources().getString(R.string.loginErrorText), Toast.LENGTH_SHORT).show();
+            showAleart(activity.getString(R.string.errorText),
+                    activity.getString(R.string.loginErrorText),
+                    activity.getString(R.string.signInText),
+                    activity.getString(R.string.cancelText));
         }
 
     }
@@ -227,5 +256,9 @@ public class HotspotDetailDailog extends AbstractBaseDialog implements APICallba
     @Override
     public void onAPIFailureResponse(int requestId, String errorString) {
 
+    }
+
+    public void setOpenFromFav(boolean openFromFav) {
+        this.openFromFav = openFromFav;
     }
 }

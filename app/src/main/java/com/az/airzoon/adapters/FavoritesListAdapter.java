@@ -53,7 +53,7 @@ public class FavoritesListAdapter extends BaseAdapter {
 
         nameTextView.setText(airZoonDo.getName());
         subNameTextView.setText(airZoonDo.getAddress() + " " + airZoonDo.getAddress2());
-        itemImageView.setImageResource(AirZoonModel.getInstance().getHotSpotSmallImageResByCat(airZoonDo.getCategory()));
+        itemImageView.setImageResource(AirZoonModel.getInstance().getHotSpotBigImageResByCat(airZoonDo.getCategory()));
         return convertView;
     }
 }

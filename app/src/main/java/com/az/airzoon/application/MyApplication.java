@@ -271,5 +271,39 @@ public class MyApplication extends Application {
         }
         return false;
     }
+
+    public void showAleart(final DailogCallback dailogCallback, String title, String bodyText, String yesBtnText, String noBtnText) {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+        builder1.setMessage(bodyText);
+        builder1.setTitle(title);
+        builder1.setCancelable(true);
+
+        builder1.setPositiveButton(
+                yesBtnText,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        dailogCallback.onDailogYesClick();
+                    }
+                });
+
+        builder1.setNegativeButton(
+                noBtnText,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        dailogCallback.onDailogNoClick();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
+
+    public interface DailogCallback {
+        public void onDailogYesClick();
+
+        public void onDailogNoClick();
+    }
 }
 

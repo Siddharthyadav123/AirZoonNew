@@ -130,7 +130,7 @@
     <string name="logoutSuccessfullyText">"Déconnexion avec succès"</string>
     <string name="welcomeText">"Bienvenue"</string>
     <string name="lastSyncText">"Mise à jour:"</string>
-    <string name="savedSuccessfulText">"Sauvegarde réussie."</string>
+    <string name="savedSuccessfulText">"Utilisateur en mise à jour avec succès"</string>
     //new
     <string name="areYouSureYouWantToLogout">"Êtes vous sure que vous voulez se déconnecter"</string>
 
@@ -179,12 +179,24 @@
     <string name="marText">Mar</string>
     <string name="aprText">Avr</string>
     <string name="mayText">Mai</string>
-    <string name="juneText">juin</string>
+    <string name="juneText">Juin</string>
     <string name="julyText">Juil</string>
-    <string name="augText">"août"</string>
+    <string name="augText">"Août"</string>
     <string name="sepText">Sep</string>
     <string name="octText">Oct</string>
     <string name="novText">Nov</string>
-    <string name="decText">"déc"</string>
+    <string name="decText">"Déc"</string>
+
+    <string name="alertText">Alert</string>
+    <string name="YesLogoutText">Yes Logout</string>
+    <string name="YesText">Yes</string>
+    <string name="NoText">No</string>
+    <string name="areYouSureLogoutText">Are you sure you want to logout?</string>
+    <string name="loadingText">Loading...</string>
+    <string name="signInText">Sign in</string>
+    <string name="reportErrorResponse">Vos informations seront traitées rapidement.....</string>
+    <string name="feedbackResponse">Merci de votre message, nous le traiterons rapidement....</string>
+    <string name="settingSavedText">Paramètres sauvegardés.</string>
+
 
 </resources>

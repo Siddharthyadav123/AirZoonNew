@@ -51,6 +51,7 @@ public class FavoritesDialog extends AbstractBaseDialog {
                 dismiss();
                 AirZoonDo airZoonDo = faviourateList.get(position);
                 HotspotDetailDailog hotspotDetailDailog = new HotspotDetailDailog(activity, airZoonDo);
+                hotspotDetailDailog.setOpenFromFav(true);
                 hotspotDetailDailog.showDialog(HotspotDetailDailog.ANIM_TYPE_BOTTOM_IN_BOTTOM_OUT);
             }
         });
@@ -74,6 +75,16 @@ public class FavoritesDialog extends AbstractBaseDialog {
                 onSubmitBtnClick();
                 break;
         }
+    }
+
+    @Override
+    public void onDailogYesClick() {
+
+    }
+
+    @Override
+    public void onDailogNoClick() {
+
     }
 
     private void onSubmitBtnClick() {

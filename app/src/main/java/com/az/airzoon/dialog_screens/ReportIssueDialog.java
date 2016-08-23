@@ -178,7 +178,7 @@ public class ReportIssueDialog extends AbstractBaseDialog implements APICallback
             }
             it.remove(); // avoids a ConcurrentModificationException
         }
-        Toast.makeText(activity, activity.getResources().getString(R.string.youHaveNotReportedAnEntryText), Toast.LENGTH_SHORT).show();
+        showNormalDailog(activity.getResources().getString(R.string.youHaveNotReportedAnEntryText));
         return false;
     }
 
@@ -196,6 +196,16 @@ public class ReportIssueDialog extends AbstractBaseDialog implements APICallback
             reportHasmap.put(actionView.getTag().toString(), "none");
             ((ImageView) actionView).setImageResource(R.drawable.com_facebook_button_check_off);
         }
+    }
+
+    @Override
+    public void onDailogYesClick() {
+
+    }
+
+    @Override
+    public void onDailogNoClick() {
+
     }
 
     /**
@@ -230,6 +240,7 @@ public class ReportIssueDialog extends AbstractBaseDialog implements APICallback
     @Override
     public void onAPISuccessResponse(int requestId, String responseString) {
         dismiss();
+        showNormalDailog(activity.getResources().getString(R.string.reportErrorResponse));
     }
 
     @Override

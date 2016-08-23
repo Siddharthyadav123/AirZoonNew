@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="25dp"
         android:layout_marginTop="25dp"
-        android:alpha="0.95"
+        android:alpha="0.8"
         android:background="@drawable/dailog_shape_black">
 
         <RelativeLayout
@@ -193,7 +193,7 @@
                         <ImageView
                             android:id="@+id/hoursCheckBoxImageView"
                             android:layout_width="50dp"
-                            android:layout_height="30dp"
+                            android:layout_height="27dp"
                             android:layout_marginTop="10dp"
                             android:src="@drawable/com_facebook_button_check_off"
                             android:visibility="visible" />

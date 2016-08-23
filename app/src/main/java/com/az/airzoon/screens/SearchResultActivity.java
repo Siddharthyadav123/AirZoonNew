@@ -24,8 +24,10 @@ import com.az.airzoon.application.MyApplication;
 import com.az.airzoon.constants.RequestConstant;
 import com.az.airzoon.constants.URLConstants;
 import com.az.airzoon.dataobjects.AirZoonDo;
+import com.az.airzoon.dialog_screens.EditProfileDialog;
 import com.az.airzoon.dialog_screens.HotspotDetailDailog;
 import com.az.airzoon.dialog_screens.NewHotspotDailog;
+import com.az.airzoon.dialog_screens.ProfileDialog;
 import com.az.airzoon.listeners.ImageCallback;
 import com.az.airzoon.models.AirZoonModel;
 import com.az.airzoon.swipe_menu.SwipeMenu;
@@ -209,7 +211,13 @@ public class SearchResultActivity extends Activity implements APICallback {
                         apiHandler.requestAPI();
 
                     } else {
-                        Toast.makeText(SearchResultActivity.this, getString(R.string.loginErrorText), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(SearchResultActivity.this, getString(R.string.loginErrorText), Toast.LENGTH_SHORT).show();
+
+                        MyApplication.getInstance().showAleart(dailogCallback, SearchResultActivity.this.getString(R.string.errorText),
+                                SearchResultActivity.this.getString(R.string.loginErrorText),
+                                SearchResultActivity.this.getString(R.string.signInText),
+                                SearchResultActivity.this.getString(R.string.cancelText));
+
                     }
                     break;
                 case 1:
@@ -219,6 +227,19 @@ public class SearchResultActivity extends Activity implements APICallback {
             }
             // false : close the menu; true : not close the menu
             return true;
+        }
+    };
+
+    public MyApplication.DailogCallback dailogCallback = new MyApplication.DailogCallback() {
+        @Override
+        public void onDailogYesClick() {
+            ProfileDialog profileDialog = new ProfileDialog(SearchResultActivity.this);
+            profileDialog.showDialog(EditProfileDialog.ANIM_TYPE_BOTTOM_IN_BOTTOM_OUT);
+        }
+
+        @Override
+        public void onDailogNoClick() {
+
         }
     };
 

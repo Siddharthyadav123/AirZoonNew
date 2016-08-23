@@ -72,6 +72,16 @@ public class SendAFeedbackDialog extends AbstractBaseDialog implements APICallba
         }
     }
 
+    @Override
+    public void onDailogYesClick() {
+
+    }
+
+    @Override
+    public void onDailogNoClick() {
+
+    }
+
     private boolean validateUI() {
         if (emailEditText.getText().toString().trim().length() == 0) {
             Toast.makeText(activity, activity.getResources().getString(R.string.errorEnterEmailId), Toast.LENGTH_SHORT).show();
