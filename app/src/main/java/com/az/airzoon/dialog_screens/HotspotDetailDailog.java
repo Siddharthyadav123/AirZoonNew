@@ -180,10 +180,10 @@ public class HotspotDetailDailog extends AbstractBaseDialog implements APICallba
 
             String fav = "";
             if (!airZoonDo.isFaviourate()) {
-                requestString = activity.getResources().getString(R.string.addingFavouriteText);
+                requestString = activity.getResources().getString(R.string.loadingText);
                 fav = "Yes";
             } else {
-                requestString = activity.getResources().getString(R.string.removingFavouriteText);
+                requestString = activity.getResources().getString(R.string.loadingText);
                 fav = "No";
             }
             //hitting server
@@ -244,11 +244,11 @@ public class HotspotDetailDailog extends AbstractBaseDialog implements APICallba
         if (!airZoonDo.isFaviourate()) {
             faviourateImageView.setImageResource(R.drawable.selectedstar);
             airZoonDo.setFaviourate(true);
-            Toast.makeText(activity, activity.getResources().getString(R.string.addedToFavText), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(activity, activity.getResources().getString(R.string.addedToFavText), Toast.LENGTH_SHORT).show();
         } else {
             faviourateImageView.setImageResource(R.drawable.star);
             airZoonDo.setFaviourate(false);
-            Toast.makeText(activity, activity.getResources().getString(R.string.removedFromFavText), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(activity, activity.getResources().getString(R.string.removedFromFavText), Toast.LENGTH_SHORT).show();
         }
         MyApplication.getInstance().getAirZoonDB().updateFav(airZoonDo);
     }

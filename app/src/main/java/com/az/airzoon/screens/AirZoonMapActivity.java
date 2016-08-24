@@ -267,15 +267,20 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
     public void onAPISuccessResponse(int requestId, String responseString) {
         switch (requestId) {
             case RequestConstant.REQUEST_GET_HOTSPOT_LIST:
-                airZoonModel.loadAndParseHotSpot(responseString, MyApplication.getInstance().getAirZoonDB());
-                loadAirZoonShops();
-                progressBar.setVisibility(View.GONE);
+                refreshAirZoonMapAsPerFileteration(responseString);
+                MyApplication.getInstance().showNormalDailog(this, getString(R.string.syncedSuccessFulText));
+
                 //setting last sync time
-                prefManager.setLastSyncTime(MyApplication.getInstance().getCurrentDate(this));
                 lastSyncTextView.setText(getResources().getString(R.string.lastSyncText) + " " + prefManager.getLstSyncTime());
-                Toast.makeText(this, getString(R.string.syncedSuccessFulText), Toast.LENGTH_SHORT).show();
+                prefManager.setLastSyncTime(MyApplication.getInstance().getCurrentDate(this));
                 break;
         }
+    }
+
+    public void refreshAirZoonMapAsPerFileteration(String responseString) {
+        airZoonModel.loadAndParseHotSpot(responseString, MyApplication.getInstance().getAirZoonDB());
+        loadAirZoonShops();
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -393,7 +398,10 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
     }
 
     private void onSyncButtonClick() {
-        refreshMapAsPerFilterAlsoPerformSync();
+        progressBar.setVisibility(View.VISIBLE);
+        APIHandler apiHandler = new APIHandler(this, this, RequestConstant.REQUEST_GET_HOTSPOT_LIST,
+                Request.Method.GET, URLConstants.URL_GET_HOTSPOT_LIST, false, null, null, null, null);
+        apiHandler.requestAPI();
     }
 
     private void onFaviourateButtonClick() {
@@ -551,16 +559,6 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
             return true;
         }
         return false;
-    }
-
-
-    public void refreshMapAsPerFilterAlsoPerformSync() {
-//        loadingBlanckBgView.setVisibility(View.VISIBLE);
-        progressBar.setVisibility(View.VISIBLE);
-        APIHandler apiHandler = new APIHandler(this, this, RequestConstant.REQUEST_GET_HOTSPOT_LIST,
-                Request.Method.GET, URLConstants.URL_GET_HOTSPOT_LIST, false, null, null, null, null);
-        apiHandler.requestAPI();
-
     }
 
 

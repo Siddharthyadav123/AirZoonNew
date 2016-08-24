@@ -3,8 +3,6 @@ package com.az.airzoon.volly;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -81,7 +79,7 @@ public class APIHandler implements Response.Listener<Object>, Response.ErrorList
             if (apiCallback != null) {
                 apiCallback.onAPIFailureResponse(requestId, noInternetConnection);
             }
-            Toast.makeText(context, noInternetConnection, Toast.LENGTH_SHORT).show();
+            MyApplication.getInstance().showNormalDailog(context, noInternetConnection);
             return;
         }
 
@@ -187,7 +185,7 @@ public class APIHandler implements Response.Listener<Object>, Response.ErrorList
         hideLoading();
 
         if (errorMessage == null) {
-            showToast(responseMessage);
+//            showToast(responseMessage);
             if (apiCallback != null) {
                 apiCallback.onAPISuccessResponse(requestId, reaponseString);
             }

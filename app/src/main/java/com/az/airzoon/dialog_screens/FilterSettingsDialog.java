@@ -124,7 +124,7 @@ public class FilterSettingsDialog extends AbstractBaseDialog {
             case R.id.doneButton:
                 dismiss();
                 showNormalDailog(activity.getResources().getString(R.string.settingSavedText));
-//                ((AirZoonMapActivity) activity).refreshMapAsPerFilterAlsoPerformSync();
+                ((AirZoonMapActivity) activity).refreshAirZoonMapAsPerFileteration(null);
                 break;
         }
     }

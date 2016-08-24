@@ -15,7 +15,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.az.airzoon.R;
@@ -192,12 +191,12 @@ public class SearchResultActivity extends Activity implements APICallback {
                         if (airZoonDoArrayList.get(position).isFaviourate()) {
                             menu.getMenuItems().get(0).setIcon(R.drawable.unselectedstar);
                             airZoonDoArrayList.get(position).setFaviourate(false);
-                            Toast.makeText(SearchResultActivity.this, getString(R.string.removedFromFavText), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(SearchResultActivity.this, getString(R.string.removedFromFavText), Toast.LENGTH_SHORT).show();
                             fav = "No";
                         } else {
                             menu.getMenuItems().get(0).setIcon(R.drawable.selectedstar);
                             airZoonDoArrayList.get(position).setFaviourate(true);
-                            Toast.makeText(SearchResultActivity.this, getString(R.string.addedToFavText), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(SearchResultActivity.this, getString(R.string.addedToFavText), Toast.LENGTH_SHORT).show();
                             fav = "Yes";
                         }
                         swipeMenuView.refreshFavItem();

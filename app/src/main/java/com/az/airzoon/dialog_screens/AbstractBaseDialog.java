@@ -96,6 +96,8 @@ public abstract class AbstractBaseDialog extends Dialog implements View.OnClickL
 
     public void showPogress(String titleText, String bodyText) {
         progressDialog = ProgressDialog.show(activity, titleText, bodyText, true);
+        progressDialog.setCancelable(true);
+        progressDialog.setCanceledOnTouchOutside(true);
     }
 
     public void hideProgressLoading() {
