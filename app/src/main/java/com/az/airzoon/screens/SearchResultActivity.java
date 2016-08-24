@@ -184,19 +184,19 @@ public class SearchResultActivity extends Activity implements APICallback {
         public boolean onMenuItemClick(int position, SwipeMenu menu, SwipeMenuView swipeMenuView, int index) {
             switch (index) {
                 case 0:
+                    if (!MyApplication.getInstance().isConnectingToInternet()) {
+                        MyApplication.getInstance().showNormalDailog(SearchResultActivity.this, getString(R.string.errorcheckInternetConection));
+                        break;
+                    }
                     if (MyApplication.getInstance().getUserProfileDO().isLoggedInAlrady()) {
-
                         String fav = "";
-
                         if (airZoonDoArrayList.get(position).isFaviourate()) {
                             menu.getMenuItems().get(0).setIcon(R.drawable.unselectedstar);
                             airZoonDoArrayList.get(position).setFaviourate(false);
-//                            Toast.makeText(SearchResultActivity.this, getString(R.string.removedFromFavText), Toast.LENGTH_SHORT).show();
                             fav = "No";
                         } else {
                             menu.getMenuItems().get(0).setIcon(R.drawable.selectedstar);
                             airZoonDoArrayList.get(position).setFaviourate(true);
-//                            Toast.makeText(SearchResultActivity.this, getString(R.string.addedToFavText), Toast.LENGTH_SHORT).show();
                             fav = "Yes";
                         }
                         swipeMenuView.refreshFavItem();
@@ -210,9 +210,8 @@ public class SearchResultActivity extends Activity implements APICallback {
                         apiHandler.requestAPI();
 
                     } else {
-//                        Toast.makeText(SearchResultActivity.this, getString(R.string.loginErrorText), Toast.LENGTH_SHORT).show();
 
-                        MyApplication.getInstance().showAleart(dailogCallback, SearchResultActivity.this.getString(R.string.errorText),
+                        MyApplication.getInstance().showAleart(SearchResultActivity.this, dailogCallback, SearchResultActivity.this.getString(R.string.errorText),
                                 SearchResultActivity.this.getString(R.string.loginErrorText),
                                 SearchResultActivity.this.getString(R.string.signInText),
                                 SearchResultActivity.this.getString(R.string.cancelText));

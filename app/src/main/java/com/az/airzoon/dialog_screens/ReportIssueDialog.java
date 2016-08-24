@@ -162,7 +162,7 @@ public class ReportIssueDialog extends AbstractBaseDialog implements APICallback
             //requesting
             APIHandler apiHandler = new APIHandler(activity, this, RequestConstant.REQUEST_POST_ERROR_REPORT,
                     Request.Method.POST, URLConstants.URL_POST_ERROR_REPORT, true,
-                    activity.getResources().getString(R.string.reportingIssueText), null, null,
+                    activity.getResources().getString(R.string.pleaseWaitText), null, null,
                     formRequestParams());
 
             apiHandler.requestAPI();

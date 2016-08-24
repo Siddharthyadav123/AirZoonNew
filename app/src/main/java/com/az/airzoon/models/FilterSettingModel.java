@@ -173,7 +173,7 @@ public class FilterSettingModel {
         if (prefManager == null) {
             prefManager = new PrefManager(MyApplication.getInstance());
         }
-        return rangeSeek = prefManager.getPref().getInt(rangeSeek + "", 5);
+        return rangeSeek = prefManager.getPref().getInt(rangeSeek + "", 1);
     }
 
     public void setRangeSeek(int rangeSeek) {

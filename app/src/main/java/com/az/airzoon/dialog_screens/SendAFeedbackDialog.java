@@ -57,7 +57,6 @@ public class SendAFeedbackDialog extends AbstractBaseDialog implements APICallba
         if (MyApplication.getInstance().getUserProfileDO().isLoggedInAlrady()) {
             emailEditText.setText(MyApplication.getInstance().getUserProfileDO().getEmail());
         }
-
     }
 
     @Override
@@ -84,10 +83,13 @@ public class SendAFeedbackDialog extends AbstractBaseDialog implements APICallba
 
     private boolean validateUI() {
         if (emailEditText.getText().toString().trim().length() == 0) {
-            Toast.makeText(activity, activity.getResources().getString(R.string.errorEnterEmailId), Toast.LENGTH_SHORT).show();
+            showNormalDailog(activity.getResources().getString(R.string.errorEnterEmailId));
+            return false;
+        } else if (isValidEmail(emailEditText.getText().toString())) {
+            showNormalDailog(activity.getResources().getString(R.string.errorEnterCorrectEmailId));
             return false;
         } else if (commentEditText.getText().toString().trim().length() == 0) {
-            Toast.makeText(activity, activity.getResources().getString(R.string.errorEnterComment), Toast.LENGTH_SHORT).show();
+            showNormalDailog(activity.getResources().getString(R.string.errorEnterComment));
             return false;
         }
         return true;
@@ -102,7 +104,7 @@ public class SendAFeedbackDialog extends AbstractBaseDialog implements APICallba
 
             APIHandler apiHandler = new APIHandler(activity, this, RequestConstant.REQUEST_POST_FEEDBACK,
                     Request.Method.POST, URLConstants.URL_POST_FEEDBACK, true,
-                    activity.getResources().getString(R.string.sendingYourFeedbackText), null,
+                    activity.getResources().getString(R.string.pleaseWaitText), null,
                     null, requestParams);
             apiHandler.requestAPI();
         }
@@ -111,8 +113,13 @@ public class SendAFeedbackDialog extends AbstractBaseDialog implements APICallba
 
     @Override
     public void onAPISuccessResponse(int requestId, String responseString) {
-        Toast.makeText(activity, activity.getResources().getString(R.string.issuesReportedSuccessfullyText), Toast.LENGTH_SHORT).show();
         dismiss();
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                showNormalDailog(activity.getResources().getString(R.string.issuesReportedSuccessfullyText));
+            }
+        });
     }
 
     @Override

@@ -158,7 +158,7 @@
     <string name="addingFavouriteText">Adding to your favourite...</string>
     <string name="removingFavouriteText">Removing from your favourite...</string>
     <string name="errorEnterHotSpotName">Please enter hotspot name</string>
-    <string name="errorEnterHotSpotNum">Please enter hotspot contact number</string>
+    <string name="errorEnterHotSpotNum">Please provide hotspot contact number</string>
     <string name="errorEnterHotSpotAddress">Please enter hotspot address</string>
     <string name="postingNewHotspotText">Posting new hotspot..</string>
     <string name="reportingIssueText">Reporting your issue..</string>

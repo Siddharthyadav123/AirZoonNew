@@ -187,13 +187,13 @@
     <string name="novText">Nov</string>
     <string name="decText">"Déc"</string>
 
-    <string name="alertText">Alert</string>
-    <string name="YesLogoutText">Yes Logout</string>
-    <string name="YesText">Yes</string>
-    <string name="NoText">No</string>
-    <string name="areYouSureLogoutText">Are you sure you want to logout?</string>
-    <string name="loadingText">Loading...</string>
-    <string name="signInText">Sign in</string>
+    <string name="alertText">"Alerte"</string>
+    <string name="YesLogoutText">"Oui Déconnexion"</string>
+    <string name="YesText">"Oui"</string>
+    <string name="NoText">"Non"</string>
+    <string name="areYouSureLogoutText">"Êtes-vous sûr de vouloir vous déconnecter?"</string>
+    <string name="loadingText">"Chargement..."</string>
+    <string name="signInText">"se connecter"</string>
     <string name="reportErrorResponse">Vos informations seront traitées rapidement.....</string>
     <string name="feedbackResponse">Merci de votre message, nous le traiterons rapidement....</string>
     <string name="settingSavedText">Paramètres sauvegardés.</string>

@@ -328,11 +328,12 @@ public class AirZoonDo extends BaseModel implements Parcelable {
     public ArrayList<RequestParam> getRequestParamsForFav(String favYesNo) {
         try {
             ArrayList<RequestParam> requestParams = new ArrayList<>();
-            requestParams.add(new RequestParam("spot_id", getId()));
-            requestParams.add(new RequestParam("spot_name", getName()));
+
             requestParams.add(new RequestParam("user_id", MyApplication.getInstance().getUserProfileDO().getId()));
+            requestParams.add(new RequestParam("spot_id", getId()));
             requestParams.add(new RequestParam("acess_token", MyApplication.getInstance().getUserProfileDO().getAcess_token()));
             requestParams.add(new RequestParam("favourite", favYesNo));
+            requestParams.add(new RequestParam("spot_name", getName()));
             return requestParams;
         } catch (Exception e) {
             e.printStackTrace();

@@ -203,11 +203,11 @@ public class NewHotspotDailog extends AbstractBaseDialog implements APICallback,
                 //requesting
                 APIHandler apiHandler = new APIHandler(activity, this, RequestConstant.REQUEST_POST_NEW_SPOT,
                         Request.Method.POST, URLConstants.URL_POST_NEW_SPOT, true,
-                        activity.getResources().getString(R.string.postingNewHotspotText), null, null, getRequestParams());
+                        activity.getResources().getString(R.string.pleaseWaitText), null, null, getRequestParams());
                 apiHandler.requestAPI();
             }
         } else {
-            Toast.makeText(activity, activity.getResources().getString(R.string.loginErrorText), Toast.LENGTH_SHORT).show();
+            MyApplication.getInstance().showNormalDailog(activity, activity.getResources().getString(R.string.loginErrorText));
         }
     }
 
@@ -264,13 +264,16 @@ public class NewHotspotDailog extends AbstractBaseDialog implements APICallback,
     //spot_name, type, category, ph_no, address, image
     public boolean validateUI() {
         if (enterSpotNameEditText.getText().toString().trim().length() == 0) {
-            Toast.makeText(activity, activity.getResources().getString(R.string.errorEnterHotSpotName), Toast.LENGTH_SHORT).show();
+            showNormalDailog(activity.getResources().getString(R.string.errorEnterHotSpotName));
             return false;
         } else if (enterPhoneNumEditText.getText().toString().trim().length() == 0) {
-            Toast.makeText(activity, activity.getResources().getString(R.string.errorEnterHotSpotNum), Toast.LENGTH_SHORT).show();
+            showNormalDailog(activity.getResources().getString(R.string.errorEnterHotSpotNum));
             return false;
         } else if (addressEditText.getText().toString().trim().length() == 0) {
-            Toast.makeText(activity, activity.getResources().getString(R.string.errorEnterHotSpotAddress), Toast.LENGTH_SHORT).show();
+            showNormalDailog(activity.getResources().getString(R.string.errorEnterHotSpotAddress));
+            return false;
+        } else if (!isValidEmail(addressEditText.getText().toString().trim())) {
+            showNormalDailog(activity.getResources().getString(R.string.errorEnterCorrectEmailId));
             return false;
         }
         return true;
@@ -279,6 +282,13 @@ public class NewHotspotDailog extends AbstractBaseDialog implements APICallback,
     @Override
     public void onAPISuccessResponse(int requestId, String responseString) {
         dismiss();
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                showNormalDailog(activity.getResources().getString(R.string.reportErrorResponse));
+            }
+        });
+
     }
 
     @Override

@@ -272,8 +272,8 @@ public class MyApplication extends Application {
         return false;
     }
 
-    public void showAleart(final DailogCallback dailogCallback, String title, String bodyText, String yesBtnText, String noBtnText) {
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+    public void showAleart(Context context, final DailogCallback dailogCallback, String title, String bodyText, String yesBtnText, String noBtnText) {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
         builder1.setMessage(bodyText);
         builder1.setTitle(title);
         builder1.setCancelable(true);

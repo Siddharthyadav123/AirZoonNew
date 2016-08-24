@@ -15,12 +15,17 @@ import com.az.airzoon.application.MyApplication;
 import com.az.airzoon.constants.Constants;
 import com.az.airzoon.constants.RequestConstant;
 import com.az.airzoon.constants.URLConstants;
+import com.az.airzoon.dataobjects.AirZoonDo;
 import com.az.airzoon.dataobjects.UserProfileDO;
+import com.az.airzoon.models.AirZoonModel;
 import com.az.airzoon.screens.AirZoonMapActivity;
 import com.az.airzoon.social_integration.SocialLoginInterface;
 import com.az.airzoon.volly.APICallback;
 import com.az.airzoon.volly.APIHandler;
 import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * Created by sid on 26/07/2016.
@@ -311,6 +316,29 @@ public class ProfileDialog extends AbstractBaseDialog implements SocialLoginInte
         } else {
             phoneNumTextView.setText(activity.getString(R.string.noPhoneNumText));
         }
+
+        parseFaviourateSpots(responseString);
+    }
+
+    private void parseFaviourateSpots(String responseString) {
+        try {
+            JSONObject jsonObject = new JSONObject(responseString);
+            if (jsonObject.has("spot details")) {
+                JSONArray jsonArray = new JSONArray(jsonObject.get("spot details").toString());
+                Gson gson = new Gson();
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    AirZoonDo airZoonDo = gson.fromJson(jsonArray.get(i).toString(), AirZoonDo.class);
+                    //update object
+                    AirZoonModel.getInstance().setFav(airZoonDo.getId());
+                    //update in local db
+                    MyApplication.getInstance().getAirZoonDB().updateFav(airZoonDo);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override

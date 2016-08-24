@@ -124,6 +124,14 @@ public class AirZoonModel {
         return newList;
     }
 
+    public void setFav(String id) {
+        for (int i = 0; i < airZoonDoArrayList.size(); i++) {
+            if (airZoonDoArrayList.get(i).getId().equalsIgnoreCase(id)) {
+                airZoonDoArrayList.get(i).setFaviourate(true);
+                break;
+            }
+        }
+    }
 
     public ArrayList<AirZoonDo> getHotSpotListBySearchTextAndType(String filterText, String type) {
         ArrayList<AirZoonDo> newList = new ArrayList<>();
