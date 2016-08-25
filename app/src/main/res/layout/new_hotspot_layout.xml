@@ -9,14 +9,14 @@
     <com.az.airzoon.customviews.CurveRelLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:alpha="0.8"
-        android:background="@drawable/dailog_shape_black">
+        android:alpha="0.8">
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
+            android:background="@drawable/dailog_shape_black"
             android:paddingBottom="15dp">
 
             <ImageView

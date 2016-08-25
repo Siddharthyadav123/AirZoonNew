@@ -299,6 +299,16 @@ public class AirZoonModel {
         }
     }
 
+    public int getBigHotSpotMarkerResByType(String type) {
+        if (type.equalsIgnoreCase(Constants.HOTSPOT_TYPE_AIRZOON)) {
+            return R.drawable.marker_airzoon_big;
+        } else if (type.equalsIgnoreCase(Constants.HOTSPOT_TYPE_PAID)) {
+            return R.drawable.marker_paid_big;
+        } else {
+            return R.drawable.marker_free_big;
+        }
+    }
+
     public ArrayList<AirZoonDo> getAirZoonDoArrayList() {
         return airZoonDoArrayList;
     }

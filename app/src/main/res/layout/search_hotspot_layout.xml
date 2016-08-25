@@ -6,7 +6,7 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <com.az.airzoon.customviews.CurveRelLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="25dp"
@@ -15,7 +15,7 @@
         android:layout_marginTop="25dp"
         android:alpha="0.8">
 
-        <com.az.airzoon.customviews.CurveRelLayout
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -110,10 +110,10 @@
                 android:text="@string/searchText"
                 android:textColor="@color/Green"
                 android:textSize="19dp" />
-        </com.az.airzoon.customviews.CurveRelLayout>
+        </RelativeLayout>
 
 
-    </RelativeLayout>
+    </com.az.airzoon.customviews.CurveRelLayout>
 
 
 </LinearLayout>

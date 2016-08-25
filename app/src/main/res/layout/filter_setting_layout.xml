@@ -13,121 +13,127 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="25dp"
-        android:alpha="0.8"
-        android:background="@drawable/dailog_shape_black"
-        android:paddingBottom="15dp">
+        android:alpha="0.8">
 
         <RelativeLayout
-            android:id="@+id/headerLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/Black"
+            android:paddingBottom="15dp">
 
-            <ImageView
-                android:id="@+id/closeProfileImageView"
-                android:layout_width="47dp"
-                android:layout_height="47dp"
-                android:layout_alignParentRight="true"
-                android:background="?android:selectableItemBackground"
-                android:padding="10dp"
-                android:src="@drawable/close1" />
-
-            <com.az.airzoon.customviews.CustomFontTextView
-                android:id="@+id/userNameTextView"
+            <RelativeLayout
+                android:id="@+id/headerLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:text="@string/settingsText"
-                android:textAllCaps="true"
-                android:textColor="@color/LightGrey"
-                android:textSize="22dp"
-                app:sid_customFont="gotham_book" />
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true">
+
+                <ImageView
+                    android:id="@+id/closeProfileImageView"
+                    android:layout_width="47dp"
+                    android:layout_height="47dp"
+                    android:layout_alignParentRight="true"
+                    android:background="?android:selectableItemBackground"
+                    android:padding="10dp"
+                    android:src="@drawable/close1" />
+
+                <com.az.airzoon.customviews.CustomFontTextView
+                    android:id="@+id/userNameTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/settingsText"
+                    android:textAllCaps="true"
+                    android:textColor="@color/LightGrey"
+                    android:textSize="22dp"
+                    app:sid_customFont="gotham_book" />
+
+                <View
+                    android:id="@+id/sepraterView"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_below="@+id/userNameTextView"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="15dp"
+                    android:alpha="0.5"
+                    android:background="@color/Gray" />
+
+
+            </RelativeLayout>
+
+            <ListView
+                android:id="@+id/filterSettingListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/sepraterView2"
+                android:layout_below="@id/headerLayout"></ListView>
 
             <View
-                android:id="@+id/sepraterView"
+                android:id="@+id/sepraterView2"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:layout_below="@+id/userNameTextView"
+                android:layout_above="@+id/rangeSeekbarlayout"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="15dp"
                 android:alpha="0.5"
                 android:background="@color/Gray" />
 
-
-        </RelativeLayout>
-
-        <ListView
-            android:id="@+id/filterSettingListView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/sepraterView2"
-            android:layout_below="@id/headerLayout"></ListView>
-
-        <View
-            android:id="@+id/sepraterView2"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_above="@+id/rangeSeekbarlayout"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:alpha="0.5"
-            android:background="@color/Gray" />
-
-        <RelativeLayout
-            android:id="@+id/rangeSeekbarlayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/doneButton"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="5dp">
-
-            <ImageView
-                android:id="@+id/seekCircleImageView"
-                android:layout_width="50dp"
-                android:layout_height="20dp"
-                android:layout_centerVertical="true"
-                android:src="@drawable/seek_circle" />
-
-            <SeekBar
-                android:id="@+id/rangeSeekBar"
-                android:layout_width="190dp"
+            <RelativeLayout
+                android:id="@+id/rangeSeekbarlayout"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@+id/seekCircleImageView"
-                android:max="19"
-                android:progress="0"
-                android:thumb="@drawable/thumb" />
+                android:layout_above="@+id/doneButton"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="5dp">
 
-            <com.az.airzoon.customviews.CustomFontTextView
-                android:id="@+id/rangeKMTextView"
-                android:layout_width="50dp"
+                <ImageView
+                    android:id="@+id/seekCircleImageView"
+                    android:layout_width="50dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/seek_circle" />
+
+                <SeekBar
+                    android:id="@+id/rangeSeekBar"
+                    android:layout_width="190dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/seekCircleImageView"
+                    android:max="19"
+                    android:progress="0"
+                    android:thumb="@drawable/thumb" />
+
+                <com.az.airzoon.customviews.CustomFontTextView
+                    android:id="@+id/rangeKMTextView"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/rangeSeekBar"
+                    android:gravity="center"
+                    android:text="5KM"
+                    android:textColor="@color/White"
+                    android:textSize="12dp"
+                    app:sid_customFont="gotham_book" />
+            </RelativeLayout>
+
+
+            <Button
+                android:id="@+id/doneButton"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@+id/rangeSeekBar"
-                android:gravity="center"
-                android:text="5KM"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/white_btn_drawable"
+                android:text="@string/doneText"
                 android:textColor="@color/White"
-                android:textSize="12dp"
-                app:sid_customFont="gotham_book" />
+                android:textSize="17dp" />
+
         </RelativeLayout>
-
-
-        <Button
-            android:id="@+id/doneButton"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/white_btn_drawable"
-            android:text="@string/doneText"
-            android:textColor="@color/White"
-            android:textSize="17dp" />
 
 
     </com.az.airzoon.customviews.CurveRelLayout>

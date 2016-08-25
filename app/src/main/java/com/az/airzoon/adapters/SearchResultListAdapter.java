@@ -101,7 +101,7 @@ public class SearchResultListAdapter extends BaseAdapter implements SwipeMenuVie
         hotspotSpeedTextView.setText(airZoonDo.getSpeed());
 
         hotspotSpeedImageView.setImageResource(AirZoonModel.getInstance().getSpeeddoMeterImage(airZoonDo.getSpeed()));
-        hotspotTypeImageView.setImageResource(AirZoonModel.getInstance().getHotSpotMarkerResByType(airZoonDo.getType()));
+        hotspotTypeImageView.setImageResource(AirZoonModel.getInstance().getBigHotSpotMarkerResByType(airZoonDo.getType()));
         hotspotCatImageView.setImageResource(AirZoonModel.getInstance().getHotSpotBigImageResByCat(airZoonDo.getCategory()));
 
         return layout;

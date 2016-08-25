@@ -65,7 +65,13 @@ public class TwitterModel extends Callback<TwitterSession> {
                 .verifyCredentials(true, false, new Callback<User>() {
                     @Override
                     public void success(Result<User> userResult) {
-                        userProfileDO.setUrl(userResult.data.profileImageUrl);
+
+                        String imageUrl = userResult.data.profileImageUrlHttps;
+                        if (imageUrl != null && imageUrl.contains("6_normal")) {
+                            imageUrl = imageUrl.replace("6_normal", "6_bigger");
+                        }
+                        System.out.println(">>twitter image uri=" + imageUrl);
+                        userProfileDO.setUrl(imageUrl);
                         userProfileDO.setEmail(userResult.data.email);
                         userProfileDO.setName(userResult.data.name);
                         userProfileDO.saveProfile(Constants.LOGIN_TYPE_TWITTER);

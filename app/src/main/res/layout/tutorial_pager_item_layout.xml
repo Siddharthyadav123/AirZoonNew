@@ -67,7 +67,7 @@
                 <ImageView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:src="@drawable/marker_airzoon" />
+                    android:src="@drawable/marker_airzoon_big" />
 
                 <com.az.airzoon.customviews.CustomFontTextView
                     android:layout_width="wrap_content"
@@ -88,7 +88,7 @@
                 <ImageView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:src="@drawable/marker_free" />
+                    android:src="@drawable/marker_free_big" />
 
                 <com.az.airzoon.customviews.CustomFontTextView
                     android:layout_width="wrap_content"
@@ -109,7 +109,7 @@
                 <ImageView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:src="@drawable/marker_paid" />
+                    android:src="@drawable/marker_paid_big" />
 
                 <com.az.airzoon.customviews.CustomFontTextView
                     android:layout_width="wrap_content"

@@ -21,7 +21,7 @@
         android:layout_marginBottom="85dp"
         android:layout_marginRight="10dp"
         android:alpha="0.55"
-        android:background="@drawable/dailog_shape_black"
+        android:background="@drawable/new_black_shape"
         android:gravity="center"
         android:paddingBottom="5dp"
         android:paddingLeft="7dp"
