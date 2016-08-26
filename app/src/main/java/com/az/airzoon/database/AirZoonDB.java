@@ -115,7 +115,7 @@ public class AirZoonDB extends SQLiteOpenHelper {
             contentValues.put(COL_FAVIOURATE, airZoonDo.isFaviourate());
             db.insert(AIRZOON_TABLE, null, contentValues);
 
-            System.out.println(">>rec sid added>>" + airZoonDo.getId());
+//            System.out.println(">>rec sid added>>" + airZoonDo.getId());
         }
     }
 
@@ -144,7 +144,7 @@ public class AirZoonDB extends SQLiteOpenHelper {
         contentValues.put(COL_FAVIOURATE, airZoonDo.isFaviourate());
         db.update(AIRZOON_TABLE, contentValues, COL_ID + " = ? ", new String[]{airZoonDo.getId()});
 
-        System.out.println(">>rec sid updated >>" + airZoonDo.getId());
+//        System.out.println(">>rec sid updated >>" + airZoonDo.getId());
 
         return true;
     }
@@ -155,7 +155,7 @@ public class AirZoonDB extends SQLiteOpenHelper {
         contentValues.put(COL_FAVIOURATE, airZoonDo.isFaviourate());
         db.update(AIRZOON_TABLE, contentValues, COL_ID + " = ? ", new String[]{airZoonDo.getId()});
 
-        System.out.println(">>rec sid fav updated >>" + airZoonDo.getId());
+//        System.out.println(">>rec sid fav updated >>" + airZoonDo.getId());
 
         return true;
     }
@@ -166,7 +166,7 @@ public class AirZoonDB extends SQLiteOpenHelper {
         contentValues.put(COL_FAVIOURATE, false);
         int count = db.update(AIRZOON_TABLE, contentValues, null, null);
 
-        System.out.println(">>rec sid fav updated count >>" + count);
+//        System.out.println(">>rec sid fav updated count >>" + count);
 
         return true;
     }
@@ -207,11 +207,11 @@ public class AirZoonDB extends SQLiteOpenHelper {
                 airZoonDo.setFaviourate(cursor.getInt(cursor.getColumnIndex(COL_FAVIOURATE)) > 0);
 
                 hotSpotList.add(airZoonDo);
-                System.out.println(">>rec sid read>>" + airZoonDo.getId());
+//                System.out.println(">>rec sid read>>" + airZoonDo.getId());
             } while (cursor.moveToNext());
         }
 
-        System.out.println(">>rec sid total read size>>" + hotSpotList.size());
+//        System.out.println(">>rec sid total read size>>" + hotSpotList.size());
 
         return hotSpotList;
     }

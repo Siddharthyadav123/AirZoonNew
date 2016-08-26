@@ -124,7 +124,7 @@ public class SearchResultListAdapter extends BaseAdapter implements SwipeMenuVie
 //        item.setWidth((int) MyApplication.getInstance().convertDpToPixel(90, context));
 //        item.setIcon(R.drawable.share);
 //        menu.addMenuItem(item);
-        System.out.println(">>inside22>>" + menu.getMenuItems().size() + "  >>pos" + position);
+//        System.out.println(">>inside22>>" + menu.getMenuItems().size() + "  >>pos" + position);
     }
 
     @Override

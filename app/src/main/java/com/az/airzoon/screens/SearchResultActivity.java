@@ -29,12 +29,20 @@ import com.az.airzoon.dialog_screens.NewHotspotDailog;
 import com.az.airzoon.dialog_screens.ProfileDialog;
 import com.az.airzoon.listeners.ImageCallback;
 import com.az.airzoon.models.AirZoonModel;
+import com.az.airzoon.social_integration.FaceBookModel;
+import com.az.airzoon.social_integration.SocialLoginInterface;
+import com.az.airzoon.social_integration.TwitterModel;
 import com.az.airzoon.swipe_menu.SwipeMenu;
 import com.az.airzoon.swipe_menu.SwipeMenuListView;
 import com.az.airzoon.swipe_menu.SwipeMenuView;
 import com.az.airzoon.volly.APICallback;
 import com.az.airzoon.volly.APIHandler;
 import com.cocosw.bottomsheet.BottomSheet;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -42,6 +50,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+
+import io.fabric.sdk.android.Fabric;
 
 /**
  * Created by sid on 29/07/2016.
@@ -129,7 +140,7 @@ public class SearchResultActivity extends Activity implements APICallback {
 
 
     private void onHotSpotItemClick(int position) {
-        System.out.println("pos>>" + position);
+//        System.out.println("pos>>" + position);
         HotspotDetailDailog hotspotDetailDailog = new HotspotDetailDailog(this, airZoonDoArrayList.get(position));
         hotspotDetailDailog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
@@ -144,7 +155,7 @@ public class SearchResultActivity extends Activity implements APICallback {
         String filterText = getIntent().getStringExtra(KEY_FILTER_TEXT);
         String hotSpotType = getIntent().getStringExtra(KEY_FILTER_TYPE);
 
-        System.out.println(">>hotSpotType" + hotSpotType);
+//        System.out.println(">>hotSpotType" + hotSpotType);
 
         if (filterText != null && filterText.toString().trim().length() > 0) {
             if (hotSpotType != null && hotSpotType.toString().trim().length() > 0) {
@@ -309,6 +320,14 @@ public class SearchResultActivity extends Activity implements APICallback {
                 onSelectFromGalleryResult(data);
             else if (requestCode == REQUEST_CAMERA)
                 onCaptureImageResult(data);
+            else {
+                if (fbCallbackManager != null) {
+                    fbCallbackManager.onActivityResult(requestCode, resultCode, data);
+                }
+                if (twitLoginButton != null) {
+                    twitLoginButton.onActivityResult(requestCode, resultCode, data);
+                }
+            }
 
         }
     }
@@ -364,5 +383,37 @@ public class SearchResultActivity extends Activity implements APICallback {
                 }
                 break;
         }
+    }
+
+
+    /**
+     * --------------------FB code------------
+     */
+    private CallbackManager fbCallbackManager = null;
+    private FaceBookModel faceBookModel = null;
+
+    public void requestFBLogin(SocialLoginInterface socialLoginInterface) {
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        fbCallbackManager = CallbackManager.Factory.create();
+        faceBookModel = new FaceBookModel(this, socialLoginInterface);
+        LoginManager.getInstance().logOut();
+        LoginManager.getInstance().registerCallback(fbCallbackManager, faceBookModel);
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email", "user_status", "user_birthday"));
+    }
+
+
+    /**
+     * --------------------Twitter code------------
+     */
+    private TwitterLoginButton twitLoginButton;
+
+    public void requestTwitterLogin(SocialLoginInterface socialLoginInterface) {
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(AirZoonMapActivity.TWITTER_KEY, AirZoonMapActivity.TWITTER_SECRET);
+        Fabric.with(this, new com.twitter.sdk.android.Twitter(authConfig));
+        twitLoginButton = new TwitterLoginButton(this);
+        twitLoginButton.setVisibility(View.GONE);
+        TwitterModel twitterModel = new TwitterModel(this, socialLoginInterface);
+        twitLoginButton.setCallback(twitterModel);
+        twitLoginButton.performClick();
     }
 }

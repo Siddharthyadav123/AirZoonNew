@@ -19,7 +19,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.az.airzoon.R;
@@ -190,6 +189,7 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
         } else {
             lastSyncTextView.setText(getResources().getString(R.string.lastSyncText) + " " + syncDate);
         }
+        showLastSyncAndScheduleitsHide();
     }
 
     private void setUpMap() {
@@ -210,7 +210,7 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
         mMap.clear();
 
         airZoonDoArrayList = airZoonModel.getFilteredList();
-        System.out.println(">>map refresh size" + airZoonDoArrayList.size());
+//        System.out.println(">>map refresh size" + airZoonDoArrayList.size());
         for (int i = 0; i < airZoonDoArrayList.size(); i++) {
 
             try {
@@ -226,7 +226,7 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
                         onMarkerInfoWindowClick(marker);
                     }
                 });
-                if (i == airZoonDoArrayList.size() - 1) {
+                if (i == 0) {
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(locationLatLong));
                     moveToCurrentLocation(locationLatLong);
                 }
@@ -273,9 +273,52 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
                 //setting last sync time
                 lastSyncTextView.setText(getResources().getString(R.string.lastSyncText) + " " + prefManager.getLstSyncTime());
                 prefManager.setLastSyncTime(MyApplication.getInstance().getCurrentDate(this));
+                showLastSyncAndScheduleitsHide();
                 break;
         }
     }
+
+    Handler syncHandler = null;
+
+    public void showLastSyncAndScheduleitsHide() {
+        if (lastSyncTextView.getVisibility() == View.GONE) {
+            lastSyncTextView.setVisibility(View.VISIBLE);
+            Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+            lastSyncTextView.startAnimation(fadeIn);
+        }
+        if (syncHandler == null) {
+            syncHandler = new Handler();
+        }
+        syncHandler.removeCallbacks(syncRunnable);
+        syncHandler.postDelayed(syncRunnable, 60000);
+    }
+
+    //delaying by 1 mins
+    Runnable syncRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (lastSyncTextView != null && lastSyncTextView.getVisibility() == View.VISIBLE) {
+                Animation fadeOut = AnimationUtils.loadAnimation(AirZoonMapActivity.this, R.anim.fade_out);
+                fadeOut.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        lastSyncTextView.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+                lastSyncTextView.startAnimation(fadeOut);
+            }
+        }
+    };
 
     public void refreshAirZoonMapAsPerFileteration(String responseString) {
         airZoonModel.loadAndParseHotSpot(responseString, MyApplication.getInstance().getAirZoonDB());
@@ -285,7 +328,7 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
 
     @Override
     public void onAPIFailureResponse(int requestId, String errorString) {
-        Toast.makeText(this, errorString, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, errorString, Toast.LENGTH_SHORT).show();
 //        loadingBlanckBgView.setVisibility(View.GONE);
         progressBar.setVisibility(View.GONE);
     }
@@ -341,6 +384,8 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
             return;
         }
         mMap.setMyLocationEnabled(true);
+        //Disable Map Toolbar:
+        mMap.getUiSettings().setMapToolbarEnabled(false);
     }
 
     @Override
@@ -582,8 +627,8 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
      * --------------------Twitter code------------
      */
     private TwitterLoginButton twitLoginButton;
-    private static final String TWITTER_KEY = "89iwWGduJYZ4s1cfUPEx85g8U";
-    private static final String TWITTER_SECRET = "ymO6YbndVdQVsUatEUcmUPDTxbxHC3VoKv9mmMA2nQOmHLQjjH\n";
+    public static final String TWITTER_KEY = "89iwWGduJYZ4s1cfUPEx85g8U";
+    public static final String TWITTER_SECRET = "ymO6YbndVdQVsUatEUcmUPDTxbxHC3VoKv9mmMA2nQOmHLQjjH\n";
 
     public void requestTwitterLogin(SocialLoginInterface socialLoginInterface) {
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);

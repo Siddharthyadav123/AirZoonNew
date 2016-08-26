@@ -16,8 +16,6 @@ import com.az.airzoon.screens.TutorialActivity;
 import com.az.airzoon.volly.APICallback;
 import com.az.airzoon.volly.APIHandler;
 
-import java.util.Locale;
-
 /**
  * Created by sid on 30/07/2016.
  */
@@ -69,6 +67,7 @@ public class AboutUsDialog extends AbstractBaseDialog implements APICallback {
         APIHandler apiHandler = new APIHandler(activity, this, RequestConstant.REQUEST_GET_ABOUT_US_BODY_TEXT,
                 Request.Method.GET, URLConstants.URL_GET_ABOUT_US_BODY_TEXT, false,
                 null, null, null, null);
+        apiHandler.setShowToastOnRespone(false);
         apiHandler.requestAPI();
 
     }

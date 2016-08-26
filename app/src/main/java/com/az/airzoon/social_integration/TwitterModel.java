@@ -70,7 +70,7 @@ public class TwitterModel extends Callback<TwitterSession> {
                         if (imageUrl != null && imageUrl.contains("6_normal")) {
                             imageUrl = imageUrl.replace("6_normal", "6_bigger");
                         }
-                        System.out.println(">>twitter image uri=" + imageUrl);
+//                        System.out.println(">>twitter image uri=" + imageUrl);
                         userProfileDO.setUrl(imageUrl);
                         userProfileDO.setEmail(userResult.data.email);
                         userProfileDO.setName(userResult.data.name);

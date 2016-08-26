@@ -74,7 +74,7 @@ public class MyApplication extends Application {
         //loading static shops list intially
         AirZoonModel.getInstance().loadAndParseHotSpot(null, airZoonDB);
 
-        System.out.println(">>gps lat> >" + locationModel.getLatitude() + "  >>long >> " + locationModel.getLongitude());
+//        System.out.println(">>gps lat> >" + locationModel.getLatitude() + "  >>long >> " + locationModel.getLongitude());
 
 
     }

@@ -6,6 +6,7 @@
     android:gravity="center"
     android:orientation="vertical">
 
+
     <com.az.airzoon.customviews.CurveRelLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,7 +27,7 @@
                 android:layout_alignParentRight="true"
                 android:background="?android:selectableItemBackground"
                 android:padding="10dp"
-                android:src="@drawable/close1" />
+                android:src="@android:drawable/ic_menu_close_clear_cancel" />
 
             <ImageView
                 android:id="@+id/aboutUsHeaderImageView"

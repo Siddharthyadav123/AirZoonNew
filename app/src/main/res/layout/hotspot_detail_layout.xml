@@ -166,10 +166,10 @@
 
                 <ImageView
                     android:id="@+id/hotSpotAddressImage"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
                     android:layout_below="@+id/hotSpotCategoryImage"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="22dp"
                     android:src="@drawable/location" />
 
                 <com.az.airzoon.customviews.CustomFontTextView
@@ -189,10 +189,10 @@
 
                 <ImageView
                     android:id="@+id/hotSpotCallImage"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
                     android:layout_below="@+id/hotSpotAddressTextView"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="18dp"
                     android:src="@drawable/call_small" />
 
                 <com.az.airzoon.customviews.CustomFontTextView
@@ -212,10 +212,10 @@
 
                 <ImageView
                     android:id="@+id/openingImage"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
                     android:layout_below="@+id/hotSpotCallImage"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="18dp"
                     android:src="@drawable/clock" />
 
                 <com.az.airzoon.customviews.CustomFontTextView
@@ -284,8 +284,8 @@
                     android:padding="10dp">
 
                     <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
+                        android:layout_width="13dp"
+                        android:layout_height="13dp"
                         android:layout_marginLeft="10dp"
                         android:src="@drawable/go" />
 
@@ -310,8 +310,8 @@
                     android:padding="10dp">
 
                     <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
+                        android:layout_width="13dp"
+                        android:layout_height="13dp"
                         android:layout_marginLeft="10dp"
                         android:src="@drawable/call" />
 

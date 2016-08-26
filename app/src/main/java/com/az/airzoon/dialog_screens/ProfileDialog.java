@@ -19,6 +19,7 @@ import com.az.airzoon.dataobjects.AirZoonDo;
 import com.az.airzoon.dataobjects.UserProfileDO;
 import com.az.airzoon.models.AirZoonModel;
 import com.az.airzoon.screens.AirZoonMapActivity;
+import com.az.airzoon.screens.SearchResultActivity;
 import com.az.airzoon.social_integration.SocialLoginInterface;
 import com.az.airzoon.volly.APICallback;
 import com.az.airzoon.volly.APIHandler;
@@ -190,8 +191,6 @@ public class ProfileDialog extends AbstractBaseDialog implements SocialLoginInte
 
     private void onTwitterBtnClick() {
         if (isTwitterOn) {
-
-
             showAleart(activity.getString(R.string.alertText),
                     activity.getString(R.string.areYouSureLogoutText),
                     activity.getString(R.string.YesLogoutText),
@@ -211,12 +210,21 @@ public class ProfileDialog extends AbstractBaseDialog implements SocialLoginInte
 
     private void requestTwitterLogin() {
         showPogress(activity.getString(R.string.twitterText), activity.getResources().getString(R.string.loadingText));
-        ((AirZoonMapActivity) activity).requestTwitterLogin(this);
+        if (activity instanceof AirZoonMapActivity) {
+            ((AirZoonMapActivity) activity).requestTwitterLogin(this);
+        } else {
+            ((SearchResultActivity) activity).requestTwitterLogin(this);
+        }
     }
 
     private void requestFbLogin() {
         showPogress(activity.getString(R.string.facebookText), activity.getResources().getString(R.string.loadingText));
-        ((AirZoonMapActivity) activity).requestFBLogin(this);
+        if (activity instanceof AirZoonMapActivity) {
+            ((AirZoonMapActivity) activity).requestFBLogin(this);
+        } else {
+            ((SearchResultActivity) activity).requestFBLogin(this);
+        }
+
     }
 
     private void logout() {
@@ -289,7 +297,7 @@ public class ProfileDialog extends AbstractBaseDialog implements SocialLoginInte
 
     @Override
     public void onAPISuccessResponse(int requestId, String responseString) {
-        System.out.println(">>response>>" + responseString);
+//        System.out.println(">>response>>" + responseString);
         Gson gson = new Gson();
         UserProfileDO userProfileDONew = gson.fromJson(responseString, UserProfileDO.class);
         userProfileDO.setId(userProfileDONew.getId());
@@ -343,7 +351,7 @@ public class ProfileDialog extends AbstractBaseDialog implements SocialLoginInte
 
     @Override
     public void onAPIFailureResponse(int requestId, String errorString) {
-        System.out.println(">>response fail>>" + errorString);
+//        System.out.println(">>response fail>>" + errorString);
         hideProgressLoading();
     }
 }

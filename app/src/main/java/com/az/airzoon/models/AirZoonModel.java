@@ -60,7 +60,7 @@ public class AirZoonModel {
                     airZoonDB.addOrUpdateAirZoonHotSpot(airZoonDo);
                 }
             }
-            System.out.println(">>Airzoon list loaded>>" + airZoonDoArrayList.size());
+//            System.out.println(">>Airzoon list loaded>>" + airZoonDoArrayList.size());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -82,7 +82,7 @@ public class AirZoonModel {
                 newList.add(airZoonDoArrayList.get(i));
             }
         }
-        System.out.println(">>Filtered List size>>" + newList.size());
+//        System.out.println(">>Filtered List size>>" + newList.size());
         return newList;
     }
 
@@ -109,7 +109,7 @@ public class AirZoonModel {
                 newList.add(airZoonDoArrayList.get(i));
             }
         }
-        System.out.println(">>Filtered List size>>" + newList.size());
+//        System.out.println(">>Filtered List size>>" + newList.size());
         return newList;
     }
 
@@ -119,7 +119,7 @@ public class AirZoonModel {
             if (containsIgnoreCase(airZoonDoArrayList.get(i).getName(), filterText)) {
                 newList.add(airZoonDoArrayList.get(i));
             }
-            System.out.println(">>Filtered List size>>" + newList.size());
+//            System.out.println(">>Filtered List size>>" + newList.size());
         }
         return newList;
     }
@@ -140,7 +140,7 @@ public class AirZoonModel {
                     && airZoonDoArrayList.get(i).getType().equalsIgnoreCase(type)) {
                 newList.add(airZoonDoArrayList.get(i));
             }
-            System.out.println(">>Filtered List size>>" + newList.size());
+//            System.out.println(">>Filtered List size>>" + newList.size());
         }
 
 

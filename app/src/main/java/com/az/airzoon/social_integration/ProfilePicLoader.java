@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
 import com.az.airzoon.R;
 import com.az.airzoon.application.MyApplication;
 import com.az.airzoon.dataobjects.UserProfileDO;
@@ -54,21 +56,20 @@ public class ProfilePicLoader implements Target {
                 if (progressBar != null) {
                     progressBar.setVisibility(View.VISIBLE);
                 }
-                Picasso.with(context).load(userProfileDO.getUrl()).into(this);
+//                Picasso.with(context).load(userProfileDO.getUrl()).into(this);
 
-//                ImageLoader imageLoader = MyApplication.getInstance().getImageLoader();
-//
-//                imageLoader.get(userProfileDO.getUrl(), new ImageLoader.ImageListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        onBitmapFailed(null);
-//                    }
-//
-//                    @Override
-//                    public void onResponse(ImageLoader.ImageContainer response, boolean arg1) {
-//                        onBitmapLoaded(response.getBitmap(), null);
-//                    }
-//                });
+                ImageLoader imageLoader = MyApplication.getInstance().getImageLoader();
+                imageLoader.get(userProfileDO.getUrl(), new ImageLoader.ImageListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        onBitmapFailed(null);
+                    }
+
+                    @Override
+                    public void onResponse(ImageLoader.ImageContainer response, boolean arg1) {
+                        onBitmapLoaded(response.getBitmap(), null);
+                    }
+                });
 
 
             } else {
@@ -100,12 +101,24 @@ public class ProfilePicLoader implements Target {
 
         if (imageBitmap == null) {
             if (url != null && url.length() > 0) {
-                Picasso.with(context).load(url).into(new Target() {
+
+                ImageLoader imageLoader = MyApplication.getInstance().getImageLoader();
+                imageLoader.get(url, new ImageLoader.ImageListener() {
                     @Override
-                    public void onBitmapLoaded(final Bitmap bitmap, Picasso.LoadedFrom from) {
+                    public void onErrorResponse(VolleyError error) {
+                    }
+
+                    @Override
+                    public void onResponse(final ImageLoader.ImageContainer response, boolean arg1) {
                         try {
-
-
+                            ((Activity) context).runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (imageView != null) {
+                                        imageView.setImageBitmap(response.getBitmap());
+                                    }
+                                }
+                            });
                             File myDir = new File(IMAGE_AIRZOON_FOLDER);
                             if (!myDir.exists()) {
                                 myDir.mkdirs();
@@ -113,7 +126,7 @@ public class ProfilePicLoader implements Target {
                             String name = airZoonFrameName + ".png";
                             myDir = new File(myDir, name);
                             FileOutputStream out = new FileOutputStream(myDir);
-                            bitmap.compress(Bitmap.CompressFormat.PNG, 0, out);
+                            response.getBitmap().compress(Bitmap.CompressFormat.PNG, 0, out);
                             out.flush();
                             out.close();
 
@@ -121,7 +134,7 @@ public class ProfilePicLoader implements Target {
                                 @Override
                                 public void run() {
                                     if (imageView != null) {
-                                        imageView.setImageBitmap(bitmap);
+                                        imageView.setImageBitmap(response.getBitmap());
                                     }
                                 }
                             });
@@ -131,17 +144,9 @@ public class ProfilePicLoader implements Target {
                             e.printStackTrace();
                         }
                     }
-
-                    @Override
-                    public void onBitmapFailed(Drawable errorDrawable) {
-
-                    }
-
-                    @Override
-                    public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-                    }
                 });
+
+
             }
         } else {
             ((Activity) context).runOnUiThread(new Runnable() {
@@ -169,7 +174,6 @@ public class ProfilePicLoader implements Target {
             bitmap.compress(Bitmap.CompressFormat.PNG, 0, out);
             out.flush();
             out.close();
-
             ((Activity) context).runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -235,7 +239,6 @@ public class ProfilePicLoader implements Target {
 
     @Override
     public void onBitmapFailed(Drawable errorDrawable) {
-        Toast.makeText(context, context.getResources().getString(R.string.profilePicDownloadFailedText), Toast.LENGTH_SHORT).show();
         if (progressBar != null) {
             progressBar.setVisibility(View.GONE);
         }

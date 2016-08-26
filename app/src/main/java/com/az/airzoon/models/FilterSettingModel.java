@@ -36,19 +36,19 @@ public class FilterSettingModel {
         return filterSettingModel;
     }
 
-    public void saveKey(boolean key, boolean value) {
+    public void saveKey(String key, boolean value) {
         if (prefManager == null) {
             prefManager = new PrefManager(MyApplication.getInstance());
         }
-        prefManager.getEditor().putBoolean(key + "", value);
+        prefManager.getEditor().putBoolean(key, value);
         prefManager.getEditor().commit();
     }
 
-    public boolean getValue(boolean key) {
+    public boolean getValue(String key) {
         if (prefManager == null) {
             prefManager = new PrefManager(MyApplication.getInstance());
         }
-        return prefManager.getPref().getBoolean(key + "", true);
+        return prefManager.getPref().getBoolean(key, true);
     }
 
     public boolean getFilterSetting(String cateogry) {
@@ -57,47 +57,47 @@ public class FilterSettingModel {
         }
 
         if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_TYPE_AIRZOON)) {
-            return filterAirzonHotspotEnable = getValue(filterAirzonHotspotEnable);
+            return filterAirzonHotspotEnable = getValue("filterAirzonHotspotEnable");
 
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_TYPE_PAID)) {
-            return filterPaidHotspotEnable = getValue(filterPaidHotspotEnable);
+            return filterPaidHotspotEnable = getValue("filterPaidHotspotEnable");
 
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_TYPE_FREE)) {
-            return filterFreeHotspotEnable = getValue(filterFreeHotspotEnable);
+            return filterFreeHotspotEnable = getValue("filterFreeHotspotEnable");
 
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_RESTAURANT)) {
-            return filterRestaurantEnable = getValue(filterRestaurantEnable);
+            return filterRestaurantEnable = getValue("filterRestaurantEnable");
 
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_HOTEL)) {
-            return filterHotelEnable = getValue(filterHotelEnable);
+            return filterHotelEnable = getValue("filterHotelEnable");
 
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_SPORT_CENTER)) {
-            return filterSportsCenterEnable = getValue(filterSportsCenterEnable);
+            return filterSportsCenterEnable = getValue("filterSportsCenterEnable");
 
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_BAR)) {
-            return filterBarEnable = getValue(filterBarEnable);
+            return filterBarEnable = getValue("filterBarEnable");
 
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_FAST_FOOD)) {
-            return filterFastFoodEnable = getValue(filterFastFoodEnable);
+            return filterFastFoodEnable = getValue("filterFastFoodEnable");
 
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_MALL)) {
-            return filterMallEnable = getValue(filterMallEnable);
+            return filterMallEnable = getValue("filterMallEnable");
 
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_AIRPORT)) {
-            return filterAirportEnable = getValue(filterAirportEnable);
+            return filterAirportEnable = getValue("filterAirportEnable");
 
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_BARBER)) {
-            return filterBarberEnable = getValue(filterBarberEnable);
+            return filterBarberEnable = getValue("filterBarberEnable");
 
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_PANCAKES_WAFFLES)) {
-            return filterPancakesWafflesEnable = getValue(filterPancakesWafflesEnable);
+            return filterPancakesWafflesEnable = getValue("filterPancakesWafflesEnable");
 
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_HEALTH_AND_WELLNESS)) {
-            return filterHealthAndWellnessEnable = getValue(filterHealthAndWellnessEnable);
+            return filterHealthAndWellnessEnable = getValue("filterHealthAndWellnessEnable");
 
         } else {
             //others
-            return filterOtherEnable = getValue(filterOtherEnable);
+            return filterOtherEnable = getValue("filterOtherEnable");
         }
 
     }
@@ -110,60 +110,60 @@ public class FilterSettingModel {
 
         if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_TYPE_AIRZOON)) {
             filterAirzonHotspotEnable = status;
-            saveKey(filterAirzonHotspotEnable, status);
+            saveKey("filterAirzonHotspotEnable", status);
 
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_TYPE_PAID)) {
             filterPaidHotspotEnable = status;
-            saveKey(filterPaidHotspotEnable, status);
+            saveKey("filterPaidHotspotEnable", status);
 
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_TYPE_FREE)) {
             filterFreeHotspotEnable = status;
-            saveKey(filterFreeHotspotEnable, status);
+            saveKey("filterFreeHotspotEnable", status);
 
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_RESTAURANT)) {
             filterRestaurantEnable = status;
-            saveKey(filterRestaurantEnable, status);
+            saveKey("filterRestaurantEnable", status);
 
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_HOTEL)) {
             filterHotelEnable = status;
-            saveKey(filterHotelEnable, status);
+            saveKey("filterHotelEnable", status);
 
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_SPORT_CENTER)) {
             filterSportsCenterEnable = status;
-            saveKey(filterSportsCenterEnable, status);
+            saveKey("filterSportsCenterEnable", status);
 
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_BAR)) {
             filterBarEnable = status;
-            saveKey(filterBarEnable, status);
+            saveKey("filterBarEnable", status);
 
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_FAST_FOOD)) {
             filterFastFoodEnable = status;
-            saveKey(filterFastFoodEnable, status);
+            saveKey("filterFastFoodEnable", status);
 
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_MALL)) {
             filterMallEnable = status;
-            saveKey(filterMallEnable, status);
+            saveKey("filterMallEnable", status);
 
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_AIRPORT)) {
             filterAirportEnable = status;
-            saveKey(filterAirportEnable, status);
+            saveKey("filterAirportEnable", status);
 
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_BARBER)) {
             filterBarberEnable = status;
-            saveKey(filterBarberEnable, status);
+            saveKey("filterBarberEnable", status);
 
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_PANCAKES_WAFFLES)) {
             filterPancakesWafflesEnable = status;
-            saveKey(filterPancakesWafflesEnable, status);
+            saveKey("filterPancakesWafflesEnable", status);
 
         } else if (cateogry.equalsIgnoreCase(Constants.HOTSPOT_CATEGORY_HEALTH_AND_WELLNESS)) {
             filterHealthAndWellnessEnable = status;
-            saveKey(filterHealthAndWellnessEnable, status);
+            saveKey("filterHealthAndWellnessEnable", status);
 
         } else {
             //others
             filterOtherEnable = status;
-            saveKey(filterOtherEnable, status);
+            saveKey("filterOtherEnable", status);
         }
 
     }
@@ -173,7 +173,7 @@ public class FilterSettingModel {
         if (prefManager == null) {
             prefManager = new PrefManager(MyApplication.getInstance());
         }
-        return rangeSeek = prefManager.getPref().getInt(rangeSeek + "", 1);
+        return rangeSeek = prefManager.getPref().getInt("rangeSeek", 0);
     }
 
     public void setRangeSeek(int rangeSeek) {
@@ -181,7 +181,7 @@ public class FilterSettingModel {
         if (prefManager == null) {
             prefManager = new PrefManager(MyApplication.getInstance());
         }
-        prefManager.getEditor().putInt(rangeSeek + "", rangeSeek);
+        prefManager.getEditor().putInt("rangeSeek", rangeSeek);
         prefManager.getEditor().commit();
     }
 }
