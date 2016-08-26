@@ -227,9 +227,11 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
                     }
                 });
                 if (i == 0) {
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(locationLatLong));
-                    moveToCurrentLocation(locationLatLong);
+                    LatLng cameraAngle = new LatLng(15.4389899f, -61.4377411f);
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(cameraAngle));
+                    moveToCurrentLocation(cameraAngle);
                 }
+				//sid
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -371,11 +373,11 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
 
 
     private void moveToCurrentLocation(LatLng currentLocation) {
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 10));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 8.3f));
         // Zoom in, animating the camera.
         mMap.animateCamera(CameraUpdateFactory.zoomIn());
         // Zoom out to zoom level 10, animating with a duration of 2 seconds.
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(8.3f), 2000, null);
 
     }
 
