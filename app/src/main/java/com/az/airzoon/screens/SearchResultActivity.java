@@ -328,7 +328,13 @@ public class SearchResultActivity extends Activity implements APICallback {
                     twitLoginButton.onActivityResult(requestCode, resultCode, data);
                 }
             }
-
+        } else {
+            if (fbCallbackManager != null) {
+                fbCallbackManager.onActivityResult(requestCode, resultCode, data);
+            }
+            if (twitLoginButton != null) {
+                twitLoginButton.onActivityResult(requestCode, resultCode, data);
+            }
         }
     }
 

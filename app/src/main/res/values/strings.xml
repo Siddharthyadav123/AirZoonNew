@@ -197,5 +197,8 @@
     <string name="feedbackResponse">Thank you for your feedback, we will process it soon...</string>
     <string name="settingSavedText">Settings saved.</string>
 
-
+    <string name="pleaseFillText">Please fill the following fields: </string>
+    <string name="spotNameText">Spot Name </string>
+    <string name="contactNumText">Contact number</string>
+    <string name="streetAddressText">Street Address</string>
 </resources>

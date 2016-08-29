@@ -231,7 +231,7 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(cameraAngle));
                     moveToCurrentLocation(cameraAngle);
                 }
-				//sid
+                //sid
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -733,6 +733,13 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
                 if (twitLoginButton != null) {
                     twitLoginButton.onActivityResult(requestCode, resultCode, data);
                 }
+            }
+        } else {
+            if (fbCallbackManager != null) {
+                fbCallbackManager.onActivityResult(requestCode, resultCode, data);
+            }
+            if (twitLoginButton != null) {
+                twitLoginButton.onActivityResult(requestCode, resultCode, data);
             }
         }
     }

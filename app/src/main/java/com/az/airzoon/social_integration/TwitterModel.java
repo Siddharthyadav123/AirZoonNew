@@ -60,6 +60,7 @@ public class TwitterModel extends Callback<TwitterSession> {
         userProfileDO.destroyProfile();
         userProfileDO.setToken(session.getAuthToken().token);
         userProfileDO.setFbid(session.getUserId() + "");
+        System.out.println(">>user name" + session.getUserName());
 
         Twitter.getApiClient(session).getAccountService()
                 .verifyCredentials(true, false, new Callback<User>() {
@@ -67,10 +68,12 @@ public class TwitterModel extends Callback<TwitterSession> {
                     public void success(Result<User> userResult) {
 
                         String imageUrl = userResult.data.profileImageUrlHttps;
-                        if (imageUrl != null && imageUrl.contains("6_normal")) {
-                            imageUrl = imageUrl.replace("6_normal", "6_bigger");
+                        if (imageUrl != null && imageUrl.contains("_normal")) {
+                            imageUrl = imageUrl.replace("_normal", "");
                         }
 //                        System.out.println(">>twitter image uri=" + imageUrl);
+
+
                         userProfileDO.setUrl(imageUrl);
                         userProfileDO.setEmail(userResult.data.email);
                         userProfileDO.setName(userResult.data.name);

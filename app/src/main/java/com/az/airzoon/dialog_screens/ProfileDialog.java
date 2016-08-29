@@ -229,6 +229,9 @@ public class ProfileDialog extends AbstractBaseDialog implements SocialLoginInte
 
     private void logout() {
 //        Toast.makeText(activity, activity.getResources().getString(R.string.logoutSuccessfullyText), Toast.LENGTH_SHORT).show();
+        if (progressBar != null)
+            progressBar.setVisibility(View.GONE);
+
         if (userProfileDO != null)
             userProfileDO.destroyProfile();
         resetProfile();

@@ -151,7 +151,7 @@ public class NewHotspotDailog extends AbstractBaseDialog implements APICallback,
         requestParams.add(new RequestParam("type", getHotSpotType()));
         requestParams.add(new RequestParam("category", getHotSpotCat()));
         requestParams.add(new RequestParam("ph_no", enterPhoneNumEditText.getText().toString().trim()));
-        requestParams.add(new RequestParam("address", fetchedAddress));
+        requestParams.add(new RequestParam("address", addressEditText.getText().toString().trim()));
         requestParams.add(new RequestParam("image", "non.png"));
         return requestParams;
     }
@@ -263,17 +263,29 @@ public class NewHotspotDailog extends AbstractBaseDialog implements APICallback,
 
     //spot_name, type, category, ph_no, address, image
     public boolean validateUI() {
-        if (enterSpotNameEditText.getText().toString().trim().length() == 0) {
-            showNormalDailog(activity.getResources().getString(R.string.errorEnterHotSpotName));
+        if (enterSpotNameEditText.getText().toString().trim().length() == 0
+                && enterPhoneNumEditText.getText().toString().trim().length() == 0
+                && addressEditText.getText().toString().trim().length() == 0) {
+
+            showNormalDailog(activity.getResources().getString(R.string.pleaseFillText)
+                    + " " + activity.getResources().getString(R.string.spotNameText)
+                    + ", " + activity.getResources().getString(R.string.contactNumText)
+                    + ", " + activity.getResources().getString(R.string.streetAddressText)
+            );
+            return false;
+        } else if (enterSpotNameEditText.getText().toString().trim().length() == 0) {
+            showNormalDailog(activity.getResources().getString(R.string.pleaseFillText)
+                    + " " + activity.getResources().getString(R.string.spotNameText));
             return false;
         } else if (enterPhoneNumEditText.getText().toString().trim().length() == 0) {
-            showNormalDailog(activity.getResources().getString(R.string.errorEnterHotSpotNum));
+
+            showNormalDailog(activity.getResources().getString(R.string.pleaseFillText)
+                    + " " + activity.getResources().getString(R.string.contactNumText));
             return false;
         } else if (addressEditText.getText().toString().trim().length() == 0) {
-            showNormalDailog(activity.getResources().getString(R.string.errorEnterHotSpotAddress));
-            return false;
-        } else if (!isValidEmail(addressEditText.getText().toString().trim())) {
-            showNormalDailog(activity.getResources().getString(R.string.errorEnterCorrectEmailId));
+
+            showNormalDailog(activity.getResources().getString(R.string.pleaseFillText)
+                    + " " + activity.getResources().getString(R.string.streetAddressText));
             return false;
         }
         return true;

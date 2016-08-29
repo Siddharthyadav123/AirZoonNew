@@ -198,5 +198,10 @@
     <string name="feedbackResponse">Merci de votre message, nous le traiterons rapidement....</string>
     <string name="settingSavedText">Paramètres sauvegardés.</string>
 
+    <string name="pleaseFillText">"S'il vous plaît remplir les champs suivants :"</string>
+    <string name="spotNameText">"Nom spot"</string>
+    <string name="contactNumText">"Numéro de contact"</string>
+    <string name="streetAddressText">"Adresse de rue"</string>
+
 
 </resources>
