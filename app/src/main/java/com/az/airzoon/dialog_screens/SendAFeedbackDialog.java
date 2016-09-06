@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.az.airzoon.R;
@@ -85,7 +84,7 @@ public class SendAFeedbackDialog extends AbstractBaseDialog implements APICallba
         if (emailEditText.getText().toString().trim().length() == 0) {
             showNormalDailog(activity.getResources().getString(R.string.errorEnterEmailId));
             return false;
-        } else if (isValidEmail(emailEditText.getText().toString())) {
+        } else if (!isValidEmail(emailEditText.getText().toString())) {
             showNormalDailog(activity.getResources().getString(R.string.errorEnterCorrectEmailId));
             return false;
         } else if (commentEditText.getText().toString().trim().length() == 0) {

@@ -14,6 +14,7 @@ import android.util.Log;
 
 import com.android.volley.Request;
 import com.az.airzoon.R;
+import com.az.airzoon.application.MyApplication;
 import com.az.airzoon.constants.RequestConstant;
 import com.az.airzoon.volly.APICallback;
 import com.az.airzoon.volly.APIHandler;
@@ -133,10 +134,16 @@ public class LocationModel implements LocationListener, APICallback {
                 }
             }
 
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println(">>gps lat>>" + latitude + "  >>long >> " + longitude);
 
+        //callback for lat long
+        if (MyApplication.getInstance().getLatLongFound() != null && latitude != 0.0f) {
+            MyApplication.getInstance().getLatLongFound().onLatLongFound();
+        }
         return location;
     }
 
@@ -259,5 +266,6 @@ public class LocationModel implements LocationListener, APICallback {
     public interface AddressCallback {
         public void onAddressResult(boolean isFound, String addressOrError);
     }
+
 
 }

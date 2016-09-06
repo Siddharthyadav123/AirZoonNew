@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AirZoon</string>
+    <string name="app_name">airZoon</string>
     <string name="fb_app_id">743222562429147</string>
     <string name="title_activity_maps">Map</string>
     <string name="next">Prochain</string>
@@ -86,8 +86,8 @@
     <string name="shareStringText">"Partager"</string>
 
     <!--Share intenet text-->
-    <string name="shareText">"hotspots airZoon offre un accès internet wifi gratuit, illimité et sécurisé >> Rejoignez"</string>
-    <string name="urlText">"http://www.airzoon.com/"</string>
+    <string name="shareText">"Gratuits, illimités et garantis hotspots wifi avec @airZoonWifi >> "</string>
+    <string name="urlText">"http://airzoon.com/"</string>
     <!--<string name="imgDownloadUrlText">"http://stevebercy.com/airzoon/img/"</string>-->
 
 
@@ -203,5 +203,8 @@
     <string name="contactNumText">"Numéro de contact"</string>
     <string name="streetAddressText">"Adresse de rue"</string>
 
+    <string name="enableGPSText">"Activer le GPS"</string>
+    <string name="enableGPSBody">"L'application doit GPS doit être activé que vous voulez activer dans les paramètres ?"</string>
+    <string name="settingsGPSText">"Paramètres"</string>
 
 </resources>

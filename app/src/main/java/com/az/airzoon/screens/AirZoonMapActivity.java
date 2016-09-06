@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -13,6 +14,8 @@ import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -33,8 +36,10 @@ import com.az.airzoon.dialog_screens.HotspotDetailDailog;
 import com.az.airzoon.dialog_screens.ProfileDialog;
 import com.az.airzoon.dialog_screens.SearchSpotDialog;
 import com.az.airzoon.listeners.ImageCallback;
+import com.az.airzoon.listeners.LatLongFound;
 import com.az.airzoon.models.AirZoonModel;
 import com.az.airzoon.preferences.PrefManager;
+import com.az.airzoon.recievers.SphericalUtil;
 import com.az.airzoon.social_integration.FaceBookModel;
 import com.az.airzoon.social_integration.SocialLoginInterface;
 import com.az.airzoon.social_integration.TwitterModel;
@@ -44,12 +49,14 @@ import com.cocosw.bottomsheet.BottomSheet;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
@@ -112,22 +119,31 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
         registerEvents();
         setUI();
         requestTurnGPSOn();
+
+        MyApplication.getInstance().enableGPS(this);
+
 //        getSHAKeyForFaceBook();
     }
 
     private void requestTurnGPSOn() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
-                    AirZoonMapActivity.REQUEST_LOCATION);
+        try {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                    && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
+                        AirZoonMapActivity.REQUEST_LOCATION);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
     }
 
 //    private void getSHAKeyForFaceBook() {
@@ -201,6 +217,13 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.mMap = googleMap;
+
+        //set camera
+        LatLng cameraAngle = new LatLng(15.4389899f, -61.4377411f);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(cameraAngle));
+        moveToCurrentLocation(cameraAngle);
+
+        //plot points
         loadAirZoonShops();
         enableMyLocation();
     }
@@ -226,11 +249,6 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
                         onMarkerInfoWindowClick(marker);
                     }
                 });
-                if (i == 0) {
-                    LatLng cameraAngle = new LatLng(15.4389899f, -61.4377411f);
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(cameraAngle));
-                    moveToCurrentLocation(cameraAngle);
-                }
                 //sid
             } catch (Exception e) {
                 e.printStackTrace();
@@ -379,6 +397,51 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
         // Zoom out to zoom level 10, animating with a duration of 2 seconds.
         mMap.animateCamera(CameraUpdateFactory.zoomTo(8.3f), 2000, null);
 
+    }
+
+    private void letsMoveCamera(int km, float myLat, float myLong) {
+        MyApplication.getInstance().setLatLongFound(null);
+        int meters = km * 1000;
+        DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
+        float dpHeight = displayMetrics.heightPixels / displayMetrics.density;
+
+        Resources r = getResources();
+        int mapSideInPixels = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpHeight, r.getDisplayMetrics());
+
+        LatLng cameraAngle = new LatLng(myLat, myLong);
+        LatLngBounds latLngBounds = calculateBounds(cameraAngle, meters);
+        if (latLngBounds != null) {
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(latLngBounds, mapSideInPixels, mapSideInPixels, 0);
+            if (mMap != null)
+                mMap.animateCamera(cameraUpdate);
+        }
+    }
+
+    public boolean animateToMeters(final int km) {
+        final float myLat = MyApplication.getInstance().getLocationModel().getLatitude();
+        final float myLong = MyApplication.getInstance().getLocationModel().getLongitude();
+
+        if (myLat != 0.0 && myLong != 0.0) {
+            letsMoveCamera(km, myLat, myLong);
+            return true;
+        } else {
+            MyApplication.getInstance().setLatLongFound(new LatLongFound() {
+                @Override
+                public void onLatLongFound() {
+                    letsMoveCamera(km, myLat, myLong);
+                }
+            });
+            MyApplication.getInstance().enableGPS(this);
+            return false;
+        }
+    }
+
+    private LatLngBounds calculateBounds(LatLng center, double radius) {
+        return new LatLngBounds.Builder().
+                include(SphericalUtil.computeOffset(center, radius, 0)).
+                include(SphericalUtil.computeOffset(center, radius, 90)).
+                include(SphericalUtil.computeOffset(center, radius, 180)).
+                include(SphericalUtil.computeOffset(center, radius, 270)).build();
     }
 
     private void enableMyLocation() {

@@ -141,7 +141,7 @@ public class AirZoonDB extends SQLiteOpenHelper {
         contentValues.put(COL_CAT_IMAGE, airZoonDo.getCategory_image());
         contentValues.put(COL_FAV_COUNT, airZoonDo.getFav_count());
         contentValues.put(COL_IS_FREE, airZoonDo.getIs_free());
-        contentValues.put(COL_FAVIOURATE, airZoonDo.isFaviourate());
+//        contentValues.put(COL_FAVIOURATE, airZoonDo.isFaviourate());
         db.update(AIRZOON_TABLE, contentValues, COL_ID + " = ? ", new String[]{airZoonDo.getId()});
 
 //        System.out.println(">>rec sid updated >>" + airZoonDo.getId());

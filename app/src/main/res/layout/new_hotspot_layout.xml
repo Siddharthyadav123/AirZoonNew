@@ -34,6 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
+                android:alpha="1"
                 android:drawablePadding="5dp"
                 android:drawableTop="@drawable/new_spot_icon"
                 android:text="@string/newSpotText"

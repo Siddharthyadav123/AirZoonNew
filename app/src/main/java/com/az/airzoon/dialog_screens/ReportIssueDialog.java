@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.az.airzoon.R;
@@ -189,13 +188,18 @@ public class ReportIssueDialog extends AbstractBaseDialog implements APICallback
 
     @Override
     public void onClickEvent(View actionView) {
-        if (reportHasmap.get(actionView.getTag().toString()).equals("none")) {
-            reportHasmap.put(actionView.getTag().toString(), actionView.getTag().toString() + "Selected");
-            ((ImageView) actionView).setImageResource(R.drawable.com_facebook_button_check_on);
-        } else {
-            reportHasmap.put(actionView.getTag().toString(), "none");
-            ((ImageView) actionView).setImageResource(R.drawable.com_facebook_button_check_off);
+        try {
+            if (reportHasmap.get(actionView.getTag().toString()).equals("none")) {
+                reportHasmap.put(actionView.getTag().toString(), actionView.getTag().toString() + "Selected");
+                ((ImageView) actionView).setImageResource(R.drawable.com_facebook_button_check_on);
+            } else {
+                reportHasmap.put(actionView.getTag().toString(), "none");
+                ((ImageView) actionView).setImageResource(R.drawable.com_facebook_button_check_off);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
     }
 
     @Override

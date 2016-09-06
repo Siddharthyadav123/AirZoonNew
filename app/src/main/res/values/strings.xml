@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AirZoon</string>
+    <string name="app_name">airZoon</string>
     <string name="fb_app_id">743222562429147</string>
     <string name="title_activity_maps">Map</string>
     <string name="next">NEXT</string>
@@ -84,8 +84,8 @@
     <string name="requestAnErrorText"><u>Report an error/Request informations</u></string>
     <string name="shareStringText">Share</string>
     <!--Share intenet text-->
-    <string name="shareText">"airZoon hotspots offers free, unlimited and secured wifi internet access >> Join"</string>
-    <string name="urlText">"http://www.airzoon.com/"</string>
+    <string name="shareText">"Free, unlimited and secured wifi hotspots with @airZoonWifi >> "</string>
+    <string name="urlText">"http://airzoon.com/"</string>
     <!--<string name="imgDownloadUrlText">"http://stevebercy.com/airzoon/img/"</string>-->
 
 
@@ -201,4 +201,10 @@
     <string name="spotNameText">Spot Name </string>
     <string name="contactNumText">Contact number</string>
     <string name="streetAddressText">Street Address</string>
+
+
+    <string name="enableGPSText">Enable GPS</string>
+    <string name="enableGPSBody">The app needs GPS to be enabled do you want to enable it in the settings?</string>
+    <string name="settingsGPSText">Settings</string>
+
 </resources>

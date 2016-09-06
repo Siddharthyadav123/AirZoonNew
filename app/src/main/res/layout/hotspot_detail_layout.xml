@@ -25,8 +25,8 @@
                 android:id="@+id/defaultImageView"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
-                android:background="@drawable/noimageavaliablenew"
-                android:scaleType="fitXY" />
+                android:scaleType="centerCrop"
+                android:src="@drawable/noimageavaliablenew" />
 
             <ImageView
                 android:id="@+id/closeProfileImageView"
@@ -284,8 +284,8 @@
                     android:padding="10dp">
 
                     <ImageView
-                        android:layout_width="13dp"
-                        android:layout_height="13dp"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
                         android:layout_marginLeft="10dp"
                         android:src="@drawable/go" />
 
@@ -310,8 +310,8 @@
                     android:padding="10dp">
 
                     <ImageView
-                        android:layout_width="13dp"
-                        android:layout_height="13dp"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
                         android:layout_marginLeft="10dp"
                         android:src="@drawable/call" />
 

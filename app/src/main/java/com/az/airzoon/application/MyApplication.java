@@ -7,8 +7,10 @@ import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -25,6 +27,7 @@ import com.az.airzoon.R;
 import com.az.airzoon.database.AirZoonDB;
 import com.az.airzoon.dataobjects.UserProfileDO;
 import com.az.airzoon.gps.LocationModel;
+import com.az.airzoon.listeners.LatLongFound;
 import com.az.airzoon.models.AirZoonModel;
 import com.az.airzoon.models.FontModel;
 import com.az.airzoon.volly.LruBitmapCache;
@@ -47,6 +50,7 @@ public class MyApplication extends Application {
     public AirZoonDB airZoonDB;
 
     public LocationModel locationModel;
+    public LatLongFound latLongFound;
 
     public static MyApplication getInstance() {
         return myApplication;
@@ -74,8 +78,32 @@ public class MyApplication extends Application {
         //loading static shops list intially
         AirZoonModel.getInstance().loadAndParseHotSpot(null, airZoonDB);
 
-//        System.out.println(">>gps lat> >" + locationModel.getLatitude() + "  >>long >> " + locationModel.getLongitude());
 
+    }
+
+    public void enableGPS(final Activity activity) {
+        float sourceLat = MyApplication.getInstance().getLocationModel().getLatitude();
+        float sourceLong = MyApplication.getInstance().getLocationModel().getLongitude();
+        if (sourceLat == 0.0f && sourceLong == 0.0f) {
+            LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                builder.setTitle(getResources().getString(R.string.enableGPSText));  // GPS not found
+                builder.setMessage(getResources().getString(R.string.enableGPSBody)); // Want to enable?
+                builder.setPositiveButton(getResources().getString(R.string.settingsGPSText), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        activity.startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
+                });
+                builder.setNegativeButton(getResources().getString(R.string.cancelText), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                builder.setCancelable(false);
+                builder.create().show();
+            }
+        }
 
     }
 
@@ -321,6 +349,14 @@ public class MyApplication extends Application {
 
         AlertDialog alert11 = builder1.create();
         alert11.show();
+    }
+
+    public LatLongFound getLatLongFound() {
+        return latLongFound;
+    }
+
+    public void setLatLongFound(LatLongFound latLongFound) {
+        this.latLongFound = latLongFound;
     }
 }
 

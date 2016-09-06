@@ -20,6 +20,7 @@ import com.az.airzoon.application.MyApplication;
 import com.az.airzoon.constants.RequestConstant;
 import com.az.airzoon.constants.URLConstants;
 import com.az.airzoon.dataobjects.AirZoonDo;
+import com.az.airzoon.listeners.LatLongFound;
 import com.az.airzoon.models.AirZoonModel;
 import com.az.airzoon.social_integration.ProfilePicLoader;
 import com.az.airzoon.volly.APICallback;
@@ -28,7 +29,7 @@ import com.az.airzoon.volly.APIHandler;
 /**
  * Created by sid on 30/07/2016.
  */
-public class HotspotDetailDailog extends AbstractBaseDialog implements APICallback {
+public class HotspotDetailDailog extends AbstractBaseDialog implements APICallback, LatLongFound {
 
     private ImageView defaultImageView;
     private ImageView closeProfileImageView;
@@ -149,7 +150,15 @@ public class HotspotDetailDailog extends AbstractBaseDialog implements APICallba
                 onShareBtnClick();
                 break;
             case R.id.goButtonLinLayout:
-                onGoBtnClick();
+                float sourceLat = MyApplication.getInstance().getLocationModel().getLatitude();
+                float sourceLong = MyApplication.getInstance().getLocationModel().getLongitude();
+                if (sourceLat == 0.0f && sourceLong == 0.0f) {
+                    MyApplication.getInstance().setLatLongFound(this);
+                    MyApplication.getInstance().enableGPS(activity);
+                } else {
+                    onGoBtnClick();
+                }
+
                 break;
             case R.id.callButtonLinLayout:
                 onCallBtnClick();
@@ -159,6 +168,12 @@ public class HotspotDetailDailog extends AbstractBaseDialog implements APICallba
                 onReportAnErrorClick();
                 break;
         }
+    }
+
+    @Override
+    public void dismiss() {
+        super.dismiss();
+        MyApplication.getInstance().setLatLongFound(null);
     }
 
     @Override
@@ -206,11 +221,16 @@ public class HotspotDetailDailog extends AbstractBaseDialog implements APICallba
     }
 
     private void onGoBtnClick() {
-        String latLongString = "geo:" + airZoonDo.getLat() + "," + airZoonDo.getLng();
-        Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(latLongString));
-        i.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
-        activity.startActivity(i);
+        float sourceLat = MyApplication.getInstance().getLocationModel().getLatitude();
+        float sourceLong = MyApplication.getInstance().getLocationModel().getLongitude();
+
+        Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/maps?saddr=" + sourceLat + "," + sourceLong + "&daddr=" + airZoonDo.getLat() + "," + airZoonDo.getLng()));
+        intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
+        activity.startActivity(intent);
+
+        MyApplication.getInstance().setLatLongFound(null);
     }
+
 
     private void onCallBtnClick() {
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
@@ -260,5 +280,10 @@ public class HotspotDetailDailog extends AbstractBaseDialog implements APICallba
 
     public void setOpenFromFav(boolean openFromFav) {
         this.openFromFav = openFromFav;
+    }
+
+    @Override
+    public void onLatLongFound() {
+        onGoBtnClick();
     }
 }

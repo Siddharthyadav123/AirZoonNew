@@ -97,6 +97,7 @@ public class FilterSettingsDialog extends AbstractBaseDialog {
         });
     }
 
+
     private void updateSeekRange(int rangeSeek) {
         filterSettingModel.setRangeSeek(rangeSeek);
         rangeSeekBar.setProgress(rangeSeek);
@@ -122,9 +123,13 @@ public class FilterSettingsDialog extends AbstractBaseDialog {
                 dismiss();
                 break;
             case R.id.doneButton:
-                dismiss();
-                showNormalDailog(activity.getResources().getString(R.string.settingSavedText));
                 ((AirZoonMapActivity) activity).refreshAirZoonMapAsPerFileteration(null);
+                int seekRange = filterSettingModel.getRangeSeek() * 5;
+                boolean isCameraAnimated = ((AirZoonMapActivity) activity).animateToMeters(seekRange);
+                dismiss();
+                if (isCameraAnimated) {
+                    showNormalDailog(activity.getResources().getString(R.string.settingSavedText));
+                }
                 break;
         }
     }

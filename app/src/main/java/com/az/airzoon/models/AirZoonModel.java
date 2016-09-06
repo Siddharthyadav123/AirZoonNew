@@ -45,20 +45,19 @@ public class AirZoonModel {
                 itemArray = new JSONArray(hotspotString);
             }
 
-            //loading from tabl
-            if (needToLoadFromTable) {
-                airZoonDoArrayList = airZoonDB.getAllHotSpotList();
-                for (int i = 0; i < airZoonDoArrayList.size(); i++) {
-                    canBeAddedInFilteredList(airZoonDoArrayList.get(i));
-                }
-            } else {
+            //parse and update in table
+            if (!needToLoadFromTable) {
                 Gson gson = new Gson();
                 for (int i = 0; i < itemArray.length(); i++) {
                     AirZoonDo airZoonDo = gson.fromJson(itemArray.get(i).toString(), AirZoonDo.class);
-                    airZoonDoArrayList.add(airZoonDo);
-                    canBeAddedInFilteredList(airZoonDo);
                     airZoonDB.addOrUpdateAirZoonHotSpot(airZoonDo);
                 }
+            }
+
+            //later fetch from table.. as it may be maintained as faviourate.
+            airZoonDoArrayList = airZoonDB.getAllHotSpotList();
+            for (int i = 0; i < airZoonDoArrayList.size(); i++) {
+                canBeAddedInFilteredList(airZoonDoArrayList.get(i));
             }
 //            System.out.println(">>Airzoon list loaded>>" + airZoonDoArrayList.size());
         } catch (Exception e) {
