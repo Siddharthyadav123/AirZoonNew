@@ -153,9 +153,9 @@ public class AirZoonDB extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_FAVIOURATE, airZoonDo.isFaviourate());
-        db.update(AIRZOON_TABLE, contentValues, COL_ID + " = ? ", new String[]{airZoonDo.getId()});
+        int count = db.update(AIRZOON_TABLE, contentValues, COL_ID + " = ? ", new String[]{airZoonDo.getId()});
 
-//        System.out.println(">>rec sid fav updated >>" + airZoonDo.getId());
+        System.out.println(">>rec sid fav updated >>" + count);
 
         return true;
     }

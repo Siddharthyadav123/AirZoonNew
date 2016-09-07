@@ -175,7 +175,6 @@ public class ReportIssueDialog extends AbstractBaseDialog implements APICallback
             if (!pair.getValue().equals("none")) {
                 return true;
             }
-            it.remove(); // avoids a ConcurrentModificationException
         }
         showNormalDailog(activity.getResources().getString(R.string.youHaveNotReportedAnEntryText));
         return false;

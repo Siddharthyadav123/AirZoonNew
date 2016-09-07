@@ -339,6 +339,7 @@ public class ProfileDialog extends AbstractBaseDialog implements SocialLoginInte
                 Gson gson = new Gson();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     AirZoonDo airZoonDo = gson.fromJson(jsonArray.get(i).toString(), AirZoonDo.class);
+                    airZoonDo.setFaviourate(true);
                     //update object
                     AirZoonModel.getInstance().setFav(airZoonDo.getId());
                     //update in local db
