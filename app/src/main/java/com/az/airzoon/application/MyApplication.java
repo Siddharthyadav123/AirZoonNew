@@ -84,7 +84,7 @@ public class MyApplication extends Application {
     public void enableGPS(final Activity activity) {
         float sourceLat = MyApplication.getInstance().getLocationModel().getLatitude();
         float sourceLong = MyApplication.getInstance().getLocationModel().getLongitude();
-        if (sourceLat == 0.0f && sourceLong == 0.0f) {
+        if (sourceLat == 0.0 && sourceLong == 0.0) {
             LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
             if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(activity);

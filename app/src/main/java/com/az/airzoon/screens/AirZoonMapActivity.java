@@ -399,36 +399,41 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
 
     }
 
-    private void letsMoveCamera(int km, float myLat, float myLong) {
-        MyApplication.getInstance().setLatLongFound(null);
-        int meters = km * 1000;
-        DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
-        float dpHeight = displayMetrics.heightPixels / displayMetrics.density;
+    private void letsMoveCamera(int km) {
+        float myLat = MyApplication.getInstance().getLocationModel().getLatitude();
+        float myLong = MyApplication.getInstance().getLocationModel().getLongitude();
+        if (myLat != 0.0 && myLong != 0.0) {
+            MyApplication.getInstance().setLatLongFound(null);
+            int meters = km * 1000;
+            DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
+            float dpHeight = displayMetrics.heightPixels / displayMetrics.density;
 
-        Resources r = getResources();
-        int mapSideInPixels = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpHeight, r.getDisplayMetrics());
+            Resources r = getResources();
+            int mapSideInPixels = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpHeight, r.getDisplayMetrics());
 
-        LatLng cameraAngle = new LatLng(myLat, myLong);
-        LatLngBounds latLngBounds = calculateBounds(cameraAngle, meters);
-        if (latLngBounds != null) {
-            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(latLngBounds, mapSideInPixels, mapSideInPixels, 0);
-            if (mMap != null)
-                mMap.animateCamera(cameraUpdate);
+            LatLng cameraAngle = new LatLng(myLat, myLong);
+            LatLngBounds latLngBounds = calculateBounds(cameraAngle, meters);
+            if (latLngBounds != null) {
+                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(latLngBounds, mapSideInPixels, mapSideInPixels, 0);
+                if (mMap != null)
+                    mMap.animateCamera(cameraUpdate);
+            }
         }
     }
+
 
     public boolean animateToMeters(final int km) {
         final float myLat = MyApplication.getInstance().getLocationModel().getLatitude();
         final float myLong = MyApplication.getInstance().getLocationModel().getLongitude();
 
         if (myLat != 0.0 && myLong != 0.0) {
-            letsMoveCamera(km, myLat, myLong);
+            letsMoveCamera(km);
             return true;
         } else {
             MyApplication.getInstance().setLatLongFound(new LatLongFound() {
                 @Override
                 public void onLatLongFound() {
-                    letsMoveCamera(km, myLat, myLong);
+                    letsMoveCamera(km);
                 }
             });
             MyApplication.getInstance().enableGPS(this);
@@ -845,5 +850,8 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
         }
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

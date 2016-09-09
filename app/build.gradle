@@ -31,17 +31,17 @@ android {
         versionName "1.0"
         multiDexEnabled true
     }
-   buildTypes {
+    buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-   // dexOptions {
-   //    incremental = true;
-   //    preDexLibraries = false
-   //    javaMaxHeapSize "4g" // 2g should be also OK
-   // }
+    dexOptions {
+        incremental = true;
+        preDexLibraries = false
+        javaMaxHeapSize "4g" // 2g should be also OK
+    }
 
 
     packagingOptions {

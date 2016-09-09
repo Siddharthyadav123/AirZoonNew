@@ -152,7 +152,7 @@ public class HotspotDetailDailog extends AbstractBaseDialog implements APICallba
             case R.id.goButtonLinLayout:
                 float sourceLat = MyApplication.getInstance().getLocationModel().getLatitude();
                 float sourceLong = MyApplication.getInstance().getLocationModel().getLongitude();
-                if (sourceLat == 0.0f && sourceLong == 0.0f) {
+                if (sourceLat == 0.0 && sourceLong == 0.0) {
                     MyApplication.getInstance().setLatLongFound(this);
                     MyApplication.getInstance().enableGPS(activity);
                 } else {

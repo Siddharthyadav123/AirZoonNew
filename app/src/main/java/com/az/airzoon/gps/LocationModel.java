@@ -123,13 +123,13 @@ public class LocationModel implements LocationListener, APICallback {
                                 MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
                         Log.d("GPS Enabled", "GPS Enabled");
                         if (locationManager != null) {
-                            location = locationManager
-                                    .getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                             if (location != null) {
                                 latitude = (float) location.getLatitude();
                                 longitude = (float) location.getLongitude();
                             }
                         }
+
                     }
                 }
             }
@@ -171,6 +171,7 @@ public class LocationModel implements LocationListener, APICallback {
         // return longitude
         return longitude;
     }
+
 
     @Override
     public void onLocationChanged(Location location) {
