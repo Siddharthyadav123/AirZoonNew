@@ -10,7 +10,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.az.airzoon.R;
@@ -93,20 +92,20 @@ public class EditProfileDialog extends AbstractBaseDialog implements APICallback
                 onSaveBtnclick();
             }
         });
-        cludeBackupLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (isSaveToServer) {
-                    isSaveToServer = false;
-                    cludeBackUpImage.setAlpha(0.5f);
-                } else {
-                    isSaveToServer = true;
-                    cludeBackUpImage.setAlpha(1f);
-                }
-
-            }
-        });
+//        cludeBackupLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                if (isSaveToServer) {
+//                    isSaveToServer = false;
+//                    cludeBackUpImage.setAlpha(0.5f);
+//                } else {
+//                    isSaveToServer = true;
+//                    cludeBackUpImage.setAlpha(1f);
+//                }
+//
+//            }
+//        });
     }
 
 
