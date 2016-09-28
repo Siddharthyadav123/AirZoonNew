@@ -94,71 +94,80 @@ public class ProfilePicLoader implements Target {
     }
 
     public void downloadAirzoonFrame(final ImageView imageView, String url, String airZoonId) {
-        this.imageView = imageView;
+        try {
+            this.imageView = imageView;
 
-        final String airZoonFrameName = "airZoonBgImage" + airZoonId;
-        final Bitmap imageBitmap = getLocalImage(airZoonFrameName + ".png");
+            String fileName = url.substring(url.lastIndexOf('/') + 1);
+            if (fileName.contains(".")) {
+                fileName = fileName.split("\\.")[0];
+            }
+            final String airZoonFrameName = "airZoonBgImage_" + fileName + "_" + airZoonId;
+            final Bitmap imageBitmap = getLocalImage(airZoonFrameName + ".png");
 
-        if (imageBitmap == null) {
-            if (url != null && url.length() > 0) {
+            if (imageBitmap == null) {
+                if (url != null && url.length() > 0) {
 
-                ImageLoader imageLoader = MyApplication.getInstance().getImageLoader();
-                imageLoader.get(url, new ImageLoader.ImageListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                    }
+                    ImageLoader imageLoader = MyApplication.getInstance().getImageLoader();
+                    imageLoader.get(url, new ImageLoader.ImageListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                        }
 
-                    @Override
-                    public void onResponse(final ImageLoader.ImageContainer response, boolean arg1) {
-                        try {
-                            ((Activity) context).runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (imageView != null) {
-                                        imageView.setImageBitmap(response.getBitmap());
+                        @Override
+                        public void onResponse(final ImageLoader.ImageContainer response, boolean arg1) {
+                            try {
+                                ((Activity) context).runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if (imageView != null) {
+                                            imageView.setImageBitmap(response.getBitmap());
+                                        }
                                     }
+                                });
+                                File myDir = new File(IMAGE_AIRZOON_FOLDER);
+                                if (!myDir.exists()) {
+                                    myDir.mkdirs();
                                 }
-                            });
-                            File myDir = new File(IMAGE_AIRZOON_FOLDER);
-                            if (!myDir.exists()) {
-                                myDir.mkdirs();
+
+
+                                String name = airZoonFrameName + ".png";
+                                myDir = new File(myDir, name);
+                                FileOutputStream out = new FileOutputStream(myDir);
+                                response.getBitmap().compress(Bitmap.CompressFormat.PNG, 0, out);
+                                out.flush();
+                                out.close();
+
+                                ((Activity) context).runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if (imageView != null) {
+                                            imageView.setImageBitmap(response.getBitmap());
+                                        }
+                                    }
+                                });
+
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
-                            String name = airZoonFrameName + ".png";
-                            myDir = new File(myDir, name);
-                            FileOutputStream out = new FileOutputStream(myDir);
-                            response.getBitmap().compress(Bitmap.CompressFormat.PNG, 0, out);
-                            out.flush();
-                            out.close();
-
-                            ((Activity) context).runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (imageView != null) {
-                                        imageView.setImageBitmap(response.getBitmap());
-                                    }
-                                }
-                            });
+                        }
+                    });
 
 
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                }
+            } else {
+                ((Activity) context).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (imageView != null) {
+                            imageView.setImageBitmap(imageBitmap);
                         }
                     }
                 });
-
-
             }
-        } else {
-            ((Activity) context).runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (imageView != null) {
-                        imageView.setImageBitmap(imageBitmap);
-                    }
-                }
-            });
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
     }
 
 
