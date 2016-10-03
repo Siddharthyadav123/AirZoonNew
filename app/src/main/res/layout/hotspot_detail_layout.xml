@@ -180,7 +180,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_toRightOf="@+id/hotSpotCategoryImage"
                     android:gravity="center|left"
-                    android:maxLines="2"
+                    android:maxLines="3"
                     android:text="Address"
                     android:textColor="@color/White"
                     android:textSize="15dp"

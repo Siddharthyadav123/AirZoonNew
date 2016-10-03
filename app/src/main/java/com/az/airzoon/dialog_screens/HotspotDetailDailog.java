@@ -103,8 +103,22 @@ public class HotspotDetailDailog extends AbstractBaseDialog implements APICallba
         hotSpotTypeTextView.setText(airZoonDo.getCategory());
         hotSpotSpeedTextView.setText(airZoonDo.getSpeed());
 
-        hotSpotAddressTextView.setText(airZoonDo.getAddress() + " " + airZoonDo.getAddress2()
-                + airZoonDo.getCity() + " " + airZoonDo.getCountry());
+        String address2 = "";
+        if (airZoonDo.getAddress2() != null && airZoonDo.getAddress2().trim().length() > 0) {
+            address2 = ", " + airZoonDo.getAddress2().trim();
+        }
+
+        String city = "";
+        if (airZoonDo.getCity() != null && airZoonDo.getCity().trim().length() > 0) {
+            city = ", " + airZoonDo.getCity().trim();
+        }
+
+        String country = "";
+        if (airZoonDo.getCountry() != null && airZoonDo.getCountry().trim().length() > 0) {
+            country = ", " + airZoonDo.getCountry().trim();
+        }
+
+        hotSpotAddressTextView.setText(airZoonDo.getAddress() + address2 + city + country);
 
         if (airZoonDo.getPhone() != null && airZoonDo.getPhone().length() > 0) {
             hotSpotContactNoTextView.setText(airZoonDo.getPhone());

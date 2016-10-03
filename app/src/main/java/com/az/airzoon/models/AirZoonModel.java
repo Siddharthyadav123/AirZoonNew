@@ -28,16 +28,18 @@ public class AirZoonModel {
 
     public void loadAndParseHotSpot(String hotspotString, AirZoonDB airZoonDB) {
         try {
-            boolean needToLoadFromTable = false;
             airZoonDoArrayList.clear();
             filteredList.clear();
+
+            boolean foundInDBForFirstTimeLaunch = false;
 
             JSONArray itemArray = null;
 
             //this will be null if this method is called initially
             if (hotspotString == null) {
                 if (airZoonDB.getTableCount() > 0) {
-                    needToLoadFromTable = true;
+                    foundInDBForFirstTimeLaunch = true;
+                    airZoonDoArrayList = airZoonDB.getAllHotSpotList();
                 } else {
                     itemArray = new JSONArray(getStaticString());
                 }
@@ -45,21 +47,52 @@ public class AirZoonModel {
                 itemArray = new JSONArray(hotspotString);
             }
 
-            //parse and update in table
-            if (!needToLoadFromTable) {
+            //if not found in db in launch
+            if (!foundInDBForFirstTimeLaunch) {
+                ArrayList<AirZoonDo> airZoonNewDoArrayList = new ArrayList<>();
                 Gson gson = new Gson();
+
+                //all new added into the list
                 for (int i = 0; i < itemArray.length(); i++) {
                     AirZoonDo airZoonDo = gson.fromJson(itemArray.get(i).toString(), AirZoonDo.class);
+                    airZoonNewDoArrayList.add(airZoonDo);
                     airZoonDB.addOrUpdateAirZoonHotSpot(airZoonDo);
+                }
+
+                //delete the one which doesn't not exist in remaining
+                airZoonDoArrayList = airZoonDB.getAllHotSpotList();
+
+                //compare if any extra spot present in static list
+                for (int i = 0; i < airZoonDoArrayList.size(); i++) {
+                    AirZoonDo airZoonDoNeedToCheck = airZoonDoArrayList.get(i);
+
+                    boolean isFoundInList = false;
+
+                    for (int j = 0; j < airZoonNewDoArrayList.size(); j++) {
+                        if (airZoonDoNeedToCheck.getId().equals(airZoonNewDoArrayList.get(j).getId())) {
+                            isFoundInList = true;
+                            System.out.println(">>sid found >> true");
+                            break;
+                        }
+                    }
+
+                    if (!isFoundInList) {
+                        System.out.println(">>sid deleted >> " + airZoonDoNeedToCheck.getName());
+                        airZoonDB.deleteASpot(airZoonDoNeedToCheck.getId());
+                        airZoonDoArrayList.remove(airZoonDoNeedToCheck);
+                    }
+
                 }
             }
 
-            //later fetch from table.. as it may be maintained as faviourate.
-            airZoonDoArrayList = airZoonDB.getAllHotSpotList();
+
+            System.out.println(">>sid size >> " + airZoonDoArrayList.size());
+            //filtering the list
             for (int i = 0; i < airZoonDoArrayList.size(); i++) {
                 canBeAddedInFilteredList(airZoonDoArrayList.get(i));
             }
-//            System.out.println(">>Airzoon list loaded>>" + airZoonDoArrayList.size());
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
