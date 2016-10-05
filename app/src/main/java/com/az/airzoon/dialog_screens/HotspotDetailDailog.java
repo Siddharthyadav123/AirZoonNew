@@ -30,7 +30,6 @@ import com.az.airzoon.volly.APIHandler;
  * Created by sid on 30/07/2016.
  */
 public class HotspotDetailDailog extends AbstractBaseDialog implements APICallback, LatLongFound {
-
     private ImageView defaultImageView;
     private ImageView closeProfileImageView;
     private ImageView faviourateImageView;

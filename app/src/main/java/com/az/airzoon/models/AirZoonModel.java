@@ -62,31 +62,40 @@ public class AirZoonModel {
                 //delete the one which doesn't not exist in remaining
                 airZoonDoArrayList = airZoonDB.getAllHotSpotList();
 
+                ArrayList<AirZoonDo> spotsWhichAreNotInNewList = new ArrayList<>();
                 //compare if any extra spot present in static list
                 for (int i = 0; i < airZoonDoArrayList.size(); i++) {
                     AirZoonDo airZoonDoNeedToCheck = airZoonDoArrayList.get(i);
 
-                    boolean isFoundInList = false;
-
+                    boolean isFound = false;
                     for (int j = 0; j < airZoonNewDoArrayList.size(); j++) {
                         if (airZoonDoNeedToCheck.getId().equals(airZoonNewDoArrayList.get(j).getId())) {
-                            isFoundInList = true;
-                            System.out.println(">>sid found >> true");
+//                            System.out.println(">>sid found >> true");
+                            isFound = true;
                             break;
                         }
                     }
 
-                    if (!isFoundInList) {
-                        System.out.println(">>sid deleted >> " + airZoonDoNeedToCheck.getName());
-                        airZoonDB.deleteASpot(airZoonDoNeedToCheck.getId());
-                        airZoonDoArrayList.remove(airZoonDoNeedToCheck);
+                    //add in index if not found in new list
+                    if (!isFound) {
+                        spotsWhichAreNotInNewList.add(airZoonDoNeedToCheck);
                     }
-
                 }
+
+//                System.out.println(">>sid total spot not found in new list >> " + spotsWhichAreNotInNewList.size());
+
+                //delete which are not found in latest list
+                for (int i = 0; i < spotsWhichAreNotInNewList.size(); i++) {
+                    AirZoonDo airZoonDoNeedToCheck = spotsWhichAreNotInNewList.get(i);
+//                    System.out.println(">>sid deleted >> " + airZoonDoNeedToCheck.getName() + " id>>" + airZoonDoNeedToCheck.getId() + " >>size >>" + i);
+                    airZoonDB.deleteASpot(airZoonDoNeedToCheck.getId());
+                    airZoonDoArrayList.remove(airZoonDoNeedToCheck);
+                }
+
             }
 
 
-            System.out.println(">>sid size >> " + airZoonDoArrayList.size());
+//            System.out.println(">>sid size >> " + airZoonDoArrayList.size());
             //filtering the list
             for (int i = 0; i < airZoonDoArrayList.size(); i++) {
                 canBeAddedInFilteredList(airZoonDoArrayList.get(i));

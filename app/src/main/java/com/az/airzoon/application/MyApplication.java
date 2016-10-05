@@ -24,12 +24,17 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.az.airzoon.R;
+import com.az.airzoon.constants.RequestConstant;
+import com.az.airzoon.constants.URLConstants;
 import com.az.airzoon.database.AirZoonDB;
 import com.az.airzoon.dataobjects.UserProfileDO;
 import com.az.airzoon.gps.LocationModel;
 import com.az.airzoon.listeners.LatLongFound;
 import com.az.airzoon.models.AirZoonModel;
 import com.az.airzoon.models.FontModel;
+import com.az.airzoon.preferences.PrefManager;
+import com.az.airzoon.volly.APICallback;
+import com.az.airzoon.volly.APIHandler;
 import com.az.airzoon.volly.LruBitmapCache;
 
 import java.util.Calendar;
@@ -37,7 +42,7 @@ import java.util.Calendar;
 /**
  * Created by siddharth on 7/26/2016.
  */
-public class MyApplication extends Application {
+public class MyApplication extends Application implements APICallback {
     public static MyApplication myApplication = null;
 
     public static final String TAG = MyApplication.class
@@ -79,6 +84,15 @@ public class MyApplication extends Application {
         AirZoonModel.getInstance().loadAndParseHotSpot(null, airZoonDB);
 
 
+        //requesting server for latest spots
+        PrefManager prefManager = new PrefManager(this);
+        if (!prefManager.isFirstTimeAlreadyLaunched()) {
+            System.out.println(">>sid>> going for sync");
+            APIHandler apiHandler = new APIHandler(this, this, RequestConstant.REQUEST_GET_HOTSPOT_LIST,
+                    Request.Method.GET, URLConstants.URL_GET_HOTSPOT_LIST, false, null, null, null, null);
+            apiHandler.setShowToastOnRespone(false);
+            apiHandler.requestAPI();
+        }
     }
 
     public void enableGPS(final Activity activity) {
@@ -326,6 +340,21 @@ public class MyApplication extends Application {
 
         AlertDialog alert11 = builder1.create();
         alert11.show();
+    }
+
+    @Override
+    public void onAPISuccessResponse(int requestId, String responseString) {
+        switch (requestId) {
+            case RequestConstant.REQUEST_GET_HOTSPOT_LIST:
+                AirZoonModel.getInstance().loadAndParseHotSpot(responseString, airZoonDB);
+                System.out.println(">>sid>> sync over");
+                break;
+        }
+    }
+
+    @Override
+    public void onAPIFailureResponse(int requestId, String errorString) {
+
     }
 
     public interface DailogCallback {

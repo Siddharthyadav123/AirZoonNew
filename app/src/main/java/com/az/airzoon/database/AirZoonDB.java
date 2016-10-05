@@ -115,7 +115,7 @@ public class AirZoonDB extends SQLiteOpenHelper {
             contentValues.put(COL_FAVIOURATE, airZoonDo.isFaviourate());
             db.insert(AIRZOON_TABLE, null, contentValues);
 
-            System.out.println(">>sid added>>" + airZoonDo.getId());
+//            System.out.println(">>sid added>>" + airZoonDo.getId());
         }
     }
 

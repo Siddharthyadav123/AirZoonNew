@@ -52,24 +52,34 @@ public class APIHandler implements Response.Listener<Object>, Response.ErrorList
     }
 
     private void showLoading() {
-        ((Activity) context).runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                pDialog = new ProgressDialog(context);
-                pDialog.setMessage(loadingText);
-                pDialog.show();
-            }
-        });
+        if (context instanceof Activity) {
+            ((Activity) context).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    pDialog = new ProgressDialog(context);
+                    pDialog.setMessage(loadingText);
+                    pDialog.show();
+                }
+            });
+        }
     }
 
     private void hideLoading() {
-        ((Activity) context).runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (pDialog != null)
-                    pDialog.dismiss();
+        try {
+            if (context instanceof Activity) {
+                ((Activity) context).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (pDialog != null)
+                            pDialog.dismiss();
+                    }
+                });
             }
-        });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void requestAPI() {
@@ -123,23 +133,30 @@ public class APIHandler implements Response.Listener<Object>, Response.ErrorList
                     }
 
                     final String finalReaponseString = reaponseString;
-                    ((Activity) context).runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            onMutipartPostSuccessResponse(finalReaponseString);
-                        }
-                    });
+
+                    if (context instanceof Activity) {
+                        ((Activity) context).runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                onMutipartPostSuccessResponse(finalReaponseString);
+                            }
+                        });
+                    }
+
 
                 } catch (final Exception e) {
                     e.printStackTrace();
-                    ((Activity) context).runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (apiCallback != null) {
-                                apiCallback.onAPIFailureResponse(requestId, e.getMessage());
+
+                    if (context instanceof Activity) {
+                        ((Activity) context).runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (apiCallback != null) {
+                                    apiCallback.onAPIFailureResponse(requestId, e.getMessage());
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
                     System.out.println("[API] response fail multipart = " + e.getMessage());
                     hideLoading();
                 }
@@ -203,13 +220,15 @@ public class APIHandler implements Response.Listener<Object>, Response.ErrorList
 
     private void showToast(final String text) {
         if (showToastOnRespone) {
-            ((Activity) context).runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (text != null && text.length() > 0)
-                        Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
-                }
-            });
+            if (context instanceof Activity) {
+                ((Activity) context).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (text != null && text.length() > 0)
+                            Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
         }
     }
 
