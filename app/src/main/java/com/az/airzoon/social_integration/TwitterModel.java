@@ -60,7 +60,7 @@ public class TwitterModel extends Callback<TwitterSession> {
         userProfileDO.destroyProfile();
         userProfileDO.setToken(session.getAuthToken().token);
         userProfileDO.setFbid(session.getUserId() + "");
-        System.out.println(">>user name" + session.getUserName());
+//        System.out.println(">>user name" + session.getUserName());
 
         Twitter.getApiClient(session).getAccountService()
                 .verifyCredentials(true, false, new Callback<User>() {

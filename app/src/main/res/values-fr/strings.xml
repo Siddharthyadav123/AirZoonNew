@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ExtraTranslation">
     <string name="app_name">airZoon</string>
     <string name="fb_app_id">743222562429147</string>
     <string name="title_activity_maps">Map</string>
@@ -146,6 +146,7 @@
     <string name="catRestaurant">Restaurant</string>
     <string name="catSportCenter">"Salle de sport"</string>
     <string name="healthAndWellness">"Health &amp; Wellness"</string>
+    <string name="catHealthAndWellness">"Health &amp; Wellness"</string>
 
     //error text
     <string name="errorEnterName">"S'il vous plaît entrez votre nom"</string>

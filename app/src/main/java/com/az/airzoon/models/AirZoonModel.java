@@ -47,6 +47,7 @@ public class AirZoonModel {
                 itemArray = new JSONArray(hotspotString);
             }
 
+
             //if not found in db in launch
             if (!foundInDBForFirstTimeLaunch) {
                 ArrayList<AirZoonDo> airZoonNewDoArrayList = new ArrayList<>();
@@ -61,6 +62,7 @@ public class AirZoonModel {
 
                 //delete the one which doesn't not exist in remaining
                 airZoonDoArrayList = airZoonDB.getAllHotSpotList();
+
 
                 ArrayList<AirZoonDo> spotsWhichAreNotInNewList = new ArrayList<>();
                 //compare if any extra spot present in static list

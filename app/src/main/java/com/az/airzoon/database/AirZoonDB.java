@@ -144,7 +144,7 @@ public class AirZoonDB extends SQLiteOpenHelper {
 //        contentValues.put(COL_FAVIOURATE, airZoonDo.isFaviourate());
         db.update(AIRZOON_TABLE, contentValues, COL_ID + " = ? ", new String[]{airZoonDo.getId()});
 
-        System.out.println(">>sid updated >>" + airZoonDo.getId());
+//        System.out.println(">>sid updated >>" + airZoonDo.getId());
 
         return true;
     }
@@ -155,7 +155,7 @@ public class AirZoonDB extends SQLiteOpenHelper {
         contentValues.put(COL_FAVIOURATE, airZoonDo.isFaviourate());
         int count = db.update(AIRZOON_TABLE, contentValues, COL_ID + " = ? ", new String[]{airZoonDo.getId()});
 
-        System.out.println(">>rec sid fav updated >>" + count);
+//        System.out.println(">>rec sid fav updated >>" + count);
 
         return true;
     }
@@ -174,7 +174,7 @@ public class AirZoonDB extends SQLiteOpenHelper {
     public void deleteASpot(String airZoonId) {
         SQLiteDatabase db = this.getWritableDatabase();
         int count = db.delete(AIRZOON_TABLE, COL_ID + "=?", new String[]{airZoonId + ""});
-        System.out.println(">>sid deleted >> " + airZoonId + " >> " + count);
+//        System.out.println(">>sid deleted >> " + airZoonId + " >> " + count);
     }
 
     // Getting All Contacts

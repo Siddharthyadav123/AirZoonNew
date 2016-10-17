@@ -96,8 +96,8 @@ public class APIHandler implements Response.Listener<Object>, Response.ErrorList
             return;
         }
 
-        System.out.println("[API] request url = " + url);
-        System.out.println("[API] request body = " + requestBody);
+//        System.out.println("[API] request url = " + url);
+//        System.out.println("[API] request body = " + requestBody);
         if (showLoading) {
             showLoading();
         }
@@ -122,7 +122,7 @@ public class APIHandler implements Response.Listener<Object>, Response.ErrorList
                             if (requestParams.get(i).getValue() == null) {
                                 requestParams.get(i).setValue("");
                             }
-                            System.out.println("[API] multipart key = " + requestParams.get(i).getKey() + " >>value = " + requestParams.get(i).getValue());
+//                            System.out.println("[API] multipart key = " + requestParams.get(i).getKey() + " >>value = " + requestParams.get(i).getValue());
                             multipart.addFormField(requestParams.get(i).getKey(), requestParams.get(i).getValue());
                         }
                     }
@@ -157,7 +157,7 @@ public class APIHandler implements Response.Listener<Object>, Response.ErrorList
                             }
                         });
                     }
-                    System.out.println("[API] response fail multipart = " + e.getMessage());
+//                    System.out.println("[API] response fail multipart = " + e.getMessage());
                     hideLoading();
                 }
             }
@@ -173,10 +173,10 @@ public class APIHandler implements Response.Listener<Object>, Response.ErrorList
 
         if (reaponseString != null && reaponseString.trim().startsWith("[")) {
             try {
-                System.out.println("[API] response body multipart before parsing= " + reaponseString);
+//                System.out.println("[API] response body multipart before parsing= " + reaponseString);
                 JSONArray jsonArray = new JSONArray(reaponseString);
                 reaponseString = jsonArray.get(0).toString();
-                System.out.println("[API] response body multipart after parsing= " + reaponseString);
+//                System.out.println("[API] response body multipart after parsing= " + reaponseString);
 
                 if (reaponseString != null) {
                     JSONObject jsonObject = new JSONObject(reaponseString);
@@ -237,7 +237,7 @@ public class APIHandler implements Response.Listener<Object>, Response.ErrorList
     public void onResponse(Object response) {
         hideLoading();
         if (response != null) {
-            System.out.println("[API] response body volly = " + response.toString());
+//            System.out.println("[API] response body volly = " + response.toString());
             if (apiCallback != null) {
                 apiCallback.onAPISuccessResponse(requestId, response.toString());
             }
@@ -245,7 +245,7 @@ public class APIHandler implements Response.Listener<Object>, Response.ErrorList
             if (apiCallback != null) {
                 apiCallback.onAPIFailureResponse(requestId, "Error in response");
             }
-            System.out.println("[API] response fail volly = " + "Error in response");
+//            System.out.println("[API] response fail volly = " + "Error in response");
         }
 
     }

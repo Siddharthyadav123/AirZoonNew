@@ -87,7 +87,7 @@ public class MyApplication extends Application implements APICallback {
         //requesting server for latest spots
         PrefManager prefManager = new PrefManager(this);
         if (!prefManager.isFirstTimeAlreadyLaunched()) {
-            System.out.println(">>sid>> going for sync");
+//            System.out.println(">>sid>> going for sync");
             APIHandler apiHandler = new APIHandler(this, this, RequestConstant.REQUEST_GET_HOTSPOT_LIST,
                     Request.Method.GET, URLConstants.URL_GET_HOTSPOT_LIST, false, null, null, null, null);
             apiHandler.setShowToastOnRespone(false);
@@ -347,7 +347,7 @@ public class MyApplication extends Application implements APICallback {
         switch (requestId) {
             case RequestConstant.REQUEST_GET_HOTSPOT_LIST:
                 AirZoonModel.getInstance().loadAndParseHotSpot(responseString, airZoonDB);
-                System.out.println(">>sid>> sync over");
+//                System.out.println(">>sid>> sync over");
                 break;
         }
     }

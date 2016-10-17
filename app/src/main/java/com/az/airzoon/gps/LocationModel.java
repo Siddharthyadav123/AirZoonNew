@@ -138,7 +138,7 @@ public class LocationModel implements LocationListener, APICallback {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println(">>gps lat>>" + latitude + "  >>long >> " + longitude);
+//        System.out.println(">>gps lat>>" + latitude + "  >>long >> " + longitude);
 
         //callback for lat long
         if (MyApplication.getInstance().getLatLongFound() != null && latitude != 0.0f) {

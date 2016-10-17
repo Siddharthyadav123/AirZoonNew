@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.az.airzoon">
-
-    <permission
-        android:name="com.az.airzoon.permission.MAPS_RECEIVE"
-        android:protectionLevel="signature" />
 
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
 
-    <uses-permission android:name="com.truiton.supportmapfragment.permission.MAPS_RECEIVE" />
+    <permission
+        android:name="com.az.airzoon.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
+
+    <uses-permission android:name="com.az.airzoon.permission.MAPS_RECEIVE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
@@ -66,7 +68,7 @@
         <!--based on office pc-->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAapBdM9q2-ywcrpmoIP1iPywRXMVKe-2o" />
+            android:value="AIzaSyC5Sjii8x1VBh7gCfFu0vFEkbQb9y9T12k" />
 
         <!--based on home pc-->
         <!--     <meta-data
@@ -95,7 +97,8 @@
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/fb_app_id" />
+            android:value="@string/fb_app_id"
+            tools:ignore="ManifestResource" />
 
         <receiver android:name=".recievers.GpsLocationReceiver">
             <intent-filter>

@@ -231,12 +231,11 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
     private void loadAirZoonShops() {
         // Clear previous markers
         mMap.clear();
-
         airZoonDoArrayList = airZoonModel.getFilteredList();
-//        System.out.println(">>map refresh size" + airZoonDoArrayList.size());
         for (int i = 0; i < airZoonDoArrayList.size(); i++) {
 
             try {
+//                System.out.println(">>sid adding spot");
                 final AirZoonDo airZoonDo = airZoonDoArrayList.get(i);
                 LatLng locationLatLong = new LatLng(Double.parseDouble(airZoonDo.getLat()), Double.parseDouble(airZoonDo.getLng()));
                 Bitmap markerBitmap = BitmapFactory.decodeResource(getResources(), airZoonModel.getHotSpotMarkerResByType(airZoonDo.getType()));
@@ -288,6 +287,7 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
         switch (requestId) {
             case RequestConstant.REQUEST_GET_HOTSPOT_LIST:
                 refreshAirZoonMapAsPerFileteration(responseString);
+//                Toast.makeText(AirZoonMapActivity.this, "responseString>>" + responseString, Toast.LENGTH_SHORT).show();
                 MyApplication.getInstance().showNormalDailog(this, getString(R.string.syncedSuccessFulText));
 
                 //setting last sync time
@@ -364,6 +364,7 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
 
         @Override
         public View getInfoContents(Marker marker) {
+//            System.out.println(">>sid preparing snippet");
             int index = Integer.parseInt(marker.getTitle());
             AirZoonDo airZoonDo = airZoonDoArrayList.get(index);
             View snippetView = getSnippedView();

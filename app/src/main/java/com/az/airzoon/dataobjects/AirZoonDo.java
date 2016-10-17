@@ -33,28 +33,28 @@ import java.util.ArrayList;
  * }
  * Created by siddharth on 7/26/2016.
  */
-public class AirZoonDo extends BaseModel implements Parcelable {
+public class AirZoonDo implements Parcelable {
 
-    private String zip;
-    private String phone;
-    private String speed;
-    private String image;
-    private String address2;
-    private String lng;
-    private String type;
-    private String date;
-    private String country;
-    private String city;
-    private String id;
-    private String opening_two;
-    private String category;
-    private String opening_one;
-    private String address;
-    private String category_image;
-    private String name;
-    private String fav_count;
-    private String lat;
-    private String is_free;
+    private String zip = "";
+    private String phone = "";
+    private String speed = "";
+    private String image = "";
+    private String address2 = "";
+    private String lng = "";
+    private String type = "";
+    private String date = "";
+    private String country = "";
+    private String city = "";
+    private String id = "";
+    private String opening_two = "";
+    private String category = "";
+    private String opening_one = "";
+    private String address = "";
+    private String category_image = "";
+    private String name = "";
+    private String fav_count = "";
+    private String lat = "";
+    private String is_free = "";
 
     private boolean faviourate = false;
 

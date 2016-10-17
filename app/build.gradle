@@ -20,6 +20,7 @@ repositories {
 }
 
 android {
+
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
 
@@ -27,16 +28,32 @@ android {
         applicationId "com.az.airzoon"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode 11
+        versionName "1.1"
         multiDexEnabled true
     }
     buildTypes {
+        debug {
+            minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
+        }
         release {
-            minifyEnabled true
+            minifyEnabled false
+            shrinkResources true
+            zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    productFlavors {
+        prod {
+            applicationId "com.az.airzoon"
+            buildConfigField 'String', 'BASE_URL', '"http://airzoonapp.com"'
+
+        }
+    }
+
     dexOptions {
         incremental = true;
         preDexLibraries = false

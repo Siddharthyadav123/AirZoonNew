@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ExtraTranslation">
     <string name="app_name">airZoon</string>
     <string name="fb_app_id">743222562429147</string>
     <string name="title_activity_maps">Map</string>

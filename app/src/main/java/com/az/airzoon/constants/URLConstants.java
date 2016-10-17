@@ -1,10 +1,12 @@
 package com.az.airzoon.constants;
 
+import com.az.airzoon.BuildConfig;
+
 /**
  * Created by sid on 07/08/2016.
  */
 public class URLConstants {
-    public static final String BASE_URL = "http://airzoonapp.com";
+    public static final String BASE_URL = BuildConfig.BASE_URL;
 
     public static final String URL_GET_HOTSPOT_LIST = BASE_URL + "/json.php";
     public static final String URL_GET_ABOUT_US_BODY_TEXT = BASE_URL + "/about_json.php";
