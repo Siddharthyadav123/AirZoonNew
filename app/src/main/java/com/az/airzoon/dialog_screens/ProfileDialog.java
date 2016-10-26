@@ -249,7 +249,9 @@ public class ProfileDialog extends AbstractBaseDialog implements SocialLoginInte
     public void onSocialLoginSuccess(UserProfileDO userProfileDO, String socialType) {
         hideProgressLoading();
         this.userProfileDO = userProfileDO;
-//        Toast.makeText(activity, activity.getResources().getString(R.string.welcomeText) + " " + userProfileDO.getName(), Toast.LENGTH_SHORT).show();
+
+        Toast.makeText(activity, activity.getResources().getString(R.string.welcomeText) + " " + userProfileDO.getName(), Toast.LENGTH_SHORT).show();
+
         setProfileUI();
         if (socialType.equalsIgnoreCase(Constants.LOGIN_TYPE_FB)) {
             setFbBtnStateOn();
@@ -288,7 +290,7 @@ public class ProfileDialog extends AbstractBaseDialog implements SocialLoginInte
 
     @Override
     public void onSocialLoginFailure(String error, String socialType) {
-//        Toast.makeText(activity, "Login failed " + error, Toast.LENGTH_SHORT).show();
+        Toast.makeText(activity, "Login failed " + error, Toast.LENGTH_SHORT).show();
         hideProgressLoading();
     }
 

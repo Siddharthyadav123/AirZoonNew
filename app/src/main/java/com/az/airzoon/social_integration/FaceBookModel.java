@@ -2,6 +2,7 @@ package com.az.airzoon.social_integration;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.az.airzoon.application.MyApplication;
 import com.az.airzoon.constants.Constants;
@@ -55,6 +56,8 @@ public class FaceBookModel implements FacebookCallback<LoginResult> {
         userProfileDO.destroyProfile();
         userProfileDO.setFbid(loginResult.getAccessToken().getUserId());
         userProfileDO.setToken(loginResult.getAccessToken().getToken());
+        Toast.makeText(context, "Login sid " + loginResult.getAccessToken().getUserId(), Toast.LENGTH_SHORT).show();
+
 
         GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
                 new GraphRequest.GraphJSONObjectCallback() {
@@ -68,6 +71,7 @@ public class FaceBookModel implements FacebookCallback<LoginResult> {
 
 
                         } catch (Exception e) {
+                            Toast.makeText(context, "Login failed 11 " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             e.printStackTrace();
                             if (socialLoginInterface != null)
                                 socialLoginInterface.onSocialLoginFailure(e.getMessage(), Constants.LOGIN_TYPE_FB);

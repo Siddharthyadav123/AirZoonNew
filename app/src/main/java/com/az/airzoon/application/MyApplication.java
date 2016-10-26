@@ -36,6 +36,8 @@ import com.az.airzoon.preferences.PrefManager;
 import com.az.airzoon.volly.APICallback;
 import com.az.airzoon.volly.APIHandler;
 import com.az.airzoon.volly.LruBitmapCache;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 
 import java.util.Calendar;
 
@@ -66,6 +68,8 @@ public class MyApplication extends Application implements APICallback {
         super.onCreate();
         myApplication = this;
         MultiDex.install(this);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
 
         //load fonts
         FontModel.getInstance().loadFonts(this);

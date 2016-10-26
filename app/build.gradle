@@ -28,10 +28,21 @@ android {
         applicationId "com.az.airzoon"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 11
-        versionName "1.1"
+        versionCode 12
+        versionName "1.2"
         multiDexEnabled true
     }
+
+    signingConfigs {
+        release {
+            storeFile file("airzoon_key.keystore")
+            storePassword "airzoon123"
+            keyAlias "airzoon"
+            keyPassword "airzoon123"
+        }
+    }
+
+
     buildTypes {
         debug {
             minifyEnabled false

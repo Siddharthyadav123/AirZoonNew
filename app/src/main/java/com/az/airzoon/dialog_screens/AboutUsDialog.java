@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
+import com.az.airzoon.BuildConfig;
 import com.az.airzoon.R;
 import com.az.airzoon.constants.RequestConstant;
 import com.az.airzoon.constants.URLConstants;
@@ -27,6 +28,7 @@ public class AboutUsDialog extends AbstractBaseDialog implements APICallback {
     private TextView sendFeedbackBtnTextView;
     private TextView watchTheGuideBtnTextView;
     private TextView bodyText;
+    private TextView versionTextView;
 
     public AboutUsDialog(Context context) {
         super(context);
@@ -45,6 +47,7 @@ public class AboutUsDialog extends AbstractBaseDialog implements APICallback {
         sendFeedbackBtnTextView = (TextView) view.findViewById(R.id.sendFeedbackBtnTextView);
         watchTheGuideBtnTextView = (TextView) view.findViewById(R.id.watchTheGuideBtnTextView);
         bodyText = (TextView) view.findViewById(R.id.bodyText);
+        versionTextView = (TextView) view.findViewById(R.id.bodyText);
 
     }
 
@@ -61,6 +64,8 @@ public class AboutUsDialog extends AbstractBaseDialog implements APICallback {
     public void setInfoInUI(View view) {
         bodyText.setText(activity.getResources().getString(R.string.aboutUsBody1) + "\n\n" +
                 activity.getResources().getString(R.string.aboutUsBody2));
+
+        versionTextView.setText("Version " + BuildConfig.VERSION_NAME);
 
         //server doesn't have frech text
         //requesting

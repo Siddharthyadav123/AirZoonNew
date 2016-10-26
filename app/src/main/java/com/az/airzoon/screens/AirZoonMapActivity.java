@@ -4,7 +4,9 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -22,6 +24,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.az.airzoon.R;
@@ -47,7 +50,6 @@ import com.az.airzoon.volly.APICallback;
 import com.az.airzoon.volly.APIHandler;
 import com.cocosw.bottomsheet.BottomSheet;
 import com.facebook.CallbackManager;
-import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -67,10 +69,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import io.fabric.sdk.android.Fabric;
+import io.fabric.sdk.android.services.network.HttpRequest;
 
 public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCallback, View.OnClickListener, APICallback {
 
@@ -122,7 +126,23 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
 
         MyApplication.getInstance().enableGPS(this);
 
+
 //        getSHAKeyForFaceBook();
+    }
+
+    private void checkKeyHash() {
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(getApplication().getPackageName(), PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                String myHashCode = HttpRequest.Base64.encodeBytes(md.digest());
+                Toast.makeText(AirZoonMapActivity.this, ">> hash>> " + myHashCode, Toast.LENGTH_LONG).show();
+                System.out.println(">>" + myHashCode);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void requestTurnGPSOn() {
@@ -468,6 +488,7 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
             case R.id.searchImageView:
                 onSearchButtonClick();
                 closeMore();
+//                checkKeyHash();
                 break;
             case R.id.filterImageView:
                 onFilterButtonClick();
@@ -685,7 +706,6 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
     private FaceBookModel faceBookModel = null;
 
     public void requestFBLogin(SocialLoginInterface socialLoginInterface) {
-        FacebookSdk.sdkInitialize(getApplicationContext());
         fbCallbackManager = CallbackManager.Factory.create();
         faceBookModel = new FaceBookModel(this, socialLoginInterface);
         LoginManager.getInstance().logOut();

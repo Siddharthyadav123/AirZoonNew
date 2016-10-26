@@ -23,7 +23,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.splash_layout);
         initViews();
         registerEvents();
-        loadFrence();
+//        loadFrence();
         //posting some delay
         new Handler().postDelayed(new Runnable() {
             @Override
