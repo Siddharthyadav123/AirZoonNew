@@ -22,10 +22,13 @@ import com.az.airzoon.gps.LocationModel;
 import com.az.airzoon.listeners.ImageCallback;
 import com.az.airzoon.screens.AirZoonMapActivity;
 import com.az.airzoon.screens.SearchResultActivity;
+import com.az.airzoon.social_integration.ProfilePicLoader;
 import com.az.airzoon.volly.APICallback;
 import com.az.airzoon.volly.APIHandler;
 import com.az.airzoon.volly.RequestParam;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 /**
@@ -47,6 +50,8 @@ public class NewHotspotDailog extends AbstractBaseDialog implements APICallback,
     private Button cancelButton;
     private Button submitButton;
     private String fetchedAddress = null;
+
+    private File imageFileToUpload = null;
 
     public NewHotspotDailog(Context context) {
         super(context);
@@ -152,7 +157,9 @@ public class NewHotspotDailog extends AbstractBaseDialog implements APICallback,
         requestParams.add(new RequestParam("category", getHotSpotCat()));
         requestParams.add(new RequestParam("ph_no", enterPhoneNumEditText.getText().toString().trim()));
         requestParams.add(new RequestParam("address", addressEditText.getText().toString().trim()));
-        requestParams.add(new RequestParam("image", "non.png"));
+        requestParams.add(new RequestParam("lat", MyApplication.getInstance().getLocationModel().getLatitude() + ""));
+        requestParams.add(new RequestParam("long", MyApplication.getInstance().getLocationModel().getLongitude() + ""));
+//        requestParams.add(new RequestParam("image", "non.png"));
         return requestParams;
     }
 
@@ -198,17 +205,18 @@ public class NewHotspotDailog extends AbstractBaseDialog implements APICallback,
     }
 
     private void onSubmitBtnClick() {
-        if (MyApplication.getInstance().getUserProfileDO().isLoggedInAlrady()) {
-            if (validateUI()) {
-                //requesting
-                APIHandler apiHandler = new APIHandler(activity, this, RequestConstant.REQUEST_POST_NEW_SPOT,
-                        Request.Method.POST, URLConstants.URL_POST_NEW_SPOT, true,
-                        activity.getResources().getString(R.string.pleaseWaitText), null, null, getRequestParams());
-                apiHandler.requestAPI();
-            }
-        } else {
-            MyApplication.getInstance().showNormalDailog(activity, activity.getResources().getString(R.string.loginErrorText));
+//        if (MyApplication.getInstance().getUserProfileDO().isLoggedInAlrady()) {
+        if (validateUI()) {
+            //requesting
+            APIHandler apiHandler = new APIHandler(activity, this, RequestConstant.REQUEST_POST_NEW_SPOT,
+                    Request.Method.POST, URLConstants.URL_POST_NEW_SPOT, true,
+                    activity.getResources().getString(R.string.pleaseWaitText), null, null, getRequestParams());
+            apiHandler.setFileNeedToUpload(imageFileToUpload);
+            apiHandler.requestAPI();
         }
+//        } else {
+//            MyApplication.getInstance().showNormalDailog(activity, activity.getResources().getString(R.string.loginErrorText));
+//        }
     }
 
     @Override
@@ -309,13 +317,16 @@ public class NewHotspotDailog extends AbstractBaseDialog implements APICallback,
     }
 
     @Override
-    public void onImageFetched(Bitmap bitmap) {
+    public void onImageFetched(Bitmap bitmap, File bitmapFile) {
         if (bitmap != null) {
             imageToBeuploaded.setVisibility(View.VISIBLE);
+            this.imageFileToUpload = bitmapFile;
             imageToBeuploaded.setImageBitmap(bitmap);
         } else {
             imageToBeuploaded.setVisibility(View.GONE);
         }
 
     }
+
+
 }

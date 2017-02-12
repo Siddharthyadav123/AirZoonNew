@@ -10,6 +10,7 @@ import android.content.pm.Signature;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -44,6 +45,7 @@ import com.az.airzoon.models.AirZoonModel;
 import com.az.airzoon.preferences.PrefManager;
 import com.az.airzoon.recievers.SphericalUtil;
 import com.az.airzoon.social_integration.FaceBookModel;
+import com.az.airzoon.social_integration.ProfilePicLoader;
 import com.az.airzoon.social_integration.SocialLoginInterface;
 import com.az.airzoon.social_integration.TwitterModel;
 import com.az.airzoon.volly.APICallback;
@@ -61,6 +63,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.soundcloud.android.crop.Crop;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
@@ -815,7 +818,9 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
                 onSelectFromGalleryResult(data);
             else if (requestCode == REQUEST_CAMERA)
                 onCaptureImageResult(data);
-            else {
+            if (requestCode == Crop.REQUEST_CROP) {
+                onCropImageResponse(Crop.getOutput(data));
+            } else {
                 if (fbCallbackManager != null) {
                     fbCallbackManager.onActivityResult(requestCode, resultCode, data);
                 }
@@ -833,6 +838,19 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
         }
     }
 
+    private void onCropImageResponse(Uri imageUri) {
+        try {
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+            File imageFile = new File(imageUri.getPath());
+            if (imageCallback != null) {
+                imageCallback.onImageFetched(bitmap, imageFile);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     @SuppressWarnings("deprecation")
     private void onSelectFromGalleryResult(Intent data) {
         Bitmap bm = null;
@@ -842,10 +860,14 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            if (imageCallback != null) {
-                imageCallback.onImageFetched(bm);
-            }
+            openCropScreen(bm);
         }
+    }
+
+    private void openCropScreen(Bitmap bm) {
+        File file = saveBitmapInLocal(bm);
+        Uri imagePath = Uri.fromFile(file);
+        Crop.of(imagePath, imagePath).start(this);
     }
 
     private void onCaptureImageResult(Intent data) {
@@ -866,9 +888,27 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
             e.printStackTrace();
         }
 
-        if (imageCallback != null) {
-            imageCallback.onImageFetched(thumbnail);
+        openCropScreen(thumbnail);
+    }
+
+    private File saveBitmapInLocal(Bitmap bitmap) {
+        try {
+            File myDir = new File(ProfilePicLoader.IMAGE_AIRZOON_FOLDER);
+            if (!myDir.exists()) {
+                myDir.mkdirs();
+            }
+            String name = "image.jpg";
+            myDir = new File(myDir, name);
+            FileOutputStream out = new FileOutputStream(myDir);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 0, out);
+            out.flush();
+            out.close();
+            return myDir;
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return null;
     }
 
     @Override

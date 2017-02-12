@@ -41,8 +41,8 @@ public class LocationModel implements LocationListener, APICallback {
     boolean canGetLocation = false;
 
     Location location; // location
-    private float latitude; // latitude
-    private float longitude; // longitude
+    private float latitude = 0.0f; // latitude
+    private float longitude = 0.0f; // longitude
 
     // The minimum distance to change Updates in meters
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 10 meters
@@ -152,7 +152,7 @@ public class LocationModel implements LocationListener, APICallback {
      * Function to get latitude
      */
     public float getLatitude() {
-        if (location != null) {
+        if (location != null && latitude == 0.0f) {
             latitude = (float) location.getLatitude();
         }
 
@@ -164,7 +164,7 @@ public class LocationModel implements LocationListener, APICallback {
      * Function to get longitude
      */
     public float getLongitude() {
-        if (location != null) {
+        if (location != null && longitude == 0.0f) {
             longitude = (float) location.getLongitude();
         }
 
