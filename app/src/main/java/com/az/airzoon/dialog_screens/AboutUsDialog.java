@@ -29,6 +29,7 @@ public class AboutUsDialog extends AbstractBaseDialog implements APICallback {
     private TextView watchTheGuideBtnTextView;
     private TextView bodyText;
     private TextView versionTextView;
+    private TextView privacyPolicyTextView;
 
     public AboutUsDialog(Context context) {
         super(context);
@@ -48,7 +49,7 @@ public class AboutUsDialog extends AbstractBaseDialog implements APICallback {
         watchTheGuideBtnTextView = (TextView) view.findViewById(R.id.watchTheGuideBtnTextView);
         bodyText = (TextView) view.findViewById(R.id.bodyText);
         versionTextView = (TextView) view.findViewById(R.id.bodyText);
-
+        privacyPolicyTextView = (TextView) view.findViewById(R.id.privacyPolicyTextView);
     }
 
     @Override
@@ -58,6 +59,7 @@ public class AboutUsDialog extends AbstractBaseDialog implements APICallback {
         twitterBtnTextView.setOnClickListener(this);
         sendFeedbackBtnTextView.setOnClickListener(this);
         watchTheGuideBtnTextView.setOnClickListener(this);
+        privacyPolicyTextView.setOnClickListener(this);
     }
 
     @Override
@@ -94,6 +96,10 @@ public class AboutUsDialog extends AbstractBaseDialog implements APICallback {
                 break;
             case R.id.watchTheGuideBtnTextView:
                 onWatchTheGuideBtnClick();
+                break;
+            case R.id.privacyPolicyTextView:
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://airzoonapp.com/privacy-policy.html"));
+                getContext().startActivity(browserIntent);
                 break;
         }
     }

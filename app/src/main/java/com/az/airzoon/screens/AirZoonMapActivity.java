@@ -857,7 +857,7 @@ public class AirZoonMapActivity extends FragmentActivity implements OnMapReadyCa
         if (data != null) {
             try {
                 bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             openCropScreen(bm);

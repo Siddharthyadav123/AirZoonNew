@@ -208,4 +208,6 @@
     <string name="enableGPSBody">"L'application doit GPS doit être activé que vous voulez activer dans les paramètres ?"</string>
     <string name="settingsGPSText">"Paramètres"</string>
 
+    <string name="privacyPolicyText">Politique de confidentialité</string>
+
 </resources>

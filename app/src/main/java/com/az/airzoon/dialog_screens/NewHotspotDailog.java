@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.az.airzoon.R;
@@ -22,13 +21,11 @@ import com.az.airzoon.gps.LocationModel;
 import com.az.airzoon.listeners.ImageCallback;
 import com.az.airzoon.screens.AirZoonMapActivity;
 import com.az.airzoon.screens.SearchResultActivity;
-import com.az.airzoon.social_integration.ProfilePicLoader;
 import com.az.airzoon.volly.APICallback;
 import com.az.airzoon.volly.APIHandler;
 import com.az.airzoon.volly.RequestParam;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 /**
@@ -139,11 +136,11 @@ public class NewHotspotDailog extends AbstractBaseDialog implements APICallback,
     LocationModel.AddressCallback addressCallback = new LocationModel.AddressCallback() {
         @Override
         public void onAddressResult(boolean isFound, String addressOrError) {
-            if (isFound) {
+            try {
                 fetchedAddress = addressOrError;
                 addressEditText.setText(fetchedAddress);
-            } else {
-                Toast.makeText(activity, addressOrError, Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     };
@@ -159,12 +156,11 @@ public class NewHotspotDailog extends AbstractBaseDialog implements APICallback,
         requestParams.add(new RequestParam("address", addressEditText.getText().toString().trim()));
         requestParams.add(new RequestParam("lat", MyApplication.getInstance().getLocationModel().getLatitude() + ""));
         requestParams.add(new RequestParam("long", MyApplication.getInstance().getLocationModel().getLongitude() + ""));
-//        requestParams.add(new RequestParam("image", "non.png"));
         return requestParams;
     }
 
-    private String getHotSpotCat() {
-        switch (hotSpotCategorySpinner.getSelectedItemPosition()) {
+    private String getHotSpotType() {
+        switch (hotSpotTypeSpinner.getSelectedItemPosition()) {
             case 0:
                 return Constants.HOTSPOT_TYPE_AIRZOON;
             case 1:
@@ -175,8 +171,8 @@ public class NewHotspotDailog extends AbstractBaseDialog implements APICallback,
         return null;
     }
 
-    private String getHotSpotType() {
-        switch (hotSpotTypeSpinner.getSelectedItemPosition()) {
+    private String getHotSpotCat() {
+        switch (hotSpotCategorySpinner.getSelectedItemPosition()) {
             case 0:
                 return Constants.HOTSPOT_CATEGORY_AIRPORT;
             case 1:

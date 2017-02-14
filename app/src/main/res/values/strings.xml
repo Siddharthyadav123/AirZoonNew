@@ -207,4 +207,6 @@
     <string name="enableGPSBody">The app needs GPS to be enabled do you want to enable it in the settings?</string>
     <string name="settingsGPSText">Settings</string>
 
+    <string name="privacyPolicyText">Privacy Policy</string>
+
 </resources>

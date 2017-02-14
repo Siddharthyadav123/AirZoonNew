@@ -100,7 +100,7 @@ public class MultipartUtility {
         inputStream.close();
         writer.append(LINE_FEED);
         writer.flush();
-        System.out.println(">>Uploading...");
+//        System.out.println(">>Uploading...");
     }
 
     /**

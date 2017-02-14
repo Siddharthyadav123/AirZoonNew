@@ -95,6 +95,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/socialBtnContainer"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_below="@+id/bodyText"
@@ -142,6 +143,21 @@
 
 
                 </LinearLayout>
+
+                <com.az.airzoon.customviews.CustomFontTextView
+                    android:id="@+id/privacyPolicyTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/socialBtnContainer"
+                    android:layout_centerHorizontal="true"
+                    android:background="?android:selectableItemBackground"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="@string/privacyPolicyText"
+                    android:textColor="@color/DodgerBlue"
+                    android:textSize="17dp"
+                    android:textStyle="bold"
+                    app:sid_customFont="gotham_book" />
 
 
             </RelativeLayout>
