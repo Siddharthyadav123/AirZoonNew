@@ -154,9 +154,8 @@
                     android:gravity="center"
                     android:padding="5dp"
                     android:text="@string/privacyPolicyText"
-                    android:textColor="@color/DodgerBlue"
+                    android:textColor="@color/Black"
                     android:textSize="17dp"
-                    android:textStyle="bold"
                     app:sid_customFont="gotham_book" />
 
 
