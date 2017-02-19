@@ -16,7 +16,7 @@
     <string name="tt_p3_footer_text">"Le réseau airZoon t'offre un accès gratuit, illimité, stable et sécurisé à internet. Rejoins un hotspot airZoon pour profiter de cette expérience."</string>
 
     <string name="tt_p4_header_text">"Tes données ne sont jamais perdues !"</string>
-    <string name="tt_p4_footer_text">"Connecte ton compte Facebook ou Twitter pour sauvegarder tes favoris dans notre cloud."</string>
+    <string name="tt_p4_footer_text">"Connecte ton compte Facebook pour sauvegarder tes favoris dans notre cloud."</string>
     <string name="title_activity_air_zoon_map">"Carte"</string>
 
     <string name="p2_body_string_3_types">"3 types de hotspot .."</string>
@@ -121,7 +121,7 @@
 
     <string name="addedToFavText">"Ajouté aux favoris"</string>
     <string name="removedFromFavText">"Retiré de Favoris"</string>
-    <string name="loginErrorText">"Liez s'il vous plaît au facebook ou au twitter"</string>
+    <string name="loginErrorText">"Liez s'il vous plaît au facebook"</string>
     <string name="profilePicDownloadFailedText">"Profil pic Télécharger échoué."</string>
     <string name="profilePicNotFoungText">"Profil Pic pas trouvé."</string>
     <string name="contactNumNotFoundText">"Numéro de contact ne se trouve pas."</string>

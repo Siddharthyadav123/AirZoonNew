@@ -16,7 +16,7 @@
     <string name="tt_p3_footer_text">"airZoon offers you a free, unlimited stable and secured wifi internet access. Reach a airZoon hotspots to enjoy the experience."</string>
 
     <string name="tt_p4_header_text">Never lose your datas !</string>
-    <string name="tt_p4_footer_text">"Connect your Facebook or Twitter account to backup your favorites in our cloud."</string>
+    <string name="tt_p4_footer_text">"Connect your Facebook account to backup your favorites in our cloud."</string>
     <string name="title_activity_air_zoon_map">Map</string>
 
     <string name="p2_body_string_3_types">3 types of hotspot.. </string>
@@ -121,7 +121,7 @@
 
     <string name="addedToFavText">Added to Favorites.</string>
     <string name="removedFromFavText">Removed from Favorites.</string>
-    <string name="loginErrorText">Please link to facebook or twitter.</string>
+    <string name="loginErrorText">Please link to facebook.</string>
     <string name="profilePicDownloadFailedText">Profile pic Download failed.</string>
     <string name="profilePicNotFoungText">Profile Pic not found.</string>
     <string name="contactNumNotFoundText">Contact number not found.</string>

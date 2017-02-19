@@ -7,15 +7,18 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.az.airzoon.R;
@@ -293,10 +296,12 @@ public class SearchResultActivity extends Activity implements APICallback {
 
     boolean isCameraSelected = true;
     private final int SELECT_FILE = 101;
-    private final int REQUEST_CAMERA = 102;
+
+    public static final int REQUEST_CAMERA = 112;
+    public static final int REQUEST_GALLARY = 113;
 
     private void cameraIntent() {
-        boolean result = MyApplication.getInstance().checkPermission(this);
+        boolean result = checkPermission(REQUEST_CAMERA, mustPermissions[1], null);
         if (result) {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(intent, REQUEST_CAMERA);
@@ -305,7 +310,7 @@ public class SearchResultActivity extends Activity implements APICallback {
     }
 
     private void galleryIntent() {
-        boolean result = MyApplication.getInstance().checkPermission(this);
+        boolean result = checkPermission(REQUEST_GALLARY, mustPermissions[2], null);
         if (result) {
             Intent intent = new Intent();
             intent.setType("image/*");
@@ -359,29 +364,21 @@ public class SearchResultActivity extends Activity implements APICallback {
 
     @SuppressWarnings("deprecation")
     private void onSelectFromGalleryResult(Intent data) {
-        Bitmap bm = null;
-        if (data != null) {
-            try {
-                bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            openCropScreen(bm);
-        }
+        Uri path = data.getData();
+        openCropScreenFromGallary(path);
     }
 
-    private void openCropScreen(Bitmap bm) {
-        File file = saveBitmapInLocal(bm);
-        Uri imagePath = Uri.fromFile(file);
-        Crop.of(imagePath, imagePath).start(this);
+    Uri imagePath = Uri.parse("file:///storage/emulated/0/airZoon/image.jpg");
+
+    private void openCropScreenFromGallary(Uri path) {
+        Crop.of(path, imagePath).start(this);
     }
 
     private void onCaptureImageResult(Intent data) {
         Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-        File destination = new File(Environment.getExternalStorageDirectory(),
-                System.currentTimeMillis() + ".jpg");
+        File destination = new File(ProfilePicLoader.IMAGE_AIRZOON_FOLDER + "/image.jpg");
         FileOutputStream fo;
         try {
             destination.createNewFile();
@@ -393,43 +390,7 @@ public class SearchResultActivity extends Activity implements APICallback {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        openCropScreen(thumbnail);
-    }
-
-    private File saveBitmapInLocal(Bitmap bitmap) {
-        try {
-            File myDir = new File(ProfilePicLoader.IMAGE_AIRZOON_FOLDER);
-            if (!myDir.exists()) {
-                myDir.mkdirs();
-            }
-            String name = "image.jpg";
-            myDir = new File(myDir, name);
-            FileOutputStream out = new FileOutputStream(myDir);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 0, out);
-            out.flush();
-            out.close();
-            return myDir;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case MyApplication.MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if (isCameraSelected)
-                        cameraIntent();
-                    else
-                        galleryIntent();
-                } else {
-                }
-                break;
-        }
+        openCropScreenFromGallary(imagePath);
     }
 
 
@@ -462,5 +423,135 @@ public class SearchResultActivity extends Activity implements APICallback {
         TwitterModel twitterModel = new TwitterModel(this, socialLoginInterface);
         twitLoginButton.setCallback(twitterModel);
         twitLoginButton.performClick();
+    }
+
+    /**
+     * -------------------------------------- Permission handling --------------------------------------
+     */
+    private int permissionRequestCode;
+    private Object extras;
+    public final int REQUEST_MARSHMELLO_PERMISSIONS = 222;
+    boolean haveAllPermissions = false;
+
+    public String[] mustPermissions =
+            {
+                    Manifest.permission.ACCESS_NETWORK_STATE,
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+
+            };
+
+    private boolean havePermission(String permission) {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (ContextCompat.checkSelfPermission(this, permission)
+                    != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        return true;
+    }
+
+    public boolean checkPermission(int requestCode, String permission, Object extras) {
+        this.permissionRequestCode = requestCode;
+        this.extras = extras;
+        //if we have permission then will procceed
+        if (havePermission(permission)) {
+            return true;
+        }
+        //else we will take the permission
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
+            Toast.makeText(this, "Please provide this permission.", Toast.LENGTH_LONG).show();
+        }
+        ActivityCompat.requestPermissions(this, new String[]{permission}, requestCode);
+
+        return false;
+    }
+
+    public boolean checkPermissions(int requestCode, String[] permission, Object extras) {
+        this.permissionRequestCode = requestCode;
+        this.extras = extras;
+        ArrayList<String> permissionsStr = new ArrayList<>();
+
+        for (int i = 0; i < permission.length; i++) {
+            if (!havePermission(permission[i])) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission[i])) {
+                    Toast.makeText(this, "Please provide this permission.", Toast.LENGTH_LONG).show();
+                }
+                permissionsStr.add(permission[i]);
+            }
+        }
+
+
+        if (permissionsStr.size() > 0) {
+            String[] needTopermissionArray = permissionsStr.toArray(new String[permissionsStr.size()]);
+            ActivityCompat.requestPermissions(this, needTopermissionArray, requestCode);
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        //System.out.println(">>>>>>>>>>>>>>>>> onRequestPermissionsResult " + requestCode + " grantResults " + grantResults.length);
+        if (requestCode == permissionRequestCode) {
+
+            if (grantResults.length >= 1) {
+                boolean anyDenied = false;
+                for (int i = 0; i < grantResults.length; i++) {
+                    //System.out.println(">>>>>>>>>>>>>>>> grantResults " + grantResults[i]);
+                    // Check if the only required permission has been granted
+                    if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+//                        Toast.makeText(this, "PERMISSION OF " + permissions[i] + " IS GRANTED.", Toast.LENGTH_SHORT).show();
+
+
+                    } else {
+                        anyDenied = true;
+//                        Toast.makeText(this, "PERMISSION OF " + permissions[i] + " IS DENIED.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                if (anyDenied) {
+                    haveAllPermissions = false;
+                    onPermissionResult(requestCode, false, extras);
+                } else {
+                    haveAllPermissions = true;
+                    onPermissionResult(requestCode, true, extras);
+                }
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    public void onPermissionResult(int requestCode, boolean isGranted, Object extras) {
+        switch (requestCode) {
+
+            case REQUEST_CAMERA: {
+                // If request is cancelled, the result arrays are empty.
+                if (isGranted) {
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                    cameraIntent();
+                }
+                return;
+            }
+            case REQUEST_GALLARY: {
+                // If request is cancelled, the result arrays are empty.
+                if (isGranted) {
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                    galleryIntent();
+                }
+                return;
+            }
+            case MyApplication.MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE:
+
+                break;
+        }
     }
 }
