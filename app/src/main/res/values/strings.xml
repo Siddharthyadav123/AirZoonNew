@@ -59,7 +59,7 @@
 
     <!--About us text-->
     <string name="aboutUsText">About us</string>
-    <string name="versionText">Version 1.0</string>
+    <string name="versionText">Version 1.1</string>
     <string name="aboutUsBody1">airZoon gives you the weather of the WIFI. Find the best hotspot that fit your needs.</string>
     <string name="aboutUsBody2">airZoon hotspots are free, unlimited and secured.</string>
     <string name="sendAFeedbackText">Send a Feedback</string>

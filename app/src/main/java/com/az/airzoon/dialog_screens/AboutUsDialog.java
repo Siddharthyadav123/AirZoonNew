@@ -48,7 +48,7 @@ public class AboutUsDialog extends AbstractBaseDialog implements APICallback {
         sendFeedbackBtnTextView = (TextView) view.findViewById(R.id.sendFeedbackBtnTextView);
         watchTheGuideBtnTextView = (TextView) view.findViewById(R.id.watchTheGuideBtnTextView);
         bodyText = (TextView) view.findViewById(R.id.bodyText);
-        versionTextView = (TextView) view.findViewById(R.id.bodyText);
+        versionTextView = (TextView) view.findViewById(R.id.versionTextView);
         privacyPolicyTextView = (TextView) view.findViewById(R.id.privacyPolicyTextView);
     }
 
@@ -67,7 +67,7 @@ public class AboutUsDialog extends AbstractBaseDialog implements APICallback {
         bodyText.setText(activity.getResources().getString(R.string.aboutUsBody1) + "\n\n" +
                 activity.getResources().getString(R.string.aboutUsBody2));
 
-        versionTextView.setText("Version " + BuildConfig.VERSION_NAME);
+//        versionTextView.setText("Version " + BuildConfig.VERSION_NAME);
 
         //server doesn't have frech text
         //requesting
